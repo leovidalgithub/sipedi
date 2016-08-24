@@ -8,33 +8,26 @@ var config = require('../models/config'); // get our config file
 // var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
 
-// middleware for verify token in all /api requests
+// middleware for verify token in all /main requests
 mainRouter.use( function( req, res, next ) {
-	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token
-		// verifies secret and checks exp
-		jwt.verify( token, config.secret, function( err, decoded ) {
+		jwt.verify( token, config.secret, function( err, decoded ) { // verifies secret and checks exp
 			if ( err ) {
 			res.status( 403 ).send({ 
 				success: false,
 				message: 'Invalid token.'
 			});
-			// return;
-
-			} else {
-				// if everything is good, save to request for use in other routes
+			} else { 					// if everything is good
 				req.decoded = decoded;
 				next();
 			}
 		});
-	} else {
-		// if there is no token return an error
+	} else { 						// if there is no token
 		res.status( 403 ).send({ 
 			success: false,
 			message: 'No token provided.'
 		});
-		// return;
 	}
 });
 

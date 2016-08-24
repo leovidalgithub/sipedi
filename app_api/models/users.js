@@ -1,9 +1,10 @@
-var mongoose = require( 'mongoose' );
-var crypto = require('crypto');
-var jwt = require('jsonwebtoken');
-var config = require('./config'); // get our config file
+var mongoose = require( 'mongoose' ),
+	Schema   = mongoose.Schema,
+	crypto   = require('crypto'),
+	jwt      = require('jsonwebtoken'),
+	config   = require('./config');
 
-var userSchema = new mongoose.Schema({
+var userSchema = Schema({
 		email: {
 			type: String,
 			unique: true,
@@ -22,6 +23,20 @@ var userSchema = new mongoose.Schema({
 			type: String,
 			required: true
 		},
+		nombre: {
+			type: String,
+			required: true,
+			default: 'CLIENTE NUEVO'
+		},
+		contacto: {
+			type: String
+		},
+		direccion: {
+			type: String
+		},
+		telefonos: {
+			type: String
+		},
 		hash: String,
 		salt: String
 });
@@ -37,21 +52,9 @@ userSchema.methods.validPassword = function(password) {
 };
 
 userSchema.methods.generateJwt = function( user ) {
-			// create a token
-			return jwt.sign(user, config.secret, {
-				expiresIn: 10 // expires in 24 hours
+			return jwt.sign(user, config.secret, { // create a token
+				expiresIn: 86400 // expires in 24 hours
 			});
-
-	
-// 	var expiry = new Date();
-// 	expiry.setDate(expiry.getDate() + 7);
-
-// 	return jwt.sign({
-// 		_id: this._id,
-// 		email: this.email,
-// 		name: this.name,
-// 		exp: parseInt(expiry.getTime() / 1000),
-// 	}, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
 

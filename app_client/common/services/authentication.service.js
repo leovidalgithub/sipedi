@@ -67,6 +67,9 @@
 				.then( function( data ) {
 					saveToken( data.data.token );
 				})
+				// .catch( function( err ) {
+				// 		alert(err);
+				// })
 		}
 
 		token = function() {

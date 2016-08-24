@@ -20,7 +20,7 @@
 					$location.path('main');
 				})
 				.catch( function( err ) {
-					console.log('LOGIN ERROR');
+					console.log( err );
 				})
 		};
 

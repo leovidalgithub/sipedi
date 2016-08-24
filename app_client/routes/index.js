@@ -35,14 +35,14 @@
         // if ( $location.path() === '/main' && !authentication.isLoggedIn()) {
         //   $location.path('/');
         // }
-          if ( $location.path() === '/main' ) {
+//          if ( $location.path() === '/main' ) {
             authentication.isLoggedIn()
               .then( function() {})
               .catch( function() {
-                console.log( 'No vas pal baile' );
+                  console.log( 'run says NO' );
                   $location.path('/');
               })
-          }
+//          }
       });
     }
   

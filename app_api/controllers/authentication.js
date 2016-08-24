@@ -36,14 +36,14 @@ module.exports.login = function( req, res ) {
 					sendJSONresponse(res, 403, {
 						"message": "User not found"
 					});
-					return;
+					// return;
 			}
 			// if password is wrong
 			if ( !user.validPassword( req.body.password ) ) {
 				sendJSONresponse( res, 403, {
 					"message": "Password is wrong"
 				});
-				return;
+				// return;
 			}
 			// If credentials are correct, return the user object
 			var token = user.generateJwt( user );
