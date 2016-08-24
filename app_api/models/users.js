@@ -1,8 +1,8 @@
 var mongoose = require( 'mongoose' ),
 	Schema   = mongoose.Schema,
-	crypto   = require('crypto'),
-	jwt      = require('jsonwebtoken'),
-	config   = require('./config');
+	crypto   = require( 'crypto' ),
+	jwt      = require( 'jsonwebtoken' ),
+	config   = require( './config' );
 
 var userSchema = Schema({
 		email: {
@@ -41,22 +41,22 @@ var userSchema = Schema({
 		salt: String
 });
 
-userSchema.methods.setPassword = function(password){
-	this.salt = crypto.randomBytes(16).toString('hex');
-	this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+userSchema.methods.setPassword = function( password ){
+	this.salt = crypto.randomBytes( 16 ).toString( 'hex' );
+	this.hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
 };
 
-userSchema.methods.validPassword = function(password) {
-	var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+userSchema.methods.validPassword = function( password ) {
+	var hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
 	return this.hash === hash;
 };
 
 userSchema.methods.generateJwt = function( user ) {
-			return jwt.sign(user, config.secret, { // create a token
+			return jwt.sign( user, config.secret, { // create a token
 				expiresIn: 86400 // expires in 24 hours
-			});
+			})
 };
 
 
-mongoose.model('User', userSchema);
-// module.exports = mongoose.model("User", userSchema);
+// mongoose.model('User', userSchema);
+module.exports = mongoose.model( 'User', userSchema );

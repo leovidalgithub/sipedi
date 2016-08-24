@@ -6,7 +6,6 @@ var User = mongoose.model('User');
 var config = require('../models/config'); // get our config file
 
 // var ctrlProfile = require('../controllers/profile');
-var ctrlAuth = require('../controllers/authentication');
 
 // middleware for verify token in all /main requests
 mainRouter.use( function( req, res, next ) {
@@ -14,26 +13,25 @@ mainRouter.use( function( req, res, next ) {
 	if ( token ) { //	decode token
 		jwt.verify( token, config.secret, function( err, decoded ) { // verifies secret and checks exp
 			if ( err ) {
-			res.status( 403 ).send({ 
-				success: false,
-				message: 'Invalid token.'
-			});
+				console.log('mainRouter.middleware : token err');
+				res.status( 403 ).send( { success: false, message: 'Invalid token.' } );
 			} else { 					// if everything is good
+				console.log('mainRouter.middleware : token ok');
+				res.send('prueba res.send');
 				req.decoded = decoded;
 				next();
 			}
 		});
 	} else { 						// if there is no token
-		res.status( 403 ).send({ 
-			success: false,
-			message: 'No token provided.'
-		});
+			console.log('mainRouter.middleware : token not received');
+			res.status( 403 ).send( { success: false, message: 'No token provided.' } );
 	}
 });
 
 mainRouter.use('/', function( req, res ) {
+	console.log('main.Router .use ./');
 	// res.send( req.decoded );
-	res.json( req.decoded );
+	// res.json( req.decoded );
 	// res.json({
 	// 	msg : 'from mainRouter api/',
 	// 	token:  token

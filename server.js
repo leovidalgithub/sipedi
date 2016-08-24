@@ -30,7 +30,7 @@ app.use('/login', loginRouter );
 
 app.listen( process.env.PORT || 8080, function() {
 	// var port = server.address().port;
-	console.log( 'App now running on port' );
+	console.log( 'App now running on port 8080' );
 })
 
 	// app.get('/', function(req,res,next) {

@@ -16,31 +16,32 @@
 		$scope.submit = function() { // ---------------- login
 			authentication.login( $scope.credentials )
 				.then( function( data ) {
+					authentication.saveToken( data.data.token );
 					console.log('LOGIN CORRECT');
 					$location.path('main');
 				})
 				.catch( function( err ) {
-					console.log( err );
+					authentication.logout();
+					console.log('LOGIN ERROR');
 				})
-		};
+		}
 
 		$scope.register = function() { // --------------- register new user
 			authentication.register( $scope.credentials )
 			.then( function( data ) {
-				console.log('login.controller register');
-				console.log( data )
+				console.log('USER registred');
+				authentication.saveToken( data.token );
 			})
 		}
 
 		$scope.token = function() {
 			authentication.token()
 				.then( function( data ) {
-					console.log('login.controller token');
-					// console.log( data.data._doc );
+					console.log('TOKEN OK');
 					$location.path('main');
 				})
 				.catch( function ( err ) {
-					console.log( err )
+					console.log( 'TOKEN ERROR' )
 				})
 		}
 
@@ -49,7 +50,6 @@
 		}
 
 		$scope.var1 = 'SiPEDI';
-		console.log('Login controller is running');
 	}
 
 })();

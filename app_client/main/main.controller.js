@@ -6,7 +6,6 @@
 	function mainCtrl() {
 		// $scope.var1 = 'Hello Login';
 
-	  console.log('mainCtrl controller is running');
 	}
 
 })();

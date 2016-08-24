@@ -1,14 +1,10 @@
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
-
-var sendJSONresponse = function( res, status, content ) {
-	res.status( status );
-	res.json( content );
-};
+var User = require('../models/users');
+// var User = mongoose.model('User');
 
 module.exports.register = function( req, res ) {
 
-	console.log( 'post : api/register' );
+	console.log( 'post : login/register' );
 	var user = new User();
 	user.email = req.body.email;
 	user.admin = true;
@@ -24,33 +20,30 @@ module.exports.register = function( req, res ) {
 	//   });
 	//   return;
 	// }
-};
+}
+
 module.exports.login = function( req, res ) {
-	console.log( 'post : api/login' );
-
+	console.log( 'post : /login' );
 		User.findOne({ email: req.body.email }, function ( err, user ) {
-			if (err) { res.status(403).send('user error') }
-
-			// if user not found in database
-			if (!user) {
-					sendJSONresponse(res, 403, {
-						"message": "User not found"
-					});
-					// return;
-			}
-			// if password is wrong
-			if ( !user.validPassword( req.body.password ) ) {
-				sendJSONresponse( res, 403, {
-					"message": "Password is wrong"
-				});
-				// return;
-			}
-			// If credentials are correct, return the user object
-			var token = user.generateJwt( user );
+			if (err) {
+				console.log('authentication.login findOne err');
+				res.status(403).send('user error');
+				return
+			};
+			if (!user) { // user not found
+					console.log('authentication.login: user not found');
+					res.status( 403 ).json( 'User not found' );
+					return;
+			};
+			if ( !user.validPassword( req.body.password ) ) { // password wrong
+				console.log('authentication.login : password wrong');
+					res.status( 403 ).json( 'Password is wrong' );
+					return;
+			};
+			console.log('authentication.login : credentials correct');
+			var token = user.generateJwt( user ); // credentials are correct
 				res.status(200);
-				res.json({
-				"token" : token
-			});
+				res.json( { "token" : token } );
 		});
 
 								// if(!req.body.email || !req.body.password) {
@@ -60,4 +53,4 @@ module.exports.login = function( req, res ) {
 								//   return;
 								// }
 
-};
+}
