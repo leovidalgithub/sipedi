@@ -1,0 +1,67 @@
+* {margin: 0; padding: 0; transition: all 1s;}
+body {
+	background-color: #F5F5F5;	
+}
+
+header {
+	width: 100%;
+	padding: 35px;
+	background-color: black;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	opacity: .9;
+	nav {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+	}
+   .logo {
+	    color: #A5A5A5;
+	    font-size: $tamanoLetraHeader;
+	    font-weight: bold;
+	    margin-left: 40px;
+	    &:hover {
+	    color: royalblue;
+	    margin-left: 45px;
+	    cursor: pointer;
+	    }
+	}
+	a {
+		color: white;
+	    font-size: $tamanoLetraHeader - 6;
+	    padding: 10px 20px;
+	    border-radius: 50px;
+        &:hover{
+	        text-decoration: none;
+            background-color: royalblue;
+            color: black;
+        }
+	}
+}
+
+.container {
+	margin-top: 120px;
+}
+
+.jumbotron {
+	text-align: center;
+	h1 {
+		margin-top: 0;
+		margin-bottom: 30px;
+		color: #4C4B4B;
+	}
+}
+
+section form {
+	margin: 0;
+}
+
+// .inactiveLink {
+//    pointer-events: none;
+//    cursor: default;
+// }

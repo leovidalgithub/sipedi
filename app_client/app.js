@@ -1,0 +1,1 @@
+angular.module('sipediApp', ['ngRoute'])
