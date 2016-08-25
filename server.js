@@ -11,8 +11,6 @@ app.use( bodyParser.json() );
 app.use( express.static( path.join( __dirname, 'public' )) );
 app.use( express.static( path.join( __dirname, 'app_client' )) );
 
-require('./app_api/models/db');
-
 app.use( function( req, res, next ) {
 	res.setHeader( 'Access-Control-Allow-Origin', '*' );
 	res.setHeader( 'Access-Control-Allow-Methods', 'GET, POST' );
@@ -29,13 +27,17 @@ app.use('/main', mainRouter );
 // var config = require('./config'); // get our config file
 // app.set('superSecret', config.secret); // secret variable
 
-app.listen( process.env.PORT || 8080, function() {
-	// var port = server.address().port;
-	console.log( 'App now running on port 8080' );
-})
 
 	// app.get('/', function(req,res,next) {
 	// 	res.redirect('/tasks');
 	// 	next();
 	// });
 
+var conn = require('./app_api/models/db');
+	conn.connection.on( 'connected', function() {
+		console.log( '****Mongoose connected****' );
+		app.listen( process.env.PORT || 8080, function() {
+		// var port = server.address().port;
+		console.log( 'App now running on port 8080' );
+	})
+});

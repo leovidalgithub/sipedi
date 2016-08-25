@@ -1,6 +1,5 @@
-var mongoose = require('mongoose');
 var User = require('../models/users');
-// var User = mongoose.model('User');
+var verifyToken = require('../services/verifyToken.js');
 
 module.exports.register = function( req, res ) {
 
@@ -8,12 +7,12 @@ module.exports.register = function( req, res ) {
 	var user = new User();
 	user.email = req.body.email;
 	user.admin = false;
-	user.proveedor = 'vinolas';
-	user.activo = true;
-	user.nombre = 'Pedro López';
-	user.contato = 'Pedrito';
-	user.direccion = 'Av. Sucre, Los Dos Caminos';
-	user.telefonos = ['234 56 77', '234 21 90'];
+	user.supplier = 'vinolas';
+	user.active = true;
+	user.name = 'Pedro López';
+	user.contat = 'Pedrito';
+	user.address = 'Av. Sucre, Los Dos Caminos';
+	user.phone_numbers = ['234 56 77', '234 21 90'];
 	user.setPassword( req.body.password );
 	user.save(function( err ) {
 		res.status( 200 ).send( 'data saved!' );
@@ -48,8 +47,13 @@ module.exports.login = function( req, res ) {
 			};
 			console.log('authentication.login : credentials correct');
 			var token = user.generateJwt( user ); // credentials are correct
+
+			verifyToken( token, function( err, decoded ) {
 				res.status(200);
-				res.json( { "token" : token } );
+				res.json( { "token" : token,
+							'decoded' : decoded
+						 } );				
+			})
 		});
 
 								// if(!req.body.email || !req.body.password) {

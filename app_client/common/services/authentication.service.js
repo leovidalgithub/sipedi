@@ -29,11 +29,6 @@
 				return $http.post( '/login', user )
 			}
 
-			token = function() {
-					var token = getToken();
-					return $http.post( '/main', { token : token } )
-			}
-
 			logout = function() {
 				$window.localStorage.removeItem('mean-token');
 				console.log('logout bye...')
@@ -59,8 +54,7 @@
 	      isLoggedIn : isLoggedIn,
 	      register : register,
 	      login : login,
-	      logout : logout,
-	      token : token
+	      logout : logout
 	    };
   }
 

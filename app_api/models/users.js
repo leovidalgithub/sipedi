@@ -4,42 +4,42 @@ var mongoose = require( 'mongoose' ),
 	jwt      = require( 'jsonwebtoken' ),
 	config   = require( './config' );
 
-	var userSchema = Schema({
-			email: {
-				type: String,
-				// unique: true,
-				required: true
-			},
-			admin: {
-				type: Boolean,
-				required: true
-			},
-			activo: {
-				type: Boolean,
-				required: true,
-				default: true
-			},
-			proveedor: {
-				type: String,
-				required: true
-			},
-			nombre: {
-				type: String,
-				required: true,
-				default: 'CLIENTE NUEVO'
-			},
-			contacto: {
-				type: String
-			},
-			direccion: {
-				type: String
-			},
-			telefonos: {
-				type: String
-			},
-			hash: String,
-			salt: String
-	});
+var userSchema = Schema({
+		email: {
+			type: String,
+			// unique: true,
+			required: true
+		},
+		admin: {
+			type: Boolean,
+			required: true
+		},
+		active: {
+			type: Boolean,
+			required: true,
+			default: true
+		},
+		supplier: {
+			type: String,
+			required: true
+		},
+		name: {
+			type: String,
+			required: true,
+			default: 'CLIENTE NUEVO'
+		},
+		contact: {
+			type: String
+		},
+		address: {
+			type: String
+		},
+		phone_numbers: [
+			{ type: String }
+		],
+		hash: String,
+		salt: String
+});
 
 		userSchema.methods.setPassword = function( password ){
 			this.salt = crypto.randomBytes( 16 ).toString( 'hex' );

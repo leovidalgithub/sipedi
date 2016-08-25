@@ -8,24 +8,13 @@
 
 		function mainServiceFn ( $http, $window, authenticationService ) {
 
-			giveMeData = function( user ) {
+			getProducts = function( user ) {
 				var token = authenticationService.getToken();
-				// console.log(token);
-				// return;
- 				// return $http.get( '/main', { token : token } )
-				$http.get( '/main', { token : token } )
-					.then( function( data ) {
-						console.log(data)
-					})
-					.catch( function ( err ) {
-						console.log(err)
-					})
-
-
+				return $http.post( '/main', { token : token } )
 			}
 
 			return {
-				giveMeData : giveMeData
+				getProducts : getProducts
 			};
 		}
 

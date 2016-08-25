@@ -1,16 +1,16 @@
 var mongoose = require( 'mongoose' ),
-	Schema   = mongoose.Schema,
+	Schema   = mongoose.Schema;
 
 var productSchema = Schema({
-		producto: {
+		product: {
 			type: String,
 			required: true
 		},
-		departamento: {
+		category: {
 			type: String,
 			required: true
 		},
-		proveedor: {
+		supplier: {
 			type: String,
 			required: true
 		},
@@ -19,8 +19,10 @@ var productSchema = Schema({
 			required: true,
 			default: true
 		},
-		clientes: [
-			{ type: Schema.Types.ObjectId, ref: 'User' }
+		clients: [
+			{	_id : { type: Schema.Types.ObjectId, ref: 'User' },
+				quantity : { type: Number }
+			}
 		]
 });
 

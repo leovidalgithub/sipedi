@@ -2,15 +2,17 @@
 
 	angular.module( 'sipediApp' )
 	.controller( 'main.controller', mainCtrlFn );
-	mainCtrlFn.$inject = [ '$scope', 'mainService' ];
+	mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope' ];
 
-	function mainCtrlFn( $scope, mainService ) {
-		mainService.giveMeData()
-			// .then( function( data ) {
-				// console.log(data);
-		// 			console.log('.then givemedata');
-		// 		$scope.var1 = data
-			// })
+	function mainCtrlFn( $scope, mainService, $rootScope ) {
+
+		mainService.getProducts()
+			.then( function( data ) {
+				$scope.products = data;
+			})
+			.catch( function ( err ) {
+				console.log(err)
+			})
 	}
 
 })();

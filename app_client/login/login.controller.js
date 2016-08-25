@@ -3,9 +3,9 @@
 	angular.module( 'sipediApp' )
 	.controller( 'login.controller', loginCtrlFn );
 
-	loginCtrlFn.$inject = [ '$scope', '$location', 'authenticationService' ];
+	loginCtrlFn.$inject = [ '$scope', '$location', 'authenticationService', '$rootScope' ];
 
-	function loginCtrlFn( $scope, $location, authenticationService ) {
+	function loginCtrlFn( $scope, $location, authenticationService, $rootScope ) {
 		// var vm = this;
 		$scope.credentials = {
 			email : '',
@@ -14,9 +14,13 @@
 		$scope.var1 = 'SiPEDI';
 		$scope.remember = true;
 
+		// $rootScope.credentials = 'TOKEN DECODED';
+
 		$scope.submit = function() { // ---------------- login
 			authenticationService.login( $scope.credentials )
 				.then( function( data ) {
+					console.log( data );
+					return;
 					authenticationService.saveToken( data.data.token );
 					console.log('LOGIN CORRECT');
 					$location.path('main');
@@ -33,17 +37,6 @@
 				console.log('USER registred');
 				authenticationService.saveToken( data.token );
 			})
-		}
-
-		$scope.token = function() {
-			authenticationService.token()
-				.then( function( data ) {
-					console.log('TOKEN OK');
-					$location.path('main');
-				})
-				.catch( function ( err ) {
-					console.log( 'TOKEN ERROR' )
-				})
 		}
 
 		$scope.logout = function() {
