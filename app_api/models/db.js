@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var config = require('./config'); // get our config file
+var config = require('./config');
 // var gracefulShutdown;
 var dbURI = 'mongodb://localhost/meanAuth';
 if (process.env.NODE_ENV === 'production') {

@@ -28,22 +28,31 @@
 		// $locationProvider.html5Mode(true);
 	}
 
-		function run( $rootScope, $location, authentication ) {
-			$rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {
-				 if ( $location.path() !== '/' ) {
-						authentication.isLoggedIn()
-							.then( function() {})
-							.catch( function() {
-									console.log( 'run says NO' );
-									$location.path( '/' );
-							})
-				 }
-			})
+		function run( $rootScope, $location, authenticationService ) {
+			// $rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {
+			// 	 if ( $location.path() !== '/' ) {
+			// 			authenticationService.isLoggedIn()
+			// 				.then( function() {})
+			// 				.catch( function() {
+			// 						console.log( 'run says NO' );
+			// 						$location.path( '/' );
+			// 				})
+			// 	 }
+			// })
 		}
 	
 	angular
 		.module('sipediApp')
 		.config(['$routeProvider', '$locationProvider', config])
-		.run(['$rootScope', '$location', 'authentication', run]);
+		.run(['$rootScope', '$location', 'authenticationService', run]);
 
 })();
+
+        // .when('/calendar', {
+        //     redirectTo: function(){
+        //         var today = new Date();
+        //         var currYear = today.getFullYear();
+        //         var currMonth = today.getMonth() + 1;
+        //         return '/calendar/'+currYear+'/'+currMonth;
+        //     }
+        // })

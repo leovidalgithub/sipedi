@@ -7,11 +7,16 @@ module.exports.register = function( req, res ) {
 	console.log( 'post : login/register' );
 	var user = new User();
 	user.email = req.body.email;
-	user.admin = true;
+	user.admin = false;
 	user.proveedor = 'vinolas';
+	user.activo = true;
+	user.nombre = 'Pedro López';
+	user.contato = 'Pedrito';
+	user.direccion = 'Av. Sucre, Los Dos Caminos';
+	user.telefonos = ['234 56 77', '234 21 90'];
 	user.setPassword( req.body.password );
 	user.save(function( err ) {
-		res.status(200).send('data saved!');
+		res.status( 200 ).send( 'data saved!' );
 	});
 
 	// if(!req.body.name || !req.body.email || !req.body.password) {
@@ -23,12 +28,13 @@ module.exports.register = function( req, res ) {
 }
 
 module.exports.login = function( req, res ) {
-	console.log( 'post : /login' );
+	console.log( 'API authentication.js login function' );
+
 		User.findOne({ email: req.body.email }, function ( err, user ) {
 			if (err) {
 				console.log('authentication.login findOne err');
 				res.status(403).send('user error');
-				return
+				return;
 			};
 			if (!user) { // user not found
 					console.log('authentication.login: user not found');

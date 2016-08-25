@@ -18,8 +18,10 @@ var productSchema = Schema({
 			type: Boolean,
 			required: true,
 			default: true
-		}
+		},
+		clientes: [
+			{ type: Schema.Types.ObjectId, ref: 'User' }
+		]
 });
 
-// mongoose.model( 'Product', userSchema );
 module.exports = mongoose.model( 'Product', productSchema );

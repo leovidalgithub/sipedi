@@ -1,41 +1,42 @@
 (function() {
 
-	angular.module('sipediApp')
-	.controller('login.controller', loginCtrl);
+	angular.module( 'sipediApp' )
+	.controller( 'login.controller', loginCtrlFn );
 
-	loginCtrl.$inject = [ '$scope', '$location', 'authentication' ];
+	loginCtrlFn.$inject = [ '$scope', '$location', 'authenticationService' ];
 
-	function loginCtrl( $scope, $location, authentication ) {
+	function loginCtrlFn( $scope, $location, authenticationService ) {
 		// var vm = this;
 		$scope.credentials = {
 			email : '',
 			password : ''
 		};
+		$scope.var1 = 'SiPEDI';
 		$scope.remember = true;
 
 		$scope.submit = function() { // ---------------- login
-			authentication.login( $scope.credentials )
+			authenticationService.login( $scope.credentials )
 				.then( function( data ) {
-					authentication.saveToken( data.data.token );
+					authenticationService.saveToken( data.data.token );
 					console.log('LOGIN CORRECT');
 					$location.path('main');
 				})
 				.catch( function( err ) {
-					authentication.logout();
+					authenticationService.logout();
 					console.log('LOGIN ERROR');
 				})
 		}
 
 		$scope.register = function() { // --------------- register new user
-			authentication.register( $scope.credentials )
+			authenticationService.register( $scope.credentials )
 			.then( function( data ) {
 				console.log('USER registred');
-				authentication.saveToken( data.token );
+				authenticationService.saveToken( data.token );
 			})
 		}
 
 		$scope.token = function() {
-			authentication.token()
+			authenticationService.token()
 				.then( function( data ) {
 					console.log('TOKEN OK');
 					$location.path('main');
@@ -46,10 +47,9 @@
 		}
 
 		$scope.logout = function() {
-			authentication.logout()
+			authenticationService.logout()
 		}
 
-		$scope.var1 = 'SiPEDI';
 	}
 
 })();

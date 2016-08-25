@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
+
 // app.nose( cookieParser() );
 app.use( express.static( path.join( __dirname, 'public' )) );
 app.use( express.static( path.join( __dirname, 'app_client' )) );
@@ -19,11 +20,11 @@ app.use( function( req, res, next ) {
 	next();
 });
 
-var mainRouter = require('./app_api/routes/mainRouter');
-app.use('/main', mainRouter );
-
-var loginRouter = require('./app_api/routes/loginRouter');
+var loginRouter = require('./app_api/routes/login.router');
 app.use('/login', loginRouter );
+
+var mainRouter = require('./app_api/routes/main.router');
+app.use('/main', mainRouter );
 
 // var config = require('./config'); // get our config file
 // app.set('superSecret', config.secret); // secret variable

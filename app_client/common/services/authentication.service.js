@@ -2,66 +2,66 @@
 
 	angular
 		.module( 'sipediApp' )
-		.service( 'authentication', authentication );
+		.service( 'authenticationService', authenticationServiceFn );
 
-	authentication.$inject = [ '$http', '$window' ];
-	function authentication ( $http, $window ) {
+		authenticationServiceFn.$inject = [ '$http', '$window' ];
+		function authenticationServiceFn ( $http, $window ) {
 
-		var saveToken = function (token) {
-			$window.localStorage['mean-token'] = token;
-			console.log( 'Token saved' );
-		}
+			var saveToken = function (token) {
+				$window.localStorage['mean-token'] = token;
+				console.log( 'Token saved' );
+			}
 
-		var getToken = function () {
-			return $window.localStorage['mean-token'];
-		}
+			var getToken = function () {
+				return $window.localStorage['mean-token'];
+			}
 
-		var isLoggedIn = function() {
-			var token = $window.localStorage['mean-token'];
-			return $http.post( '/main', { token : token } )
-		}
-
-		register = function( user ) {
-			return $http.post( '/login/register', user )
-		}
-
-		login = function( user ) {
-			return $http.post( '/login', user )
-		}
-
-		token = function() {
+			var isLoggedIn = function() {
 				var token = $window.localStorage['mean-token'];
 				return $http.post( '/main', { token : token } )
-		}
+			}
 
-		logout = function() {
-			$window.localStorage.removeItem('mean-token');
-			console.log('logout bye...')
-		}
+			register = function( user ) {
+				return $http.post( '/login/register', user )
+			}
 
-    // var currentUser = function() {
-    //   if(isLoggedIn()){
-    //     var token = getToken();
-    //     var payload = token.split('.')[1];
-    //     payload = $window.atob(payload);
-    //     payload = JSON.parse(payload);
-    //     return {
-    //       email : payload.email,
-    //       name : payload.name
-    //     };
-    //   }
-    // };
+			login = function( user ) {
+				return $http.post( '/login', user )
+			}
 
-    return {
-      // currentUser : currentUser,
-      saveToken : saveToken,
-      getToken : getToken,
-      isLoggedIn : isLoggedIn,
-      register : register,
-      login : login,
-      logout : logout,
-      token : token
-    };
+			token = function() {
+					var token = getToken();
+					return $http.post( '/main', { token : token } )
+			}
+
+			logout = function() {
+				$window.localStorage.removeItem('mean-token');
+				console.log('logout bye...')
+			}
+
+	    // var currentUser = function() {
+	    //   if(isLoggedIn()){
+	    //     var token = getToken();
+	    //     var payload = token.split('.')[1];
+	    //     payload = $window.atob(payload);
+	    //     payload = JSON.parse(payload);
+	    //     return {
+	    //       email : payload.email,
+	    //       name : payload.name
+	    //     };
+	    //   }
+	    // };
+
+	    return {
+	      // currentUser : currentUser,
+	      saveToken : saveToken,
+	      getToken : getToken,
+	      isLoggedIn : isLoggedIn,
+	      register : register,
+	      login : login,
+	      logout : logout,
+	      token : token
+	    };
   }
 
 })();
