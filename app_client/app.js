@@ -1,1 +1,1 @@
-angular.module('sipediApp', ['ngRoute'])
+angular.module('sipediApp', ['ngRoute', 'angular-jwt'])

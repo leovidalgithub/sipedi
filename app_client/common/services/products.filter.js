@@ -1,17 +1,19 @@
 
-    angular.module('sipediApp' )
-        .filter( 'products_filter', function() {
+	angular.module( 'sipediApp' )
+		.filter( 'uniqueCategory', function() {
 
-        return function( x ) {
-            // var i, c, txt = "";
-            // for (i = 0; i < x.length; i++) {
-            //     c = x[i];
-            //     if (i % 2 == 0) {
-            //         c = c.toUpperCase();
-            //     }
-            //     txt += c;
-            // }
-            // return txt;
-            return x.product + 'Q'
-        }
-    });
+   return function( collection, keyname ) {
+	  var output = [], 
+		  keys = [];
+	  angular.forEach(collection, function( item ) {
+		  var key = item[keyname];
+		  if(keys.indexOf( key ) === -1) {
+			  keys.push( key );
+			  output.push( item );
+		  }
+	  });
+	  return output;
+   };
+
+
+});

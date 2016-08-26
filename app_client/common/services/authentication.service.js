@@ -4,52 +4,56 @@
 		.module( 'sipediApp' )
 		.service( 'authenticationService', authenticationServiceFn );
 
-		authenticationServiceFn.$inject = [ '$http', '$window' ];
-		function authenticationServiceFn ( $http, $window ) {
+		authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper' ];
+		function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 
-			var saveToken = function (token) {
+			function saveToken( token ) {
 				$window.localStorage['mean-token'] = token;
 				console.log( 'Token saved' );
 			}
 
-			var getToken = function () {
+			function setCredentials(){
+				$rootScope.credentials = {};
+				var token = getToken();
+				var tokenPayload = jwtHelper.decodeToken( token );
+	
+				// saving user credentials in $rootScope.credentials
+				$rootScope.credentials.userID = tokenPayload._doc._id;
+				$rootScope.credentials.admin = tokenPayload._doc.admin;
+				$rootScope.credentials.supplier = tokenPayload._doc.supplier;
+			}
+
+			function getToken() {
 				return $window.localStorage['mean-token'];
 			}
 
-			var isLoggedIn = function() {
-				var token = $window.localStorage['mean-token'];
-				return $http.post( '/main', { token : token } )
+			// verifies if token exists and if it has expired
+			function isLoggedIn() {
+				try {
+					var token = getToken();
+					var tokenPayload = jwtHelper.decodeToken( token );
+					return !(jwtHelper.isTokenExpired( token ) );
+				} catch(e) {
+				}
+				return false
 			}
 
-			register = function( user ) {
+			function register( user ) {
 				return $http.post( '/login/register', user )
 			}
 
-			login = function( user ) {
+			function login( user ) {
 				return $http.post( '/login', user )
 			}
 
-			logout = function() {
+			function logout() {
 				$window.localStorage.removeItem('mean-token');
 				console.log('logout bye...')
 			}
 
-	    // var currentUser = function() {
-	    //   if(isLoggedIn()){
-	    //     var token = getToken();
-	    //     var payload = token.split('.')[1];
-	    //     payload = $window.atob(payload);
-	    //     payload = JSON.parse(payload);
-	    //     return {
-	    //       email : payload.email,
-	    //       name : payload.name
-	    //     };
-	    //   }
-	    // };
-
 	    return {
-	      // currentUser : currentUser,
 	      saveToken : saveToken,
+	      setCredentials : setCredentials,
 	      getToken : getToken,
 	      isLoggedIn : isLoggedIn,
 	      register : register,

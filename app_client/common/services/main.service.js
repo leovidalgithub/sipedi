@@ -4,13 +4,25 @@
 		.module( 'sipediApp' )
 		.service( 'mainService', mainServiceFn );
 
-		mainServiceFn.$inject = [ '$http', '$window', 'authenticationService' ];
+		mainServiceFn.$inject = [ '$http', '$window', 'authenticationService', '$rootScope', '$location' ];
 
-		function mainServiceFn ( $http, $window, authenticationService ) {
+		function mainServiceFn ( $http, $window, authenticationService, $rootScope, $location ) {
 
-			getProducts = function( user ) {
+			getProducts = function() {
 				var token = authenticationService.getToken();
-				return $http.post( '/main', { token : token } )
+				var clientID = $rootScope.credentials.userID;
+				var supplier;
+
+				// GET 	/api/products
+				// POST 	/api/products
+				// GET 	/api/products/provider/:id
+				// GET 	/api/product/:id 
+				// POST 	/api/product/:id
+				// DELETE 	/api/product/:id
+
+				return $http.get( '/api/products/' + clientID + '?token=' + token );
+
+				// return $http.post( '/api/getProductsBySupplier', { token : token, credentials : credentials } )
 			}
 
 			return {

@@ -50,9 +50,9 @@ module.exports.login = function( req, res ) {
 
 			verifyToken( token, function( err, decoded ) {
 				res.status(200);
-				res.json( { "token" : token,
+				res.json( { 'token'   : token,
 							'decoded' : decoded
-						 } );				
+						  });				
 			})
 		});
 

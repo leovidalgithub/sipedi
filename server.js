@@ -21,12 +21,8 @@ app.use( function( req, res, next ) {
 var loginRouter = require('./app_api/routes/login.router');
 app.use('/login', loginRouter );
 
-var mainRouter = require('./app_api/routes/main.router');
-app.use('/main', mainRouter );
-
-// var config = require('./config'); // get our config file
-// app.set('superSecret', config.secret); // secret variable
-
+var apiRouter = require('./app_api/routes/api.router');
+app.use('/api', apiRouter );
 
 	// app.get('/', function(req,res,next) {
 	// 	res.redirect('/tasks');
