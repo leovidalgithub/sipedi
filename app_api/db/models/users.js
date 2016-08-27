@@ -2,7 +2,7 @@ var mongoose = require( 'mongoose' ),
 	Schema   = mongoose.Schema,
 	crypto   = require( 'crypto' ),
 	jwt      = require( 'jsonwebtoken' ),
-	config   = require( './config' );
+	config   = require( '../../config/config' );
 
 var userSchema = Schema({
 		email: {
@@ -53,7 +53,7 @@ var userSchema = Schema({
 
 		userSchema.methods.generateJwt = function( user ) {
 			return jwt.sign( user, config.secret, { // create a token
-				expiresIn: 86400 // expires in 24 hours
+				expiresIn: 3600 // expires in 1 hour
 			})
 		};
 

@@ -1,19 +1,10 @@
-var express = require('express');
+var express = require( 'express' );
 var loginRouter = express.Router();
 
-// var ctrlProfile = require('../controllers/profile');
-var ctrlAuth = require('../controllers/authentication');
-
-// loginRouter.use('/', function( req, res, next ) {
-// 	console.log( 'from loginRouter /login' );
-// 	next();
-// })
-
-// authentication
-// loginRouter.post('/register', ctrlAuth.register);
-loginRouter.post('/', ctrlAuth.login);
+var loginHandler = require( './handlers/login.handler' );
+loginRouter.post( '/', loginHandler.login );
 
 // register new user
-loginRouter.post('/register', ctrlAuth.register);
+// loginRouter.post( '/register', loginHandler.register );
 
 module.exports = loginRouter;

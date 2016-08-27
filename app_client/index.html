@@ -6,14 +6,25 @@
 	<title>SIPEDI</title>
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="lib/bootstrap-select/css/bootstrap-select.min.css">
+
 	<link rel="stylesheet" href="css/styles.css">
 	<link rel="stylesheet" href="css/login.css">
 	<link rel="stylesheet" href="css/main.css">
+
 	<!-- <base href="/"> -->
 </head>
 <body>
 
-	<div id="leo" ng-view></div>
+<select class="selectpicker" data-live-search="true">
+	<option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+	<option data-tokens="mustard">Burger, Shake and a Smile</option>
+	<option data-tokens="frosting">Sugar, Spice and all things nice</option>
+	<option data-tokens="Bebidas">Bebidas</option>
+</select>
+
+
+	<div ng-view></div>
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
@@ -21,15 +32,18 @@
 <script src="lib/angular/angular-jwt.js"></script>
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-
+<script src="lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+<!-- ANGULAR -->
 <script src="app.js"></script>
-<script src="routes/index.js"></script>
+<script src="common/config/index.js"></script>
+<script src="common/routes/index.js"></script>
+<script src="common/services/authentication.service.js"></script>
+<script src="common/filters/uniqueCategory.filter.js"></script>
+<script src="common/services/main.service.js"></script>
 <script src="login/login.controller.js"></script>
 <script src="main/main.controller.js"></script>
-<script src="common/services/authentication.service.js"></script>
-<script src="common/services/products.filter.js"></script>
-<script src="common/services/main.service.js"></script>
 
 <script src="js/main.js"></script>
+
 </body>
 </html>
