@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>SIPEDI</title>
+
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="lib/bootstrap-select/css/bootstrap-select.min.css">
@@ -16,14 +17,13 @@
 </head>
 <body>
 
-<select class="selectpicker" data-live-search="true">
+<!-- <select class="selectpicker" data-live-search="true">
 	<option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
 	<option data-tokens="mustard">Burger, Shake and a Smile</option>
 	<option data-tokens="frosting">Sugar, Spice and all things nice</option>
 	<option data-tokens="Bebidas">Bebidas</option>
 </select>
-
-
+ -->
 	<div ng-view></div>
 
 <script src="lib/angular/angular.js"></script>
@@ -40,8 +40,8 @@
 <script src="common/services/authentication.service.js"></script>
 <script src="common/filters/uniqueCategory.filter.js"></script>
 <script src="common/services/main.service.js"></script>
-<script src="login/login.controller.js"></script>
-<script src="main/main.controller.js"></script>
+<script src="views/login/login.controller.js"></script>
+<script src="views/main/main.controller.js"></script>
 
 <script src="js/main.js"></script>
 

@@ -1,4 +1,4 @@
- (function () {
+ ( function () {
 
 	angular
 		.module( 'sipediApp' )
@@ -9,10 +9,10 @@
 
 			function saveToken( token ) {
 				$window.localStorage['mean-token'] = token;
-				console.log( 'Token saved' );
+				console.log( 'Token saved' )
 			}
 
-			function setCredentials(){
+			function setCredentials() {
 				$rootScope.credentials = {};
 				var token = getToken();
 				var tokenPayload = jwtHelper.decodeToken( token );
@@ -20,11 +20,11 @@
 				// saving user credentials in $rootScope.credentials
 				$rootScope.credentials.userID = tokenPayload._doc._id;
 				$rootScope.credentials.admin = tokenPayload._doc.admin;
-				$rootScope.credentials.supplier = tokenPayload._doc.supplier;
+				$rootScope.credentials.supplier = tokenPayload._doc.supplier
 			}
 
 			function getToken() {
-				return $window.localStorage['mean-token'];
+				return $window.localStorage['mean-token']
 			}
 
 			// verifies if token exists and if it has expired
@@ -32,23 +32,23 @@
 				try {
 					var token = getToken();
 					var tokenPayload = jwtHelper.decodeToken( token );
-					return !(jwtHelper.isTokenExpired( token ) );
-				} catch(e) {
+					return !( jwtHelper.isTokenExpired( token ) )
+				} catch( e ) {
 				}
 				return false
 			}
 
-			function register( user ) {
-				return $http.post( '/login/register', user )
-			}
+			// function register( user ) {
+			// 	return $http.post( '/login/register', user )
+			// }
 
 			function login( user ) {
 				return $http.post( '/login', user )
 			}
 
 			function logout() {
-				$window.localStorage.removeItem('mean-token');
-				console.log('logout bye...')
+				$window.localStorage.removeItem( 'mean-token' );
+				console.log( 'logout bye...' )
 			}
 
 	    return {
@@ -56,10 +56,10 @@
 	      setCredentials : setCredentials,
 	      getToken : getToken,
 	      isLoggedIn : isLoggedIn,
-	      register : register,
+	      // register : register,
 	      login : login,
 	      logout : logout
-	    };
+	    }
   }
 
-})();
+})()

@@ -1,9 +1,7 @@
 var express     = require( 'express' ),
 	apiRouter   = express.Router(),
-    Product     = require( '../../db/models/products' ),
-    verifyToken = require( '../../services/verifyToken.js' ),
-    conn        = require( '../../db/db' ),
-    connect     = conn.connection;
+	verifyToken = require( '../../services/verifyToken.js' ),
+	connect     = require( '../../db/db' ).connection;
 
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
@@ -11,16 +9,16 @@ module.exports.middlewareToken = function ( req, res, next ) {
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
 			if ( err ) {
-				console.log('main.router.middleware : token err');
+				console.log( 'main.router.middleware : token err' );
 				res.status( 403 ).send( { success: false, message: 'Invalid token.' } )
 			} else { 					// if everything is good
-				console.log('main.router.middleware : token ok');
+				console.log( 'main.router.middleware : token ok' );
 				req.decoded = decoded;
 				next()
 			}
 		})
 	} else { 						// token not received
-			console.log('main.router.middleware : token not received');
+			console.log( 'main.router.middleware : token not received' );
 			res.status( 403 ).send( { success: false, message: 'No token provided.' } )
 	}
 }
@@ -28,10 +26,32 @@ module.exports.middlewareToken = function ( req, res, next ) {
 // GET /api/products/:clientID --> returns all client products
 module.exports.getProductsByClientID = function( req, res ) {
 	var clientID = req.params.clientID;
-	connect.collection('products').find({ 'clients.client' : clientID }).toArray( function( err, productos ) {
+	connect.collection('products').find( { 'clients.client' : clientID } ).toArray( function( err, products ) {
 		if ( err ) {
-			res.status( 403 ).send('Error getting products by clientID')
+			res.status( 403 ).send( 'Error getting products by clientID' )
 		}
-		res.json( productos );
+		res.json( products )
+	})
+}
+
+// GET /api/clients/:supplier --> returns all supplier clients
+module.exports.getClientsBySupplier = function( req, res ) {
+	var supplier = req.params.supplier;
+	connect.collection('users').find( { 'supplier' : supplier, 'admin' : false }, {} ).toArray( function( err, clients ) {
+		if ( err ) {
+			res.status( 403 ).send( 'Error getting clients by supplier' )
+		}
+		res.json( clients )
+	})
+}
+
+// GET /api/supplier/:supplier --> returns supplier info
+module.exports.getSupplierInfo = function( req, res ) {
+	var supplier = req.params.supplier;
+	connect.collection('users').find( { 'supplier' : supplier, 'admin' : true }, {} ).toArray( function( err, supplier ) {
+		if ( err ) {
+			res.status( 403 ).send( 'Error getting supplier info' )
+		}
+		res.json( supplier )
 	})
 }

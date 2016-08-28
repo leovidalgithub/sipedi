@@ -1,0 +1,94 @@
+<div id="main">
+	<div class="containerX">
+
+		<h2 ng-hide="credentials.admin">Proveedor: {{ credentials.supplier.name }}</h2>
+		<h2 ng-show="credentials.admin">Cliente: {{ selectedClientModel.name }}</h2>
+
+<!-- 		<select class="selectpicker" data-live-search="true">
+			<option data-tokens="ketchup mustard">Perro Caliente, Fries and a Soda</option>
+			<option data-tokens="mustard">Burger, Shake and a Smile</option>
+			<option data-tokens="frosting">Sugar, Spice and all things nice</option>
+			<option data-tokens="Bebidas">Bebidas</option>
+		</select>
+ -->
+
+		<form ng-show="credentials.admin">
+			<div class="form-group">
+				<label for="selectClients">Mis clientes</label>
+				<select id="selectClients" ng-change="clientChanged(selectedClientModel)" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
+			</div>
+		</form>
+
+		  <!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li ng-repeat="( key, value ) in products.data | uniqueCategory:'category'" ng-class="{'active':$first}" role="presentation"><a href="#{{ value.category }}" aria-controls="{{ value.category }}" role="tab" data-toggle="tab">{{ value.category }}</a></li>
+		</ul>
+		  <!-- Tab panes -->
+		<div class="tab-content">
+			<div ng-repeat="( key1, value_1 ) in products.data | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
+
+				<div ng-repeat="( key2, value_2 ) in products.data | filter : value_1.category" class="producto">
+
+					<div>{{ value_2.product }}</div>
+					<div ng-repeat="( key3, value_3 ) in value_2.clients | filter : {'client' : credentials.clientID }">{{ value_3.quantity }}</div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div> <!-- @end #main -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 	<div class="row">
+		<div class="col-md-12">
+			<div class="panel with-nav-tabs panel-primary">
+				<div class="panel-heading">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab1primary" data-toggle="tab">Primary 1</a></li>
+							<li><a href="#tab2primary" data-toggle="tab">Primary 2</a></li>
+							<li><a href="#tab3primary" data-toggle="tab">Primary 3</a></li>
+						</ul>
+				</div>
+				<div class="panel-body">
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab1primary">*Primary 1</div>
+						<div class="tab-pane fade" id="tab2primary">*Primary 2</div>
+						<div class="tab-pane fade" id="tab3primary">*Primary 3</div>
+						<div class="tab-pane fade" id="tab4primary">*Primary 4</div>
+						<div class="tab-pane fade" id="tab5primary">*Primary 5</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+ -->

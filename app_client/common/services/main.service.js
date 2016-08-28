@@ -1,17 +1,43 @@
- (function () {
+ ( function () {
 
 	angular
 		.module( 'sipediApp' )
 		.service( 'mainService', mainServiceFn );
 
-		mainServiceFn.$inject = [ '$http', '$window', 'authenticationService', '$rootScope', '$location' ];
+		mainServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
 
-		function mainServiceFn ( $http, $window, authenticationService, $rootScope, $location ) {
+		function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
-			getProducts = function() {
+			getProductsByClientID = function() {
 				var token = authenticationService.getToken();
-				var clientID = $rootScope.credentials.userID;
-				var supplier;
+				var clientID = $rootScope.credentials.clientID;
+				return $http.get( '/api/products/' + clientID + '?token=' + token )
+			}
+
+			getClientsBySupplier = function() {
+				var token = authenticationService.getToken();
+				var supplier = $rootScope.credentials.supplier;
+				return $http.get( '/api/clients/' + supplier + '?token=' + token )
+			}
+
+			getSupplierInfo = function() {
+				var token = authenticationService.getToken();
+				var supplier = $rootScope.credentials.supplier;
+				return $http.get( '/api/supplier/' + supplier + '?token=' + token )
+			}
+
+			return {
+				getProductsByClientID : getProductsByClientID,
+				getClientsBySupplier  : getClientsBySupplier,
+				getSupplierInfo       : getSupplierInfo
+			}
+		}
+
+})()
+
+
+
+
 
 				// GET 	/api/products
 				// POST 	/api/products
@@ -19,15 +45,3 @@
 				// GET 	/api/product/:id 
 				// POST 	/api/product/:id
 				// DELETE 	/api/product/:id
-
-				return $http.get( '/api/products/' + clientID + '?token=' + token );
-
-				// return $http.post( '/api/getProductsBySupplier', { token : token, credentials : credentials } )
-			}
-
-			return {
-				getProducts : getProducts
-			};
-		}
-
-})();
