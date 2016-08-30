@@ -1,65 +1,55 @@
- ( function () {
+function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 
-	angular
-		.module( 'sipediApp' )
-		.service( 'authenticationService', authenticationServiceFn );
+		function saveToken( token ) {
+			$window.localStorage['mean-token'] = token;
+			console.log( 'Token saved' )
+		}
 
-		authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper' ];
-		function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
+		function setCredentials() {
+			$rootScope.credentials = {};
+			var token = getToken();
+			var tokenPayload = jwtHelper.decodeToken( token );
 
-			function saveToken( token ) {
-				$window.localStorage['mean-token'] = token;
-				console.log( 'Token saved' )
-			}
+			// saving user credentials in $rootScope.credentials
+			$rootScope.credentials.userID = tokenPayload._doc._id;
+			$rootScope.credentials.admin = tokenPayload._doc.admin;
+			$rootScope.credentials.supplier = tokenPayload._doc.supplier
+		}
 
-			function setCredentials() {
-				$rootScope.credentials = {};
+		function getToken() {
+			return $window.localStorage['mean-token']
+		}
+
+		// verifies if token exists and if it has expired
+		function isLoggedIn() {
+			try {
 				var token = getToken();
 				var tokenPayload = jwtHelper.decodeToken( token );
-	
-				// saving user credentials in $rootScope.credentials
-				$rootScope.credentials.userID = tokenPayload._doc._id;
-				$rootScope.credentials.admin = tokenPayload._doc.admin;
-				$rootScope.credentials.supplier = tokenPayload._doc.supplier
+				return !( jwtHelper.isTokenExpired( token ) )
+			} catch( e ) {
+				return false
 			}
+		}
 
-			function getToken() {
-				return $window.localStorage['mean-token']
-			}
+		function login( user ) {
+			return $http.post( '/login', user )
+		}
 
-			// verifies if token exists and if it has expired
-			function isLoggedIn() {
-				try {
-					var token = getToken();
-					var tokenPayload = jwtHelper.decodeToken( token );
-					return !( jwtHelper.isTokenExpired( token ) )
-				} catch( e ) {
-					return false
-				}
-			}
+		function logout() {
+			$window.localStorage.removeItem( 'mean-token' );
+			console.log( 'logout bye...' )
+		}
 
-			function login( user ) {
-				return $http.post( '/login', user )
-			}
+		return {
+			saveToken : saveToken,
+			setCredentials : setCredentials,
+			getToken : getToken,
+			isLoggedIn : isLoggedIn,
+			// register : register,
+			login : login,
+			logout : logout
+		}
+}
 
-			function logout() {
-				$window.localStorage.removeItem( 'mean-token' );
-				console.log( 'logout bye...' )
-			}
-
-	    return {
-	      saveToken : saveToken,
-	      setCredentials : setCredentials,
-	      getToken : getToken,
-	      isLoggedIn : isLoggedIn,
-	      // register : register,
-	      login : login,
-	      logout : logout
-	    }
-  }
-
-})()
-
-			// function register( user ) {
-			// 	return $http.post( '/login/register', user )
-			// }
+authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper' ];
+module.exports = authenticationServiceFn;

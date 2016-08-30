@@ -2,17 +2,24 @@
   "name": "sipedi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:client": "browserify app_client/app.js > app_client/bundle.js",
+    "build:client:watch": "watchify app_client/app.js -d -o app_client/bundle.js -v"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-jwt": "^0.1.3",
+    "angular-route": "^1.5.8",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.5.9"
+  },
+  "devDependencies": {
+    "watchify": "^3.7.0"
   }
 }
