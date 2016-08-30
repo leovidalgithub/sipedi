@@ -10,33 +10,14 @@
 				style: 'btn-info',
 				size: 4
 			});
-// $( 'button' ).on('click', function( event ) {
-// 	// event.preventDefault();
-// 	$scope.credentials.supplier.name = 'LEO'
-// 	$scope.products.forEach( function( el ) {
-// 		el.ordered = true;
-// 		el.product = 'product name';
-// 		el.category = 'new category'
-// 	})
-// });
 
-// $scope.buttonClicked = function() {
-// }
-
-			// $( '#main' ).on('click', '.product', function( event ) {
-			// 	event.preventDefault();
-			// 	var productID = $( this ).attr( 'value' );
-			// 	// console.log( 'productID ' + productID );
-			// 	// $( this ).toggleClass( 'ordered' )
-			// });
-
-			// $( '#main' ).on('click', '.product .quantity', function( event ) {
-			// 	event.preventDefault();
-			// 	var productID = $( this ).parent().attr( 'value' );
-			// 	// console.log( 'quantity ' + $( this ).text() );
-			// 	// console.log( 'productID ' + productID );
-			// 	// event.stopPropagation()
-			// });
+			if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
+				getClients()
+			} else { //								 CLIENT LOGGED
+				$rootScope.credentials.clientID = $rootScope.credentials.userID;
+				getProducts();
+				getSupplierInfo()
+			}
 
 			$scope.productClicked = function( $event, product ) {
 				var productID = product._id;
@@ -57,14 +38,6 @@
 				$event.stopPropagation()
 			}
 
-			if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
-				getClients()
-			} else { //								 CLIENT LOGGED
-				$rootScope.credentials.clientID = $rootScope.credentials.userID;
-				getProducts();
-				getSupplierInfo()
-			}
-
 			$scope.clientChanged = function( client ) {
 				$rootScope.credentials.clientID = $scope.selectedClientModel._id
 				getProducts();
@@ -78,6 +51,7 @@
 			}
 
 			function getClients() {
+
 				mainService.getClientsBySupplier()
 					.then( function( data ) {
 						$scope.clients = data.data;
@@ -99,7 +73,6 @@
 				// 				console.log( data )
 				// 		})
 			}
-
 		} // @end mainCtrlFn()
 
 })();

@@ -16,7 +16,7 @@
 					.when( '/main', {
 						templateUrl: 'views/main/main.view.html',
 						controller: 'main.controller'
-					// controllerAs: 'vm'
+						// controllerAs: 'ctrl'
 					})
 					// .when( '/profile', {
 					//   templateUrl: '/profile/profile.view.html',
