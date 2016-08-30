@@ -12,6 +12,10 @@
 				var token = authenticationService.getToken();
 				var clientID = $rootScope.credentials.clientID;
 				return $http.get( '/api/products/' + clientID + '?token=' + token )
+					.then( prepareProductsData.bind( null, clientID ) )
+					// .then( function( data ) {
+					// 	prepareProductsData( data )
+					// })
 			}
 
 			getClientsBySupplier = function() {
@@ -26,11 +30,34 @@
 				return $http.get( '/api/supplier/' + supplier + '?token=' + token )
 			}
 
+			setProductOrdered = function( productID, clientID, newOrdered ) {
+				var token = authenticationService.getToken();
+				$http.post( '/api/products/setOrdered/', {
+					token : token,
+					productID : productID,
+					clientID : clientID,
+					newOrdered : newOrdered 
+				} ).then( function( data ) { console.log( data )})
+			}
+
 			return {
 				getProductsByClientID : getProductsByClientID,
 				getClientsBySupplier  : getClientsBySupplier,
-				getSupplierInfo       : getSupplierInfo
+				getSupplierInfo       : getSupplierInfo,
+				setProductOrdered     : setProductOrdered
 			}
+		}
+
+		prepareProductsData = function( clientID, data ) {
+			data.data.forEach( function( product, index ) {
+				var getClient = product.clients.find( function( client ) {
+					return client._id === clientID
+				});
+				product.quantity = getClient.quantity;
+				product.ordered = getClient.ordered;
+				product.clients = [] // not need this
+			})
+			return data
 		}
 
 })()

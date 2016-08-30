@@ -5,13 +5,13 @@
 				$routeProvider
 					.when( '/', {
 						templateUrl: 'views/login/login.view.html',
-						controller: 'login.controller'
-					// controllerAs: 'vm'
+						controller: 'login.controller',
+						controllerAs: 'ctrl'
 					})
 					.when( '/login', {
 						templateUrl: 'views/login/login.view.html',
-						controller: 'login.controller'
-					// controllerAs: 'vm'
+						controller: 'login.controller',
+						controllerAs: 'ctrl'
 					})
 					.when( '/main', {
 						templateUrl: 'views/main/main.view.html',

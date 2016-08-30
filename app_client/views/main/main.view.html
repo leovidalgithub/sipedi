@@ -1,36 +1,43 @@
 <div id="main">
-	<div class="containerX">
+	<div class="container">
 
 		<h2 ng-hide="credentials.admin">Proveedor: {{ credentials.supplier.name }}</h2>
 		<h2 ng-show="credentials.admin">Cliente: {{ selectedClientModel.name }}</h2>
 
-<!-- 		<select class="selectpicker" data-live-search="true">
-			<option data-tokens="ketchup mustard">Perro Caliente, Fries and a Soda</option>
+<!-- <form ng-show="credentials.admin">
+	<div class="form-group">
+		<select class="selectpicker" data-live-search="true">
+			<option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
 			<option data-tokens="mustard">Burger, Shake and a Smile</option>
 			<option data-tokens="frosting">Sugar, Spice and all things nice</option>
 			<option data-tokens="Bebidas">Bebidas</option>
 		</select>
+	</div>
+</form>
  -->
 
-		<form ng-show="credentials.admin">
+ 		<form ng-show="credentials.admin">
 			<div class="form-group">
 				<label for="selectClients">Mis clientes</label>
 				<select id="selectClients" ng-change="clientChanged(selectedClientModel)" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
 			</div>
 		</form>
 
+
 		  <!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li ng-repeat="( key, value ) in products.data | uniqueCategory:'category'" ng-class="{'active':$first}" role="presentation"><a href="#{{ value.category }}" aria-controls="{{ value.category }}" role="tab" data-toggle="tab">{{ value.category }}</a></li>
+			<li ng-repeat="( key, value ) in products | uniqueCategory:'category'" ng-class="{'active':$first}" role="presentation"><a href="#{{ value.category }}" aria-controls="{{ value.category }}" role="tab" data-toggle="tab">{{ value.category }}</a></li>
 		</ul>
+
+		<button ng-click="buttonClicked()" class="btn btn-danger btn-md">GO!!!</button>
 		  <!-- Tab panes -->
 		<div class="tab-content">
-			<div ng-repeat="( key1, value_1 ) in products.data | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
+			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
 
-				<div ng-repeat="( key2, value_2 ) in products.data | filter : value_1.category" class="producto">
+				<div ng-click="productClicked($event, value_2)" ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock, 'ordered':value_2.ordered}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
 
 					<div>{{ value_2.product }}</div>
-					<div ng-repeat="( key3, value_3 ) in value_2.clients | filter : {'client' : credentials.clientID }">{{ value_3.quantity }}</div>
+					<div ng-click="quantityClicked($event, value_2)" class="quantity">{{ value_2.quantity }}</div>
 
 				</div>
 
@@ -42,8 +49,16 @@
 
 
 
-
-
+<!-- ng-class="{'outOfStock':!value_2.stock, 'ordered':true}" -->
+<!-- 		<div class="tab-content">
+			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
+				<div ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
+					<div>{{ value_2.product }}</div>
+					<div ng-class="'quantity'" ng-repeat="( key3, value_3 ) in value_2.clients | filter : {'client' : credentials.clientID }">{{ value_3.quantity }}</div>
+				</div>
+			</div>
+		</div>
+ -->
 
 
 

@@ -34,13 +34,9 @@
 					var tokenPayload = jwtHelper.decodeToken( token );
 					return !( jwtHelper.isTokenExpired( token ) )
 				} catch( e ) {
+					return false
 				}
-				return false
 			}
-
-			// function register( user ) {
-			// 	return $http.post( '/login/register', user )
-			// }
 
 			function login( user ) {
 				return $http.post( '/login', user )
@@ -63,3 +59,7 @@
   }
 
 })()
+
+			// function register( user ) {
+			// 	return $http.post( '/login/register', user )
+			// }
