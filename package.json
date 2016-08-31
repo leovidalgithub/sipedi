@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "build:client": "browserify app_client/app.js > app_client/bundle.js",
-    "build:client:watch": "watchify app_client/app.js -d -o app_client/bundle.js -v"
+    "build:client:watch": "watchify app_client/app.js -d -o app_client/bundle.js -v",
+    "start": "nodemon server.js"
+  },
+  "engines": {
+    "node": "4.4.7"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +21,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
+    "mongodb": "^2.2.9",
     "mongoose": "^4.5.9"
   },
   "devDependencies": {

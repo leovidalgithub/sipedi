@@ -4,6 +4,7 @@ var User = require('../../db/models/users');
 var verifyToken = require('../../services/verifyToken.js');
 
 	module.exports.login = function( req, res ) {
+
 			console.log( 'API authentication.js login function' );
 
 			if( !req.body.email || !req.body.password ) {

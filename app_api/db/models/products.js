@@ -28,4 +28,13 @@
 	  clients: [clientsSchema]
 	})
 
-	module.exports = mongoose.model( 'Product', productSchema )
+var productModel = mongoose.model( 'Product', productSchema );
+var clientModel = mongoose.model( 'Client', clientsSchema );
+
+module.exports = {
+	productModel : productModel,
+	clientModel : clientModel
+}
+
+	// module.exports = mongoose.model( 'Product', productSchema )
+	// module.exports = mongoose.model( 'Client', clientsSchema )

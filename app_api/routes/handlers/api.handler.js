@@ -2,7 +2,10 @@ var express     = require( 'express' ),
 	apiRouter   = express.Router(),
 	verifyToken = require( '../../services/verifyToken.js' ),
 	connect     = require( '../../db/db' ).connection,
-	productModel = require('../../db/models/products')
+	productModel = require('../../db/models/products').productModel;
+	clientModel = require('../../db/models/products').clientModel;
+
+	var ObjectID = require('mongodb').ObjectID;
 
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
@@ -63,6 +66,90 @@ module.exports.setProductOrdered = function( req, res ) {
 		clientID = req.body.clientID,
 		newOrdered = req.body.newOrdered;
 
+// productModel.find( { _id:productID,
+// 	{ 'clients.quantity' : 89} } , function( err, data ) {
+
+// 		res.json(data)
+// })
+
+var product = new productModel();
+
+// productModel.findById(productID, function (err, room) {
+
+
+productModel.update(
+        { _id: "57c4509e695a349c293cb061" , "clients._id":"57bee5da309b288c37e2ea7b" },
+        { $set:{ "quantity":"666" } },
+        { upsert: true },
+        function(err){
+        	console.log(err)
+
+        }
+    );
+
+	// var clientsSchema = Schema( {
+	//   client: { type: Schema.ObjectId, ref: 'User' },
+	//   quantity: { type: Number, default: 0 },
+	//   ordered: { type: Boolean, default: false }
+	// })
+
+	// res.json(room);
+
+//     if (!err) {
+//         //we can remove a user by Id rather than looping over an array 
+//         productModel.clientsSchema(clientID).remove();
+//         productModel.save(function (err) {
+//               // do something
+//            });
+//       }
+// });
+
+// productModel.findById(productID).populate({
+//      "clients": { "_id": "clientID" },
+//      "options": { "skip": 0, "limit": 2 }
+// }).exec(function(err,docs) {
+
+// 		res.json(data)
+// });
+
+// productModel.findById(productID)
+// .where('clients._id', clientID)
+// .exec(function(err,data) {
+// 	res.json(data)
+// })
+
+// productModel.findById(productID)
+// 	// .populate('clients')
+// 	.exec(function (err, post) {
+// 		post.clients.forEach( function( el ) {
+// 			console.log(el);
+// 		});
+// productModel.save(function(err) {
+// 	console.log(err)
+// })
+// 			res.json(post);
+//   	// return;
+// 		 //    post.clients[0].remove();
+// 		 //    post.save(function (err) {
+// 		 //    	console.log(err)
+//    //    // do something
+//    //  });
+//   // }
+// });
+
+
+		// productModel.findById(productID, function(err,doc) {
+		// 	doc.clients.findById(clientID, function(err,doc2) {
+		// 		res.json(doc2)
+		// 	})
+		// 	// clientModel.findById(clientID, function(err,docs2) {
+		// 	// })
+		// })
+
+// productModel.find({_id:productID,'clients._id':clientID}, function(err, foundUsers){
+// 	res.json(foundUsers)
+// });
+
 // productModel.findByIdAndUpdate(productID, { $set: { name: 'jason borne' }}, options, callback)
 		// productModel.findById( productID, function ( err, product ) {
 		// 	if ( err ) {
@@ -97,27 +184,24 @@ module.exports.setProductOrdered = function( req, res ) {
  //                	res.send(doc)
  //                })
 
-productModel.find({'_id': productID, 'clients._id': clientID}).lean().exec(function (err, user) {
+// productModel.find({'_id': productID, 'clients._id': clientID}).lean().exec(function (err, user) {
+//     var valor = 999;
+// 	    productModel.update(
+// 	        {
+// 	            _id: user._id, 
+// 	            'clients._id': clientID
+// 	        },
+// 	        {
+// 	            $set: {
+// 	                'clients.$.quantity': valor
+// 	            }
+// 	        },
+// 	        function (err, update) {
+// 	        	res.send(update)
+// 	        }
+// 	    );
+// });
 
-    // var interest =  ... //find specific interest
-    // interest.description = 'I love tacos... Like, a lot'.
-    var valor = 999;
-
-	    productModel.update(
-	        {
-	            _id: user._id, 
-	            'clients._id': clientID
-	        },
-	        {
-	            $set: {
-	                'clients.$.quantity': valor
-	            }
-	        },
-	        function (err, update) {
-	        	res.send(update)
-	        }
-	    );
-});
 		// productModel.find({'_id': productID}, function( err, doc ) {
 
 			// productModel.children.clients.find({'_id': clientID},{'quantity' : '32'}, function(err,doc2) {

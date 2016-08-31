@@ -1,7 +1,8 @@
 var express    = require( 'express' ),
     app        = express(),
     path       = require( 'path' ),
-    bodyParser = require( 'body-parser' );
+    bodyParser = require( 'body-parser' ),
+    PORT = process.env.PORT || 8080;
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
@@ -20,8 +21,8 @@ app.use( '/api', apiRouter );
 var conn = require( './app_api/db/db' );
 	conn.connection.on( 'connected', function() {
 		console.log( '****Mongoose connected****' );
-		app.listen( process.env.PORT || 8080, function() {
-		console.log( 'SiPEDI now running on port 8080' );
+		app.listen( PORT, function() {
+		console.log( 'SiPEDI now running on port ' + PORT )
 	})
 })
 
