@@ -6,7 +6,8 @@
   "scripts": {
     "build:client": "browserify app_client/app.js > app_client/bundle.js",
     "build:client:watch": "watchify app_client/app.js -d -o app_client/bundle.js -v",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "4.4.7"
