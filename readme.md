@@ -2,6 +2,9 @@
 
 ## Sistema de Pedido a Empresas de Distribución
 
+https://dry-badlands-61893.herokuapp.com/
+https://git.heroku.com/dry-badlands-61893.git
+
 to run app:
 
 **node server.js**

@@ -23,16 +23,18 @@ function loginCtrlFn( $location, authenticationService, $rootScope ) {
 		authenticationService.logout()
 	}
 
+	this.register = function() { // --------------- register new user
+		authenticationService.register( this.credentials )
+			.then( function( data ) {
+				console.log('USER registred');
+				authenticationService.saveToken( data.data.token )
+			})
+			.catch( function( err ) {
+				console.log('USER register error')
+			})
+	}
+
 }
 
 loginCtrlFn.$inject = [ '$location', 'authenticationService', '$rootScope' ];
 module.exports = loginCtrlFn;
-
-
-		// this.register = function() { // --------------- register new user
-		// 	authenticationService.register( this.credentials )
-		// 	.then( function( data ) {
-		// 		console.log('USER registred');
-		// 		authenticationService.saveToken( data.token );
-		// 	})
-		// }

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+	mongoose.Promise = Promise;  
 var config = require('../config/config');
 // var gracefulShutdown;
 var dbURI = 'mongodb://localhost/meanAuth';

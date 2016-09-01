@@ -22,21 +22,32 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 			return $http.get( '/api/supplier/' + supplier + '?token=' + token )
 		}
 
-		setProductOrdered = function( productID, clientID, newOrdered ) {
+		setProductOrdered = function( product ) {
 			var token = authenticationService.getToken();
-			$http.post( '/api/products/setOrdered/', {
+			var clientID = $rootScope.credentials.clientID;
+			return $http.post( '/api/products/setOrdered/', {
 				token : token,
-				productID : productID,
+				productID : product._id,
 				clientID : clientID,
-				newOrdered : newOrdered 
-			} ).then( function( data ) { console.log( data )})
+				newProductOrdered : product.productOrdered } )
+		}
+
+		setProductQuantity = function( product ) {
+			var token = authenticationService.getToken();
+			var clientID = $rootScope.credentials.clientID;
+			return $http.post( '/api/products/setQuantity/', {
+				token : token,
+				productID : product._id,
+				clientID : clientID,
+				newProductQuantity : product.quantity } )
 		}
 
 		return {
 			getProductsByClientID : getProductsByClientID,
 			getClientsBySupplier  : getClientsBySupplier,
 			getSupplierInfo       : getSupplierInfo,
-			setProductOrdered     : setProductOrdered
+			setProductOrdered     : setProductOrdered,
+			setProductQuantity     : setProductQuantity
 		}
 
 		function prepareProductsData( clientID, data ) {
@@ -45,7 +56,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 					return client._id === clientID
 				});
 				product.quantity = getClient.quantity;
-				product.ordered = getClient.ordered;
+				product.productOrdered = getClient.productOrdered;
 				product.clients = [] // not need this
 			})
 			return data

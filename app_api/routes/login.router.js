@@ -5,6 +5,6 @@ var loginHandler = require( './handlers/login.handler' );
 loginRouter.post( '/', loginHandler.login );
 
 // register new user
-// loginRouter.post( '/register', loginHandler.register );
+loginRouter.post( '/register', loginHandler.register );
 
 module.exports = loginRouter;

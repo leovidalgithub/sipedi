@@ -14,38 +14,28 @@ function mainCtrlFn( $scope, mainService, $rootScope ) {
 	}
 
 	$scope.productClicked = function( $event, product ) {
-		var productID = product._id;
-		var clientID = $rootScope.credentials.clientID; 
-		var product = $scope.products.find( function( product ) {
-			return product._id === productID
-		})
-		product.ordered = product.ordered ? false : true;
-		var newOrdered = product.ordered;
-		setProductOrdered( productID, clientID, newOrdered );
-	}
-
-	$scope.quantityClicked = function( $event, product ) {
-		var productID = product._id;
-		var productQuantity = product.quantity;
-		console.log( productID );
-		console.log( productQuantity );
-		$event.stopPropagation()
+		if ( $scope.changeQuantityMode ) {
+			// $scope.product = product;
+			$scope.changeQuantityMode = false;
+			return;
+		}
+		product.productOrdered = product.productOrdered ? false : true;
+		setProductOrdered( product )
 	}
 
 	$scope.clientChanged = function( client ) {
 		$rootScope.credentials.clientID = $scope.selectedClientModel._id
-		getProducts();
+		getProducts()
 	}
 
 	function getProducts() {
 		mainService.getProductsByClientID()
 			.then( function( data ) {
-				$scope.products = data.data;
+				$scope.products = data.data
 			})
 	}
 
 	function getClients() {
-
 		mainService.getClientsBySupplier()
 			.then( function( data ) {
 				$scope.clients = data.data;
@@ -57,16 +47,19 @@ function mainCtrlFn( $scope, mainService, $rootScope ) {
 	function getSupplierInfo(){
 		mainService.getSupplierInfo()
 			.then( function( data ) {
-				$scope.credentials.supplier = data.data[0]
+				$scope.credentials.supplier = data.data
 		})
 	}
 
-	function setProductOrdered( productID, clientID, newOrdered ){
-		mainService.setProductOrdered( productID, clientID, newOrdered )
-		// 		.then( function( data ) {
-		// 				console.log( data )
-		// 		})
+	function setProductOrdered( product ){
+		mainService.setProductOrdered( product )
+			.then( function( data ) { 
+				console.log( 'productOrdered set correctly' )
+			})
+			.catch( function( err ) {
+			})
 	}
+
 } // @end mainCtrlFn()
 
 mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope' ];

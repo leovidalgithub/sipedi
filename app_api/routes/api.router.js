@@ -8,5 +8,6 @@ apiRouter.get( '/products/:clientID', apiHandler.getProductsByClientID );
 apiRouter.get( '/clients/:supplier', apiHandler.getClientsBySupplier );
 apiRouter.get( '/supplier/:supplier', apiHandler.getSupplierInfo );
 apiRouter.post( '/products/setOrdered/', apiHandler.setProductOrdered );
+apiRouter.post( '/products/setQuantity/', apiHandler.setProductQuantity );
 
 module.exports = apiRouter;

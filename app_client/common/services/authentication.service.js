@@ -5,7 +5,7 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 			console.log( 'Token saved' )
 		}
 
-		function setCredentials() {
+		function setCredentials() { // get -> token & payload and set credentials 
 			$rootScope.credentials = {};
 			var token = getToken();
 			var tokenPayload = jwtHelper.decodeToken( token );
@@ -40,12 +40,16 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 			console.log( 'logout bye...' )
 		}
 
+		register = function( user ) {
+			return $http.post('/login/register', user)
+		}
+
 		return {
 			saveToken : saveToken,
 			setCredentials : setCredentials,
 			getToken : getToken,
 			isLoggedIn : isLoggedIn,
-			// register : register,
+			register : register,
 			login : login,
 			logout : logout
 		}

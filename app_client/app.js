@@ -8,7 +8,8 @@ var angular               = require('angular'),
 	authenticationService = require('./common/services/authentication.service'),
 	mainService           = require('./common/services/main.service'),
 	loginCtrl             = require('./views/login/login.controller'),
-	mainCtrl              = require('./views/main/main.controller');
+	mainCtrl              = require('./views/main/main.controller'),
+	modalCtrl             = require('./views/main/modal.controller');
 
 angular.module('sipediApp', [ ngRoute, angularJwt] )
 	.run( initialConfig )
@@ -18,4 +19,5 @@ angular.module('sipediApp', [ ngRoute, angularJwt] )
 	.service( 'mainService', mainService )
 	.controller( 'loginCtrl', loginCtrl )
 	.controller( 'mainCtrl', mainCtrl )
+	.controller( 'modalCtrl', modalCtrl )
 

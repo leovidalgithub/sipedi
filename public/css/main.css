@@ -27,7 +27,7 @@
 		margin-right: 3px;
 	}
 
-	#main .product.ordered {
+	#main .product.productOrdered {
 	background-color: #6C0; /* 6F0 3F0 */
 	}
 	
@@ -53,4 +53,27 @@
 		width: 80%;
 		margin: auto;
 
+	}
+
+/********************** CHANGE PRODUCT QUANTITY MODAL */
+	#main #myModal .modal-header {
+		text-align: center;
+	}
+
+	#main #myModal .modal-body {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-around;
+		align-items: center;
+		text-align: center;
+	}
+
+	#main #myModal /* buttons and span quantity */
+	.modal-body .changeQantity {
+		width: 65px;
+		height: 60px;
+		font-size: 30px;
+		color: #3d3d3d;
+		border-radius: 10px;
+		border-style: none;
 	}

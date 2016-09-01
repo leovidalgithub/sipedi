@@ -40,18 +40,32 @@ var verifyToken = require('../../services/verifyToken.js');
 			})
 	}
 	module.exports.register = function( req, res ) {
-		// console.log( 'post : login/register' );
-		// var user = new User();
-		// user.email = req.body.email;
-		// user.admin = false;
-		// user.supplier = 'vinolas';
-		// user.active = true;
-		// user.name = 'Pedro López';
-		// user.contat = 'Pedrito';
-		// user.address = 'Av. Sucre, Los Dos Caminos';
-		// user.phone_numbers = ['234 56 77', '234 21 90'];
-		// user.setPassword( req.body.password );
-		// user.save(function( err ) {
-		// 	res.status( 200 ).send( 'data saved!' );
-		// });
+
+		var userData = {
+			email : req.body.email,
+			password : req.body.password,
+			admin : false,
+			supplier : 'vinolas',
+			active : true,
+			name : 'Sacromonte',
+			contact : 'José',
+			address :  'Sabadell',
+			phone_numbers : ['689 444 555', '93 565 111'],
+			userDemand : 0
+		};
+
+		var newUser = new User();
+		newUser.createNewUser( userData )
+			.then( function( newUserSaved ) {
+				var token = newUserSaved.generateJwt( newUserSaved );
+				// http://stackoverflow.com/questions/38085582/express-4-chaining-res-json-with-promise-then-does-not-work
+				// res.status( 200 ).res.json( { 'token'   : token } )
+				// return res.json.bind({ 'token'   : token })
+				return res.json( { 'token'   : token } )
+			})
+			.catch( function( err ) {
+				console.log( err );
+				res.status( 403 ).json( 'Error creating new user' );
+			})
+
 	}

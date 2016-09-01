@@ -34,76 +34,19 @@
 		<div class="tab-content">
 			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
 
-				<div ng-click="productClicked($event, value_2)" ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock, 'ordered':value_2.ordered}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
+				<div ng-click="productClicked($event, value_2)" ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock, 'productOrdered':value_2.productOrdered}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
 
 					<div>{{ value_2.product }}</div>
-					<div ng-click="quantityClicked($event, value_2)" class="quantity">{{ value_2.quantity }}</div>
+					<!-- <div data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, value_2)" class="quantity">{{ value_2.quantity }}</div> -->
+					<button type="button" class="btn btn-info btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, value_2)">{{ value_2.quantity }}</button>
 
 				</div>
-
 			</div>
+<!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Abrir Modal</button> -->
+
 		</div>
+
+		<div ng-include="'views/main/modal.html'"></div>
 
 	</div>
 </div> <!-- @end #main -->
-
-
-
-<!-- ng-class="{'outOfStock':!value_2.stock, 'ordered':true}" -->
-<!-- 		<div class="tab-content">
-			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
-				<div ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
-					<div>{{ value_2.product }}</div>
-					<div ng-class="'quantity'" ng-repeat="( key3, value_3 ) in value_2.clients | filter : {'client' : credentials.clientID }">{{ value_3.quantity }}</div>
-				</div>
-			</div>
-		</div>
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 	<div class="row">
-		<div class="col-md-12">
-			<div class="panel with-nav-tabs panel-primary">
-				<div class="panel-heading">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1primary" data-toggle="tab">Primary 1</a></li>
-							<li><a href="#tab2primary" data-toggle="tab">Primary 2</a></li>
-							<li><a href="#tab3primary" data-toggle="tab">Primary 3</a></li>
-						</ul>
-				</div>
-				<div class="panel-body">
-					<div class="tab-content">
-						<div class="tab-pane fade in active" id="tab1primary">*Primary 1</div>
-						<div class="tab-pane fade" id="tab2primary">*Primary 2</div>
-						<div class="tab-pane fade" id="tab3primary">*Primary 3</div>
-						<div class="tab-pane fade" id="tab4primary">*Primary 4</div>
-						<div class="tab-pane fade" id="tab5primary">*Primary 5</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
- -->
