@@ -1,6 +1,8 @@
 function modalCtrlFn( $scope, $rootScope, mainService ) {
 
 	$scope.$parent.$parent.quantityClicked = function( $event, product ) {
+		clearInterval( $scope.$parent.$parent.LoadTimerId );
+
 		$scope.product = product;
 		$scope.modalQuantityNumber = product.quantity;
 		$scope.$parent.$parent.changeQuantityMode = true;
@@ -29,7 +31,9 @@ function modalCtrlFn( $scope, $rootScope, mainService ) {
 		if ( $scope.modalQuantityNumber < 0) $scope.modalQuantityNumber = 0;
 	});
 
-
+	$('#myModal').on('hide.bs.modal', function ( e ) { // hidden.bs.modal fires after modal closes
+		$scope.$parent.$parent.setLoadTimer();
+	})
 
 } // @end modalCtrlFn()
 
@@ -39,4 +43,3 @@ module.exports = modalCtrlFn;
 	// OPEN MODAL EVENT
 	// $('#myModal').on('show.bs.modal', function (e) {})
 	// CLOSED MODAL EVENT
-	// $('#myModal').on('hide.bs.modal', function ( e ) {}) // hidden.bs.modal se dispara después de haberse cerrado

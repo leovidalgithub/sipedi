@@ -1,4 +1,4 @@
-function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
+function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $location ) {
 
 		function saveToken( token ) {
 			$window.localStorage['mean-token'] = token;
@@ -9,9 +9,9 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 			$rootScope.credentials = {};
 			var token = getToken();
 			var tokenPayload = jwtHelper.decodeToken( token );
-
 			// saving user credentials in $rootScope.credentials
 			$rootScope.credentials.userID = tokenPayload._doc._id;
+			$rootScope.credentials.name = tokenPayload._doc.name;
 			$rootScope.credentials.admin = tokenPayload._doc.admin;
 			$rootScope.credentials.supplier = tokenPayload._doc.supplier
 		}
@@ -37,6 +37,7 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 
 		function logout() {
 			$window.localStorage.removeItem( 'mean-token' );
+			$location.path( '/' );
 			console.log( 'logout bye...' )
 		}
 
@@ -55,5 +56,5 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper ) {
 		}
 }
 
-authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper' ];
+authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper', '$location' ];
 module.exports = authenticationServiceFn;

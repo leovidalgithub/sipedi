@@ -1,6 +1,5 @@
 
 function loginCtrlFn( $location, authenticationService, $rootScope ) {
-	this.sipedi = 'SiPEDI';
 	this.remember = true; // remember password
 
 	this.loginButton = function() { // ---------------- login

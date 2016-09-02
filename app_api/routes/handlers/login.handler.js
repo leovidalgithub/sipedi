@@ -45,12 +45,12 @@ var verifyToken = require('../../services/verifyToken.js');
 			email : req.body.email,
 			password : req.body.password,
 			admin : false,
-			supplier : 'vinolas',
+			supplier : 'valero',
 			active : true,
-			name : 'Sacromonte',
-			contact : 'José',
-			address :  'Sabadell',
-			phone_numbers : ['689 444 555', '93 565 111'],
+			name : 'Bar Metrópolis',
+			contact : 'Paco',
+			address :  'Eix Macià, Sabadell 41',
+			phone_numbers : ['666 45 56 77'],
 			userDemand : 0
 		};
 

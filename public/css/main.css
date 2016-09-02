@@ -1,10 +1,21 @@
 	#main {
 		margin-top: 60px;
 	}
+	#main .controls {
+		/*border: solid 1px orange;*/
+	}
 	#main .containerX {
-		width: 60%;
+		width: 80%;
 		margin: auto;
 	}
+	#main #clientsSelect {
+		width: 50%;
+		margin: auto;
+	}
+	#main #clientsSelect span {
+		font-size: 24px !important;
+	}
+	
 	#main .product {
 		background-color: #CCC;
 		color: #333;
@@ -13,7 +24,7 @@
 		padding-left: 40px;
 		padding-right: 40px;
 		border-radius: 3px;
-		height: 60px;
+		height: 65px;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
@@ -21,10 +32,11 @@
 		cursor: pointer;
 	}
 	#main .product:hover {
-		font-size: 19px;
-		border: solid 2px white;
-		margin-left: 3px;
-		margin-right: 3px;
+		/*font-size: 19px;*/
+		border: solid 1px white;
+		margin-left: 2px;
+		margin-right: 2px;
+		/*color: wheat;*/
 	}
 
 	#main .product.productOrdered {
@@ -37,11 +49,8 @@
 		pointer-events: none;
 	}
 
-	#main li a {
-		/*color: black;*/
-	}
 	#main .tab-content {
-		margin-top: 20px;
+		margin-top: 15px;
 	}
 
 	#main #selectClients {
@@ -50,14 +59,16 @@
 	}
 	#main form {
 		text-align: center;
-		width: 80%;
-		margin: auto;
+		/*width: 80%;*/
+		/*margin: auto;*/
 
 	}
 
 /********************** CHANGE PRODUCT QUANTITY MODAL */
-	#main #myModal .modal-header {
+	#main #myModal .modal-header, 
+	#main #myModal .modal-footer {
 		text-align: center;
+		color: #333;
 	}
 
 	#main #myModal .modal-body {
@@ -73,7 +84,19 @@
 		width: 65px;
 		height: 60px;
 		font-size: 30px;
-		color: #3d3d3d;
 		border-radius: 10px;
 		border-style: none;
 	}
+	#main #myModal /* buttons */
+	.modal-body button.changeQantity {
+		color: white;
+	}
+	#main #myModal /* buttons */
+	.modal-body span.changeQantity {
+		color: #333;
+	}
+	#main #myModal /* buttons */
+	.modal-body span.changeQantity {
+		line-height: 60px;
+	}
+/*******************************************************/

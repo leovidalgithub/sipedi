@@ -29,20 +29,17 @@
 	})
 
 	// productSchema.statics.setProductOrdered = function( data ){
-	// 	var productID = data.productID,
-	// 	clientID = data.clientID,
-	// 	newProductOrdered = data.newProductOrdered;
-	// 	// var myPromise;
-	// 	this.findById( productID, function ( err, productFound ) {
-	// 		var client = productFound.clients.find( function( el ) {
-	// 			return el._id == clientID
-	// 		});
-	// 		client.productOrdered = newProductOrdered;
-	// 		return productFound.save();
-	// 		// myPromise = productFound.save();
-	// 		console.log( typeof(myPromise));
+	// 	var productID         = data.productID,
+	// 		clientID          = data.clientID,
+	// 		newProductOrdered = data.newProductOrdered;
+	// 	this.findById( productID )
+	// 		.then( function ( productFound ) {
+	// 			var client = productFound.clients.find( function( el ) {
+	// 				return el._id == clientID
+	// 			});
+	// 			client.productOrdered = newProductOrdered;
+	// 			return productFound.save(); // return promise
 	// 	})
-	// 	// return myPromise;
 	// }
 
 	productSchema.methods.setProductOrdered = function( data ){

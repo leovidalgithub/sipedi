@@ -6,7 +6,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 			return $http.get( '/api/products/' + clientID + '?token=' + token )
 				.then( prepareProductsData.bind( null, clientID ) )
 				// .then( function( data ) {
-				// 	prepareProductsData( data )
+					// prepareProductsData( clientID, data )
 				// })
 		}
 

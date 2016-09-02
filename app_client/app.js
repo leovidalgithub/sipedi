@@ -9,7 +9,9 @@ var angular               = require('angular'),
 	mainService           = require('./common/services/main.service'),
 	loginCtrl             = require('./views/login/login.controller'),
 	mainCtrl              = require('./views/main/main.controller'),
-	modalCtrl             = require('./views/main/modal.controller');
+	modalCtrl             = require('./views/main/modal.controller'),
+	headerTagDirective    = require('./common/directives/headertag/headertag.directive.js'),
+	headerTagCtrl         = require('./common/directives/headertag/headertag.controller');
 
 angular.module('sipediApp', [ ngRoute, angularJwt] )
 	.run( initialConfig )
@@ -20,4 +22,6 @@ angular.module('sipediApp', [ ngRoute, angularJwt] )
 	.controller( 'loginCtrl', loginCtrl )
 	.controller( 'mainCtrl', mainCtrl )
 	.controller( 'modalCtrl', modalCtrl )
+	.directive( 'headertag', headerTagDirective )
+	.controller( 'headerTagCtrl', headerTagCtrl )
 

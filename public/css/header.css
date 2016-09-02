@@ -1,0 +1,38 @@
+#divHeader {
+	background-color:#333;
+	/*margin:auto;*/
+	width:100%;
+	/*height:10px;*/
+ 	color:white;
+	box-shadow: 2px 2px 7px orange;
+	/*border-radius: 5px;*/
+	padding:5px 55px;
+	opacity: .92;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	z-index: 10;
+	/*position:relative; /* para que funcione el absolute del img, su ancestro debe estar posicionado (ej. relative sin indicar top,bottom, etc.)*/
+}
+#divHeader .logo p {
+	text-shadow: 2px 2px 2px #666;
+	font-family:monospace, "Courier New", Courier;
+	font-size: 1.5vw;
+	padding: 0;
+	margin: 0;
+}
+#divHeader .logo span {
+	font-family: 'Days One', sans-serif;
+	font-size: 3vw;
+	color: orange;
+}
+#divHeader .login {
+	font-family: monospace;
+	font-size: 1.5vw;
+}
+#divHeader .login button {
+	margin-left: 15px;
+}

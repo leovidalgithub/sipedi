@@ -1,22 +1,35 @@
-/*
- * Specific styles of signin component
- */
-/*
- * General styles
- */
 #login {
     height: 100%;
     background-repeat: no-repeat;
     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    color: #333;
 }
 
+/* LOGO*************************************/
 #login .logo {
     text-align: center;
+    font-family: 'Days One', sans-serif;
+    font-size: 4.3vw;
+    margin: 20px auto;
 }
 
+#login .logo p {
+    font-family:monospace, "Courier New", Courier;
+    font-size: 1.5vw;
+    padding: 0;
+    margin: 0;
+}
+#login .logo span {
+    text-shadow: 2px 2px 4px #666;
+    font-family: 'Days One', sans-serif;
+    font-size: 4.5vw;
+    color: #333;
+}
+/*******************************************/
+
 #login .card-container.card {
-    max-width: 350px;
-    padding: 20px 40px;
+    max-width: 450px;
+    padding: 3px 40px 20px 40px;
 }
 
 #login .btn {

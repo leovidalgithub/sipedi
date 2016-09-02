@@ -10,4 +10,6 @@ apiRouter.get( '/supplier/:supplier', apiHandler.getSupplierInfo );
 apiRouter.post( '/products/setOrdered/', apiHandler.setProductOrdered );
 apiRouter.post( '/products/setQuantity/', apiHandler.setProductQuantity );
 
+apiRouter.post( '/addProductsClient/', apiHandler.addProductsClient );
+
 module.exports = apiRouter;

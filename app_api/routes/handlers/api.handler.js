@@ -11,6 +11,11 @@ var express     = require( 'express' ),
 
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
+
+	// next();
+	// return;
+
+
 	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
@@ -76,12 +81,12 @@ module.exports.setProductOrdered = function( req, res ) {
 	})
 
 	// Product.setProductOrdered( req.body )
-		// .then( function( data ) {
-		// 	return res.json( data )
-		// })
-		// .catch( function( err ) {
-		// 	return res.status( 403 ).res.send( 'Error setting productOrdered' )
-		// })
+	// 	.then( function( data ) {
+	// 		return res.json( data )
+	// 	})
+	// 	.catch( function( err ) {
+	// 		return res.status( 403 ).res.send( 'Error setting productOrdered' )
+	// 	})
 }
 
 module.exports.setProductQuantity = function( req, res ) {
@@ -96,4 +101,46 @@ module.exports.setProductQuantity = function( req, res ) {
 			})
 	})
 }
+
+module.exports.addProductsClient = function( req, res ) {
+	var clientId = '57c943e237f93d2861c97085';
+	var client1 = {
+		_id : clientId,
+		quantity : 4,
+		productOrdered : false
+	};
+
+	Product.findById( '57c74a0bb276c6201f8d2b53' )
+		.then( function( data ) {
+			var a = data.clients.filter( function( el ) {
+				return el._id == clientId
+			});
+			if (a.length == 0) {
+				data.clients.push( client1 );
+				data.save();
+			} 
+		})
+
+
+	// User.findOne( name : 'deedwdweew' )
+	// .exec(function (err, user ){
+ //        user.movies.push('deded')
+ //        user.save()
+	// })
+	// 	.then( function( data ) {
+	// 		var a = data.clients.filter( function( el ) {
+	// 			return el._id == clientId
+	// 		});
+	// 		if (a.length == 0) {
+	// 			data.clients.push( client1 );
+	// 			data.save();
+	// 		} 
+	// 	})
+
+
+
+
+	res.end()
+}
+
 
