@@ -12,9 +12,8 @@ var express     = require( 'express' ),
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
 
-	// next();
-	// return;
-
+	next();
+	return;
 
 	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token

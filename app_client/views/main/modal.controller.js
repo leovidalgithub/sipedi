@@ -1,11 +1,10 @@
 function modalCtrlFn( $scope, $rootScope, mainService ) {
 
 	$scope.$parent.$parent.quantityClicked = function( $event, product ) {
-		clearInterval( $scope.$parent.$parent.LoadTimerId );
-
+		// clearInterval( $scope.$parent.$parent.LoadTimerId );
+		$scope.$parent.$parent.changeQuantityMode = true;
 		$scope.product = product;
 		$scope.modalQuantityNumber = product.quantity;
-		$scope.$parent.$parent.changeQuantityMode = true;
 		// $event.stopPropagation()
 	}
 
@@ -32,7 +31,8 @@ function modalCtrlFn( $scope, $rootScope, mainService ) {
 	});
 
 	$('#myModal').on('hide.bs.modal', function ( e ) { // hidden.bs.modal fires after modal closes
-		$scope.$parent.$parent.setLoadTimer();
+		$scope.$parent.$parent.changeQuantityMode = false;
+		// $scope.$parent.$parent.setLoadTimer();
 	})
 
 } // @end modalCtrlFn()

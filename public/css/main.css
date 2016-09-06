@@ -9,11 +9,16 @@
 		margin: auto;
 	}
 	#main #clientsSelect {
-		width: 50%;
-		margin: auto;
+		width: 60%;
+		margin: 15px auto;
+
 	}
-	#main #clientsSelect span {
-		font-size: 24px !important;
+	#main #clientsSelect select {
+		width: 100%;
+		height: 30px;
+		color: black;
+		font-size: 24px;
+		border-radius: 5px;
 	}
 	
 	#main .product {

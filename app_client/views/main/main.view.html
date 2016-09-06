@@ -6,24 +6,49 @@
 			<h3 ng-hide="credentials.admin">Proveedor: {{ credentials.supplier.name }}</h3>
 			<h3 ng-show="credentials.admin">Cliente: {{ selectedClientModel.name }}</h3>
 
+			 <!-- CLIENTS SELECT -->
+			<div id="clientsSelect">
+				<form ng-show="credentials.admin">
+					<div class="form-group">
+						<label for="selectClients">Mis clientes</label>
+						<select id="selectClients" ng-change="clientChanged(selectedClientModel)" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
+					</div>
+				</form>
+			</div>
+
+		</div> <!-- @end div.controllers -->
+
+			 <!-- CLIENTS PRODUCTS -->
+		<uib-tabset type="pills" active="activeTabIndex">
+			<uib-tab active="activeTabIndex==$index" index="$index" ng-repeat="tab in products | unique : 'category' | orderBy : 'category'">
+				<uib-tab-heading>{{tab.category}}</uib-tab-heading>
+					<div class="product" ng-click="productClicked($event, item)" ng-class="{'outOfStock':!item.stock, 'productOrdered':item.productOrdered}" ng-value="item._id" ng-repeat="item in products | uniqueCategory : tab.category | orderBy : 'product'">
+						<span>{{item.product}}</span>
+						<button type="button" class="btn btn-info btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, item)">{{ item.quantity }}</button>
+					</div>
+			</uib-tab>
+		</uib-tabset>
+
+ <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
 			<!-- CLIENTS SELECT -->
-			<div id="clientsSelect" ng-show="credentials.admin">
+<!-- 			<div id="clientsSelect" ng-show="credentials.admin">
 				<div class="form-group">
 					<select class="selectpicker form-control" ng-change="clientChanged(selectedClientModel)" data-style="btn btn-default btn-md" data-live-search="true" ng-model="selectedClientModel" ng-options="item.name for item in clients" title="Mis Clientes"></select>
 				</div>
 			</div>
+ -->			
 			<!-- ADMIN BUTTON -->
-			<button type="button" class="btn btn-default btn-lg">
+<!-- 			<button type="button" class="btn btn-default btn-lg">
 				<span class="glyphicon glyphicon-cog"></span> Administrar
 			</button>
-		</div>
+ -->
 
 		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
+<!-- 		<ul class="nav nav-tabs" role="tablist">
 			<li ng-repeat="( key, value ) in products | uniqueCategory:'category' | orderBy : 'category'" ng-class="{'active':$first}" role="presentation"><a href="#{{ value.category }}" aria-controls="{{ value.category }}" role="tab" data-toggle="tab">{{ value.category }}</a></li>
 		</ul>
-
-		<!-- Tab panes -->
+ -->
+<!-- 		Tab panes
 		<div class="tab-content">
 			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category' | orderBy : 'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
 
@@ -35,7 +60,7 @@
 				</div>
 			</div>
 		</div>
-
+ -->
 		<div ng-include="'views/main/modal.html'"></div>
 
 	</div>

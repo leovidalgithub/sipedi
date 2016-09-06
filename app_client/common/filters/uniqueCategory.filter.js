@@ -1,40 +1,36 @@
 // app-client / common / filters / uniqueCategory.filter
 
-function uniqueCategory() {
-	return function( collection, keyname ) {
 
-		var output = [], 
-			keys   = [];
+	// angular.module( 'myApp' )
+		// .filter( 'uniqueCategory', function() {
 
-		angular.forEach( collection, function( item ) {
-
-			var key = item[keyname];
-
-			if( keys.indexOf( key ) === -1 ) {
-				keys.push( key );
-				output.push( item );
+		function uniqueCategory() {
+			return function( collection, keyname ) {
+				var arr = collection.filter(function( el ) {
+					return el.category === keyname
+				})
+			return arr
 			}
-		})
-		return output;
-		}
-}
+	}
 
 module.exports = uniqueCategory;
 
 
-// // app-client / common / filters / uniqueCategory.filter
-// 	angular.module( 'sipediApp' )
-// 		.filter( 'uniqueCategory', function() {
-// 			return function( collection, keyname ) {
-// 				var output = [], 
-// 					keys   = [];
-// 				angular.forEach( collection, function( item ) {
-// 					var key = item[keyname];
-// 					if( keys.indexOf( key ) === -1 ) {
-// 						keys.push( key );
-// 						output.push( item );
-// 					}
-// 			});
-// 			return output;
-// 			};
-// 	});
+
+// function uniqueCategory() {
+// 	return function( collection, keyname ) {
+// 		var output = [], 
+// 			keys   = [];
+// 		angular.forEach( collection, function( item ) {
+// 			var key = item[keyname];
+// 			if( keys.indexOf( key ) === -1 ) {
+// 				keys.push( key );
+// 				output.push( item );
+// 			}
+// 		})
+// 		return output;
+// 		}
+// }
+// module.exports = uniqueCategory;
+
+

@@ -1,6 +1,10 @@
 var angular               = require('angular'),
 	ngRoute               = require('angular-route'),
 	angularJwt            = require('angular-jwt'),
+	angularUnique         = require('../public/lib/angular/angular-unique'),
+	angularUiBootstrap    = require('../public/lib/angular/ui-bootstrap-tpls-2.1.3'),
+	// angularanimate        = require('./lib/angular/angular-animate.js'),
+	// angulartouch          = require('./lib/angular/angular-touch'),
 
 	initialConfig         = require('./common/config'),
 	configRoutes          = require('./common/routes'),
@@ -13,10 +17,10 @@ var angular               = require('angular'),
 	headerTagDirective    = require('./common/directives/headertag/headertag.directive.js'),
 	headerTagCtrl         = require('./common/directives/headertag/headertag.controller');
 
-angular.module('sipediApp', [ ngRoute, angularJwt] )
+angular.module('sipediApp', [ ngRoute, angularJwt, 'ui.bootstrap', 'ui.filters'] )
 	.run( initialConfig )
 	.config( configRoutes )
-	.filter( 'uniqueCategory', categoryFilter )
+	.filter( 'uniqueCategory', categoryFilter ) // filter for unique category
 	.service( 'authenticationService', authenticationService )
 	.service( 'mainService', mainService )
 	.controller( 'loginCtrl', loginCtrl )

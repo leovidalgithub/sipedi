@@ -2,7 +2,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function() {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.clientID;
+			var clientID = $rootScope.credentials.currentClientID;
 			return $http.get( '/api/products/' + clientID + '?token=' + token )
 				.then( prepareProductsData.bind( null, clientID ) )
 				// .then( function( data ) {
@@ -24,7 +24,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		setProductOrdered = function( product ) {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.clientID;
+			var clientID = $rootScope.credentials.currentClientID;
 			return $http.post( '/api/products/setOrdered/', {
 				token : token,
 				productID : product._id,
@@ -34,7 +34,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		setProductQuantity = function( product ) {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.clientID;
+			var clientID = $rootScope.credentials.currentClientID;
 			return $http.post( '/api/products/setQuantity/', {
 				token : token,
 				productID : product._id,

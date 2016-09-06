@@ -1,40 +1,34 @@
-function mainCtrlFn( $scope, mainService, $rootScope ) {
+function mainCtrlFn( $scope, mainService, $rootScope, $timeout ) {
 
-	// $( '.selectpicker' ).selectpicker( {
-	// 	style: 'btn-info',
-	// 	size: 1
-	// });
-
-	function initializeClientsSelect() {
-		$('.selectpicker').selectpicker({
-		    style: 'btn-primary',
-		    showIcon: true,
-		    title: 'Mis clientes',
-		    'font-size' : '23'
-		});
-		$('select').selectpicker('refresh')
-	}
+	// function initializeClientsSelect() {
+	// 	$('.selectpicker').selectpicker({
+	// 	    style: 'btn-primary',
+	// 	    showIcon: true,
+	// 	    title: 'Mis clientes',
+	// 	    'font-size' : '23'
+	// 	});
+	// 	$('select').selectpicker('refresh')
+	// }
 
 	if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
 		getClients()
 	} else { //								 CLIENT LOGGED
-		$rootScope.credentials.clientID = $rootScope.credentials.userID;
+		$rootScope.credentials.currentClientID = $rootScope.credentials.userID;
 		getProducts();
 		getSupplierInfo()
 	}
 
 	$scope.productClicked = function( $event, product ) {
-		if ( $scope.changeQuantityMode ) {
-			// $scope.product = product;
-			$scope.changeQuantityMode = false;
-			return;
+		if ( !$scope.changeQuantityMode ) { // if not in QuantityModal it means product click ordered
+			// $scope.changeQuantityMode = false;
+			// return;
+			product.productOrdered = product.productOrdered ? false : true;
+			setProductOrdered( product )
 		}
-		product.productOrdered = product.productOrdered ? false : true;
-		setProductOrdered( product )
 	}
 
 	$scope.clientChanged = function( client ) {
-		$rootScope.credentials.clientID = $scope.selectedClientModel._id;
+		$rootScope.credentials.currentClientID = $scope.selectedClientModel._id;
 		getProducts()
 	}
 
@@ -47,9 +41,14 @@ function mainCtrlFn( $scope, mainService, $rootScope ) {
 	function getProducts() {
 		mainService.getProductsByClientID()
 			.then( function( data ) {
-				$scope.products = data.data;
-				console.log($scope.products);
-				initializeClientsSelect();
+				if ( !$scope.changeQuantityMode ) { // while not in QuantityModal it can refresh products data
+					var tabIndex = $scope.activeTabIndex || 0; // save tab-products active index before refresh
+					$scope.products = data.data;
+					$timeout(function() {
+						$scope.activeTabIndex = tabIndex;
+					});
+					console.log('timer');
+				}
 			})
 	}
 
@@ -84,5 +83,5 @@ function mainCtrlFn( $scope, mainService, $rootScope ) {
 	$scope.setLoadTimer();
 } // @end mainCtrlFn()
 
-mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope' ];
+mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope', '$timeout' ];
 module.exports = mainCtrlFn;
