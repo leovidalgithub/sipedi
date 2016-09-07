@@ -1,41 +1,87 @@
-function mainCtrlFn( $scope, mainService, $rootScope, $timeout ) {
+function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenticationService ) {
 
-	// function initializeClientsSelect() {
-	// 	$('.selectpicker').selectpicker({
-	// 	    style: 'btn-primary',
-	// 	    showIcon: true,
-	// 	    title: 'Mis clientes',
-	// 	    'font-size' : '23'
-	// 	});
-	// 	$('select').selectpicker('refresh')
-	// }
+	function mainStart() {
+		if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
+			getClients()
+		} else { //								 CLIENT LOGGED
+			getProducts();
+			getSupplierInfo()
+		}
+		formatDemandDate()
+		$scope.setLoadTimer();
+	}
 
-	if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
-		getClients()
-	} else { //								 CLIENT LOGGED
-		$rootScope.credentials.currentClientID = $rootScope.credentials.userID;
-		getProducts();
-		getSupplierInfo()
+	formatDemandDate = function () {
+		var $demandButton  = $( '#main .demandButton button' );
+		var demandDate     = $rootScope.credentials.current.demandDate;
+		$scope.demandState = $rootScope.credentials.current.demandState;
+		$scope.demandDay   = moment( demandDate ).format( 'dddd' );
+		$scope.demandDate  = moment( demandDate ).format( 'MM Do YYYY' );
+		$scope.demandHour  = moment( demandDate ).format( 'h:mm a' );
+		$demandButton.removeClass( 'btn-default btn-danger btn-success' );
+		switch ( $scope.demandState ) {
+		    case 0:
+		    	$scope.demandLeyend = 'HACER PEDIDO';
+				$demandButton.addClass( 'btn-default' );
+		        break;
+		    case 1:
+		    	$scope.demandLeyend = 'PEDIDO HECHO:';
+				$demandButton.addClass( 'btn-success' );
+		        break;
+		    case 2:
+		    	$scope.demandLeyend = 'PEDIDO RECIBIDO:';
+				$demandButton.addClass( 'btn-danger' );
+		        break;
+		    default:
+		}
+	};
+
+	$scope.demandButton = function() {
+		var demandState = $rootScope.credentials.current.demandState;
+		if ( demandState === 0 ) {
+			$rootScope.credentials.current.demandState = 1
+		} else if ( demandState === 1 ) {
+			if ( $rootScope.credentials.admin ) {
+				$rootScope.credentials.current.demandState = 2
+			} else {
+				$rootScope.credentials.current.demandState = 0
+			}		
+		} else {
+			$rootScope.credentials.current.demandState = 0
+		}
+		$rootScope.credentials.current.demandDate = Date.now();
+		formatDemandDate();
+				mainService.setUserDemand()
+				.then( function( data ) {
+					console.log( data )
+			})
 	}
 
 	$scope.productClicked = function( $event, product ) {
 		if ( !$scope.changeQuantityMode ) { // if not in QuantityModal it means product click ordered
-			// $scope.changeQuantityMode = false;
-			// return;
 			product.productOrdered = product.productOrdered ? false : true;
 			setProductOrdered( product )
 		}
 	}
 
-	$scope.clientChanged = function( client ) {
-		$rootScope.credentials.currentClientID = $scope.selectedClientModel._id;
+	$scope.clientChanged = function() {
+		var currentClientId = $scope.selectedClientModel._id;
+		var currentClientInfo = $scope.clients.filter( function( client ) {
+			return client._id === currentClientId
+		})
+		$rootScope.credentials.current.clientID = currentClientId;
+		$rootScope.credentials.current.demandState = currentClientInfo[0].demandState;
+		$rootScope.credentials.current.demandDate = currentClientInfo[0].demandDate;
+
+		formatDemandDate();
 		getProducts()
 	}
 
 	$scope.setLoadTimer = function() {
 		$scope.LoadTimerId = setInterval( function() {
+			console.log('timer');
 			getProducts()
-		}, 6000)
+		}, 20000)
 	}
 
 	function getProducts() {
@@ -47,7 +93,6 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout ) {
 					$timeout(function() {
 						$scope.activeTabIndex = tabIndex;
 					});
-					console.log('timer');
 				}
 			})
 	}
@@ -80,8 +125,32 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout ) {
 			})
 	}
 
-	$scope.setLoadTimer();
+	 // main init
+	if ( !$rootScope.credentials) {
+		authenticationService.updateClientToken()
+			.then( function( token ) {
+				mainStart()
+			})
+			.catch( function( err ) {
+				console.log('Error at main init')
+			})
+	} else {
+		mainStart()
+	}
+
 } // @end mainCtrlFn()
 
-mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope', '$timeout' ];
+mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope', '$timeout', 'moment', 'authenticationService' ];
 module.exports = mainCtrlFn;
+
+
+
+	// function initializeClientsSelect() {
+	// 	$('.selectpicker').selectpicker({
+	// 	    style: 'btn-primary',
+	// 	    showIcon: true,
+	// 	    title: 'Mis clientes',
+	// 	    'font-size' : '23'
+	// 	});
+	// 	$('select').selectpicker('refresh')
+	// }

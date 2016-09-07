@@ -37,10 +37,14 @@
 		phone_numbers: [
 			{ type: String }
 		],
-		userDemand : {
+		demandState : {
 			type : Number,
 			required: true,
 			default: 0
+		},
+		demandDate : {
+			type : Date,
+			default : Date.now
 		},
 		hash: String,
 		salt: String
@@ -65,20 +69,31 @@
 		return this.findOne( { 'supplier' : supplier, 'admin' : true }, {} )
 	}
 
+	userSchema.statics.getClientInfo = function( clientId ) {
+		return this.findById( clientId )
+	}
+
+	userSchema.statics.setUserDemand = function( userInfo ) {
+		var clientId = userInfo.clientID;
+		var demandState = userInfo.demandState;
+		var demandDate = userInfo.demandDate;
+		return this.findByIdAndUpdate( clientId, { demandState : demandState, demandDate : demandDate } )
+	}
+
 	userSchema.methods.setPassword = function( password ){
 		this.salt = crypto.randomBytes( 16 ).toString( 'hex' );
 		this.hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
-	};	
+	}
 
 	userSchema.methods.validPassword = function( password ) {
 		var hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
 		return this.hash === hash;
-	};
+	}
 
 	userSchema.methods.generateJwt = function( user ) {
 		return jwt.sign( user, config.secret, { // create a token
 			expiresIn: 3600 // expires in 1 hour
 		})
-	};
+	}
 
 	module.exports = mongoose.model( 'User', userSchema )

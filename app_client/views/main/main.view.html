@@ -1,22 +1,41 @@
 <headertag></headertag>
+
  <br><br><br>
  <div id="main">
 	<div class="containerX">
-		<div class="controls">
-			<h3 ng-hide="credentials.admin">Proveedor: {{ credentials.supplier.name }}</h3>
-			<h3 ng-show="credentials.admin">Cliente: {{ selectedClientModel.name }}</h3>
-
-			 <!-- CLIENTS SELECT -->
-			<div id="clientsSelect">
-				<form ng-show="credentials.admin">
-					<div class="form-group">
-						<label for="selectClients">Mis clientes</label>
-						<select id="selectClients" ng-change="clientChanged(selectedClientModel)" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
-					</div>
-				</form>
+		<div class="row controls">
+			 <!-- CLIENT/SUPPLIER INFO -->
+			<div class="userInfo col-xs-6 col-md-3">
+				<!-- <h4 ng-hide="credentials.admin">{{ credentials.supplier.name }}</h4> -->
+				<!-- <h4 ng-show="credentials.admin">{{ selectedClientModel.name }}</h4> -->
+				<div class="logo">
+					<img src="http://66.media.tumblr.com/fb1ffff863f203b98302f1f06f541528/tumblr_o8pujgEE9G1st5lhmo1_1280.jpg">
+				</div>
 			</div>
 
-		</div> <!-- @end div.controllers -->
+<!-- {{ demandDay }}<br> -->
+
+			 <!-- ORDER BUTTON -->
+			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
+				<button ng-click="demandButton()" class="btn btn-default btn-block">
+					<strong>{{ demandLeyend }}</strong><br>
+					{{ demandState > 0 ? demandDay : '' }}<br>
+					{{ demandState > 0 ? demandDate : '' }}<br>
+					{{ demandState > 0 ? demandHour : '' }}<br>
+				</button>
+			</div>
+
+			 <!-- CLIENTS SELECT -->
+			<div ng-show="credentials.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
+				<!-- <form ng-show="credentials.admin"> -->
+					<form class="form-group">
+						<label for="selectClients">Mis clientes</label>
+						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
+					</form>
+				<!-- </form> -->
+			</div>
+
+		</div> <!-- @end div.controls row -->
 
 			 <!-- CLIENTS PRODUCTS -->
 		<uib-tabset type="pills" active="activeTabIndex">
@@ -29,7 +48,6 @@
 			</uib-tab>
 		</uib-tabset>
 
- <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
 			<!-- CLIENTS SELECT -->
 <!-- 			<div id="clientsSelect" ng-show="credentials.admin">
 				<div class="form-group">

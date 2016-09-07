@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ <div id="main">
+	<div class="containerX">
+		<div class="controls">
+			<h3 ng-hide="credentials.admin">Proveedor: {{ credentials.supplier.name }}</h3>
+			<h3 ng-show="credentials.admin">Cliente: {{ selectedClientModel.name }}</h3>
+
+			 <!-- CLIENTS SELECT -->
+			<div id="clientsSelect">
+				<form ng-show="credentials.admin">
+					<div class="form-group">
+						<label for="selectClients">Mis clientes</label>
+						<select id="selectClients">
+							<optgroup>
+								<option style="font-size: 42px;" value="qqqqq">Leonardo</option>
+								<option value="wwwww">Melanie</option>
+							</optgroup>
+						</select>
+					</div>
+				</form>
+			</div>
+
+		</div> <!-- @end div.controllers -->
+
+			 <!-- CLIENTS PRODUCTS -->
+		<uib-tabset type="pills" active="activeTabIndex">
+			<uib-tab active="activeTabIndex==$index" index="$index" ng-repeat="tab in products | unique : 'category' | orderBy : 'category'">
+				<uib-tab-heading>{{tab.category}}</uib-tab-heading>
+					<div class="product" ng-click="productClicked($event, item)" ng-class="{'outOfStock':!item.stock, 'productOrdered':item.productOrdered}" ng-value="item._id" ng-repeat="item in products | uniqueCategory : tab.category | orderBy : 'product'">
+						<span>{{item.product}}</span>
+						<button type="button" class="btn btn-info btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, item)">{{ item.quantity }}</button>
+					</div>
+			</uib-tab>
+		</uib-tabset>
+
+ <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
+
+	</div>
+</div> <!-- @end #main -->
+</body>
+</html>

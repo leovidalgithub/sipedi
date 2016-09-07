@@ -2,22 +2,36 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 
 		function saveToken( token ) {
 			$window.localStorage['mean-token'] = token;
-			console.log( 'Token saved' )
+			console.log( 'Token saved' );
+			setCredentials( token );
 		}
 
-		function setCredentials() { // get -> token & payload and set credentials 
-			$rootScope.credentials = {};
+		function updateClientToken() {
 			var token = getToken();
 			var tokenPayload = jwtHelper.decodeToken( token );
-			// saving user credentials in $rootScope.credentials
+			var clientId = tokenPayload._doc._id;
+			return $http.get( '/login/getClientToken/' + clientId )
+				.then( function( token ) {
+					saveToken( token.data );
+					return;
+				})
+		}
+
+		function setCredentials( token ) { // get -> token & payload and set credentials 
+			$rootScope.credentials = {};
+			$rootScope.credentials.current = {};
+			// var token = getToken();
+			var tokenPayload = jwtHelper.decodeToken( token );
+			// console.log(tokenPayload);
+			// logged user credentials
 			$rootScope.credentials.userID = tokenPayload._doc._id;
 			$rootScope.credentials.name = tokenPayload._doc.name;
 			$rootScope.credentials.admin = tokenPayload._doc.admin;
-			$rootScope.credentials.supplier = tokenPayload._doc.supplier
-		}
-
-		function getToken() {
-			return $window.localStorage['mean-token']
+			$rootScope.credentials.supplier = tokenPayload._doc.supplier;
+			// current client info
+			$rootScope.credentials.current.clientID = tokenPayload._doc._id;
+			$rootScope.credentials.current.demandState = tokenPayload._doc.demandState;
+			$rootScope.credentials.current.demandDate = tokenPayload._doc.demandDate;
 		}
 
 		// verifies if token exists and if it has expired
@@ -29,6 +43,10 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 			} catch( e ) {
 				return false
 			}
+		}
+
+		function getToken() {
+			return $window.localStorage['mean-token']
 		}
 
 		function login( user ) {
@@ -52,7 +70,8 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 			isLoggedIn : isLoggedIn,
 			register : register,
 			login : login,
-			logout : logout
+			logout : logout,
+			updateClientToken : updateClientToken
 		}
 }
 

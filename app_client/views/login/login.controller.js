@@ -7,7 +7,6 @@ function loginCtrlFn( $location, authenticationService, $rootScope ) {
 			.then( function( data ) {
 				//if login OK, saves token and set user credentials in $rootScope.credentials
 				authenticationService.saveToken( data.data.token );
-				authenticationService.setCredentials();
 				console.log( 'LOGIN CORRECT' );
 				$location.path( 'main' );
 			})

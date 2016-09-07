@@ -2,18 +2,18 @@ var express     = require( 'express' ),
 	apiRouter   = express.Router(),
 	verifyToken = require( '../../services/verifyToken.js' ),
 	connect     = require( '../../db/db' ).connection,
-	User = require('../../db/models/users');
+	User        = require('../../db/models/users'),
+	Product     = require('../../db/models/products');
 
-	var mongoose = require( 'mongoose' ),
-		Schema   = mongoose.Schema,
-		ObjectId = Schema.ObjectId,
-		Product = require('../../db/models/products');
+	// var mongoose = require( 'mongoose' ),
+	// 	Schema   = mongoose.Schema,
+	// 	ObjectId = Schema.ObjectId,
 
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
 
-	next();
-	return;
+	// next();
+	// return;
 
 	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token
@@ -101,6 +101,16 @@ module.exports.setProductQuantity = function( req, res ) {
 	})
 }
 
+module.exports.setUserDemand = function( req, res ) {
+	User.setUserDemand( req.body )
+		.then( function( data ) {
+			return res.json( data )
+		})
+		.catch( function( err ) {
+			return res.status( 403 ).res.send( 'Error setting userDemand' )
+		})
+}
+
 module.exports.addProductsClient = function( req, res ) {
 	var clientId = '57c943e237f93d2861c97085';
 	var client1 = {
@@ -108,7 +118,6 @@ module.exports.addProductsClient = function( req, res ) {
 		quantity : 4,
 		productOrdered : false
 	};
-
 	Product.findById( '57c74a0bb276c6201f8d2b53' )
 		.then( function( data ) {
 			var a = data.clients.filter( function( el ) {
@@ -119,8 +128,6 @@ module.exports.addProductsClient = function( req, res ) {
 				data.save();
 			} 
 		})
-
-
 	// User.findOne( name : 'deedwdweew' )
 	// .exec(function (err, user ){
  //        user.movies.push('deded')
@@ -135,10 +142,6 @@ module.exports.addProductsClient = function( req, res ) {
 	// 			data.save();
 	// 		} 
 	// 	})
-
-
-
-
 	res.end()
 }
 

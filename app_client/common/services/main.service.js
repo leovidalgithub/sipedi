@@ -2,7 +2,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function() {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.currentClientID;
+			var clientID = $rootScope.credentials.current.clientID;
 			return $http.get( '/api/products/' + clientID + '?token=' + token )
 				.then( prepareProductsData.bind( null, clientID ) )
 				// .then( function( data ) {
@@ -24,7 +24,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		setProductOrdered = function( product ) {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.currentClientID;
+			var clientID = $rootScope.credentials.current.clientID;
 			return $http.post( '/api/products/setOrdered/', {
 				token : token,
 				productID : product._id,
@@ -34,12 +34,24 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		setProductQuantity = function( product ) {
 			var token = authenticationService.getToken();
-			var clientID = $rootScope.credentials.currentClientID;
+			var clientID = $rootScope.credentials.current.clientID;
 			return $http.post( '/api/products/setQuantity/', {
-				token : token,
-				productID : product._id,
-				clientID : clientID,
+				token              : token,
+				productID          : product._id,
+				clientID           : clientID,
 				newProductQuantity : product.quantity } )
+		}
+
+		setUserDemand = function() {
+			var token = authenticationService.getToken();
+			var clientID = $rootScope.credentials.current.clientID;
+			var demandState = $rootScope.credentials.current.demandState;
+			var demandDate = $rootScope.credentials.current.demandDate;
+			return $http.post( '/api/user/setUserDemand/', {
+				token       : token,
+				clientID    : clientID,
+				demandState : demandState,
+				demandDate  : demandDate } )
 		}
 
 		return {
@@ -47,7 +59,8 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 			getClientsBySupplier  : getClientsBySupplier,
 			getSupplierInfo       : getSupplierInfo,
 			setProductOrdered     : setProductOrdered,
-			setProductQuantity     : setProductQuantity
+			setProductQuantity    : setProductQuantity,
+			setUserDemand         : setUserDemand
 		}
 
 		function prepareProductsData( clientID, data ) {

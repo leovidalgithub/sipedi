@@ -1,26 +1,13 @@
-// app-client / common / config / index
-
-function run ( $rootScope, $location, authenticationService ) {
-	// every time app runs, first of all, verifies authentication through token
-	// if so, sets user credentials in $rootScope.credentials
-	if ( authenticationService.isLoggedIn() ) {
-				authenticationService.setCredentials();
-				$location.path( 'main' )
-	} else {
-				$location.path( '/' )
-	}
-
-	$rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {
+function run ( $location, authenticationService ) {
+	// every time app runs, first of all, verifies valid token
 		if ( $location.path() !== '/' ) {
-			if ( authenticationService.isLoggedIn()) {
-						authenticationService.setCredentials();
-						// $location.path('main')
-			} else {
-						$location.path( '/' )
+			if ( !authenticationService.isLoggedIn() ) {
+					$location.path( '/' )
 			}
-	  	}
-	})
+		}
+	// $rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {})
 }
 
-run.$inject = [ '$rootScope', '$location', 'authenticationService' ];
+run.$inject = [ '$location', 'authenticationService' ];
 module.exports = run;
+
