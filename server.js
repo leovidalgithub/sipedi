@@ -2,7 +2,7 @@ var express    = require( 'express' ),
 	app        = express(),
 	path       = require( 'path' ),
 	bodyParser = require( 'body-parser' ),
-	PORT = process.env.PORT || 8080;
+	PORT       = process.env.PORT || 8080;
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
@@ -18,12 +18,15 @@ app.use( '/login', loginRouter );
 var apiRouter = require( './app_api/routes/api.router' );
 app.use( '/api', apiRouter );
 
+app.use( '/main', function( req, res, next ) {
+	res.redirect( '/#/main' );
+	next();
+});
+
 var conn = require( './app_api/db/db' );
 	conn.connection.on( 'connected', function() {
-		console.log( '****Mongoose connected****' );
+		console.log( '****Mongoose SiPEDi connected****' );
 		app.listen( PORT, function() {
-		console.log( 'SiPEDI now running on port ' + PORT )
+		console.log( 'SiPEDI is now running on port ' + PORT )
 	})
 })
-
-	// 	res.redirect('/tasks');

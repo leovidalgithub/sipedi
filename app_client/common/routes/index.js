@@ -18,8 +18,8 @@ function config ( $routeProvider, $locationProvider ) {
 		})
 		.otherwise( { redirectTo: '/' } )
 
-// use the HTML5 History API
-// $locationProvider.html5Mode(true)
+		// use the HTML5 History API
+		$locationProvider.html5Mode(true)
 }
 
 config.$inject = [ '$routeProvider', '$locationProvider'  ];

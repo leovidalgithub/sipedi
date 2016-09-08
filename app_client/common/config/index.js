@@ -1,5 +1,5 @@
 function run ( $location, authenticationService ) {
-	// every time app runs, first of all, verifies valid token
+		// every time app runs verifies a valid token
 		if ( $location.path() !== '/' ) {
 			if ( !authenticationService.isLoggedIn() ) {
 					$location.path( '/' )

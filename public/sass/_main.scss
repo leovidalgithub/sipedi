@@ -1,67 +1,94 @@
-* {margin: 0; padding: 0; transition: all 1s;}
-body {
-	background-color: #F5F5F5;	
-}
+	#main {
+		margin-top: 60px;
+	}
+	#main .containerX {
+		width: 75%;
+		margin: auto;
+	}
 
-header {
-	width: 100%;
-	padding: 35px;
-	background-color: black;
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	opacity: .9;
-	nav {
+/********************** TOP CONTROLS */
+	#main .controls {
+		margin-bottom: 15px;
+		border: solid 2px #8F87FC;
+		.userInfo {
+			border: dotted 1px yellow;
+			height: $controlsHeight;
+		}
+		.userInfo .logo {
+		 	border: solid 2px white;
+		 	height: 100%;
+		 	text-align: center;
+		 	img {
+			 	max-width: 100%;
+			 	max-height: 100%;
+		 	}
+		}
+		.clientsSelect {
+			border: dotted 3px blue;
+			height: $controlsHeight;
+			line-height: $controlsHeight / 2.5;
+			text-align: center;
+			label {
+				font-family: monospace;
+				font-size: 22px;
+				color: #333;
+			}
+			select {
+			 	width: 100%;
+			 	border-radius: 5px;
+				color: #333;
+				background-color: #E8E8E8;
+				font-size: 22px;
+			}
+		}
+		.demandButton {
+			border: dotted 1px red;
+			height: $controlsHeight;
+		}
+		button {
+			height: $controlsHeight;
+			width: 90%;
+			font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+			font-size: $fontSizeDemandButton;
+		&:hover {
+	 			opacity: .9;
+				font-size: $fontSizeDemandButton + .2;
+				// color: saturate( #FE9E7D, 30% );
+				color: #DDD8EC;
+			}
+			&.btn-default:hover{
+				color: #4E46EE;
+			}
+		}
+	}
+
+/********************** PRODUCTS */
+	#main .product {
+		background-color: #CCC;
+		color: #333;
+		font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+		font-size: 20px;
+		margin-bottom: 10px;
+		padding-left: 40px;
+		padding-right: 40px;
+		border-radius: 4px;
+		height: 65px;
 		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
-		align-items: center;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items:center;
+		cursor: pointer;
+		&:hover {
+			border: solid 1px white;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
+		&.productOrdered {
+			background-color: #6C0; /* 6F0 3F0 */
+		}
+		&.outOfStock {
+			background-color: #666;
+			text-decoration: line-through;
+			pointer-events: none;
+		}
 	}
-   .logo {
-	    color: #A5A5A5;
-	    font-size: $tamanoLetraHeader;
-	    font-weight: bold;
-	    margin-left: 40px;
-	    &:hover {
-	    color: royalblue;
-	    margin-left: 45px;
-	    cursor: pointer;
-	    }
-	}
-	a {
-		color: white;
-	    font-size: $tamanoLetraHeader - 6;
-	    padding: 10px 20px;
-	    border-radius: 50px;
-        &:hover{
-	        text-decoration: none;
-            background-color: royalblue;
-            color: black;
-        }
-	}
-}
-
-.container {
-	margin-top: 120px;
-}
-
-.jumbotron {
-	text-align: center;
-	h1 {
-		margin-top: 0;
-		margin-bottom: 30px;
-		color: #4C4B4B;
-	}
-}
-
-section form {
-	margin: 0;
-}
-
-// .inactiveLink {
-//    pointer-events: none;
-//    cursor: default;
-// }

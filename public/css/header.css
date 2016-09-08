@@ -1,11 +1,8 @@
 #divHeader {
 	background-color: black;
-	/*margin:auto;*/
 	width:100%;
-	/*height:10px;*/
  	color:white;
 	box-shadow: 2px 2px 7px orange;
-	/*border-radius: 5px;*/
 	padding:5px 55px;
 	opacity: .92;
 	display: flex;

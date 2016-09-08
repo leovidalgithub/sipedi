@@ -88,3 +88,25 @@ module.exports.addProductsClient = function( req, res ) {
      }
 ```
 
+**login.controller**
+
+
+```js
+      this.logout = function() {
+        authenticationService.logout()
+      }
+
+      this.register = function() { // --------------- register new user
+        authenticationService.register( this.credentials )
+          .then( function( data ) {
+            console.log('USER registred');
+            authenticationService.saveToken( data.data.token )
+          })
+          .catch( function( err ) {
+            console.log('USER register error')
+          })
+      }
+´´´
+
+
+

@@ -2,9 +2,317 @@
   transition: all .7s; }
 
 body {
-	/*background-color: #91A0FD;*/
-	background-color: #333;
-	color: white;
-	/*color: #333;*/
-}
+  background-color: white;
+  color: white; }
 
+#login {
+  background-image: linear-gradient(#6891a2, #0c6121);
+  color: #333; }
+
+/* LOGO*************************************/
+#login .logo {
+  text-align: center;
+  margin: 20px auto; }
+  #login .logo p {
+    font-family: monospace, "Courier New", Courier;
+    font-size: 1.5vw;
+    padding: 0;
+    margin: 0; }
+  #login .logo span {
+    text-shadow: 2px 2px 4px #666;
+    font-family: "Days One", sans-serif;
+    font-size: 4.5vw; }
+
+/*******************************************/
+#login #loginError .hide {
+  display: none; }
+
+#login .card-container.card {
+  max-width: 450px;
+  padding: 3px 40px 20px 40px; }
+
+#login .btn {
+  font-weight: 700;
+  height: 36px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+  cursor: default; }
+
+#login .card {
+  background-color: #F7F7F7;
+  /* just in case there no content*/
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  /* shadows and rounded borders */
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); }
+
+#login .profile-img-card {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 10px;
+  display: block;
+  border-radius: 50%; }
+
+/*
+ * Form styles
+ */
+#login .profile-name-card {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0 0;
+  min-height: 1em; }
+
+#login .reauth-email {
+  display: block;
+  color: #404040;
+  line-height: 2;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box; }
+
+#login
+.form-signin #inputEmail,
+#login
+.form-signin #inputPassword {
+  direction: ltr;
+  height: 44px;
+  font-size: 16px; }
+
+#login
+.form-signin input[type=email],
+#login
+.form-signin input[type=password],
+#login
+.form-signin input[type=text],
+#login
+.form-signin button {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  z-index: 1;
+  position: relative;
+  box-sizing: border-box; }
+
+#login
+.form-signin .form-control:focus {
+  border-color: #6891a2;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #6891a2; }
+
+#login
+.btn.btn-signin {
+  padding: 0px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  border-radius: 3px;
+  border: none;
+  transition: all 0.218s; }
+
+#login
+.forgot-password {
+  color: #6891a2; }
+
+#login
+.forgot-password:hover,
+#login
+.forgot-password:active,
+#login
+.forgot-password:focus {
+  color: #0c6121; }
+
+#divHeader {
+  background-color: #333;
+  width: 100%;
+  color: white;
+  box-shadow: 2px 2px 15px #4444FF;
+  padding: 5px 55px;
+  opacity: .92;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 10; }
+  #divHeader .logo {
+    margin-right: 35px; }
+  #divHeader .logo p {
+    text-shadow: 1px 1px 3px white;
+    font-family: monospace, "Courier New", Courier;
+    font-size: 1.8vw;
+    padding: 0;
+    margin: 0; }
+  #divHeader .logo span {
+    font-family: "Days One", sans-serif;
+    font-size: 3.1vw;
+    color: black; }
+  #divHeader .login {
+    font-family: monospace;
+    font-size: 1.7vw;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    #divHeader .login button {
+      margin-left: 15px;
+      font-size: 1.3vw; }
+
+@media screen and (max-width: 550px) {
+  #divHeader {
+    padding: 5px 15px; } }
+
+#main {
+  margin-top: 60px; }
+
+#main .containerX {
+  width: 75%;
+  margin: auto; }
+
+/********************** TOP CONTROLS */
+#main .controls {
+  margin-bottom: 15px;
+  border: solid 2px #8F87FC; }
+  #main .controls .userInfo {
+    border: dotted 1px yellow;
+    height: 120px; }
+  #main .controls .userInfo .logo {
+    border: solid 2px white;
+    height: 100%;
+    text-align: center; }
+    #main .controls .userInfo .logo img {
+      max-width: 100%;
+      max-height: 100%; }
+  #main .controls .clientsSelect {
+    border: dotted 3px blue;
+    height: 120px;
+    line-height: 48px;
+    text-align: center; }
+    #main .controls .clientsSelect label {
+      font-family: monospace;
+      font-size: 22px;
+      color: #333; }
+    #main .controls .clientsSelect select {
+      width: 100%;
+      border-radius: 5px;
+      color: #333;
+      background-color: #E8E8E8;
+      font-size: 22px; }
+  #main .controls .demandButton {
+    border: dotted 1px red;
+    height: 120px; }
+  #main .controls button {
+    height: 120px;
+    width: 90%;
+    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+    font-size: 16px; }
+    #main .controls button:hover {
+      opacity: .9;
+      font-size: 16.2px;
+      color: #DDD8EC; }
+    #main .controls button.btn-default:hover {
+      color: #4E46EE; }
+
+/********************** PRODUCTS */
+#main .product {
+  background-color: #CCC;
+  color: #333;
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 4px;
+  height: 65px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer; }
+  #main .product:hover {
+    border: solid 1px white;
+    margin-left: 2px;
+    margin-right: 2px; }
+  #main .product.productOrdered {
+    background-color: #6C0;
+    /* 6F0 3F0 */ }
+  #main .product.outOfStock {
+    background-color: #666;
+    text-decoration: line-through;
+    pointer-events: none; }
+
+/********************** CHANGE PRODUCT QUANTITY MODAL */
+#main #myModal .modal-header,
+#main #myModal .modal-footer {
+  text-align: center;
+  color: #333; }
+
+#main #myModal .modal-body {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center; }
+
+#main #myModal
+.modal-body .changeQantity {
+  width: 65px;
+  height: 60px;
+  font-size: 30px;
+  border-radius: 10px;
+  border-style: none; }
+
+#main #myModal
+.modal-body button.changeQantity {
+  color: white; }
+
+#main #myModal
+.modal-body span.changeQantity {
+  color: #333; }
+
+#main #myModal
+.modal-body span.changeQantity {
+  line-height: 60px; }
+
+/*******************************************************/

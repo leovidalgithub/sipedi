@@ -1,4 +1,3 @@
-
 function loginCtrlFn( $location, authenticationService, $rootScope ) {
 	this.remember = true; // remember password
 
@@ -14,23 +13,12 @@ function loginCtrlFn( $location, authenticationService, $rootScope ) {
 				//if login fails, removes token
 				authenticationService.logout();
 				console.log('LOGIN ERROR' );
+				$( '#login #loginError' ).removeClass( 'hide' );
+				setTimeout( function() {
+					$( '#login #loginError' ).addClass( 'hide' );
+				}, 2500)
 			})
-	}
-
-	this.logout = function() {
-		authenticationService.logout()
-	}
-
-	this.register = function() { // --------------- register new user
-		authenticationService.register( this.credentials )
-			.then( function( data ) {
-				console.log('USER registred');
-				authenticationService.saveToken( data.data.token )
-			})
-			.catch( function( err ) {
-				console.log('USER register error')
-			})
-	}
+	}	
 
 }
 
