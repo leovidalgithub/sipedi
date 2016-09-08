@@ -151,7 +151,8 @@ body {
           align-items: center;
   position: fixed;
   top: 0;
-  z-index: 10; }
+  z-index: 10;
+  margin-bottom: 150px; }
   #divHeader .logo {
     margin-right: 35px; }
   #divHeader .logo p {
@@ -188,7 +189,7 @@ body {
     padding: 5px 15px; } }
 
 #main {
-  margin-top: 60px; }
+  margin-top: 120px; }
 
 #main .containerX {
   width: 75%;
@@ -196,22 +197,18 @@ body {
 
 /********************** TOP CONTROLS */
 #main .controls {
-  margin-bottom: 15px;
-  border: solid 2px #8F87FC; }
+  margin-bottom: 15px; }
   #main .controls .userInfo {
-    border: dotted 1px yellow;
-    height: 120px; }
+    height: 105px; }
   #main .controls .userInfo .logo {
-    border: solid 2px white;
     height: 100%;
     text-align: center; }
     #main .controls .userInfo .logo img {
       max-width: 100%;
       max-height: 100%; }
   #main .controls .clientsSelect {
-    border: dotted 3px blue;
-    height: 120px;
-    line-height: 48px;
+    height: 105px;
+    line-height: 42px;
     text-align: center; }
     #main .controls .clientsSelect label {
       font-family: monospace;
@@ -224,21 +221,29 @@ body {
       background-color: #E8E8E8;
       font-size: 22px; }
   #main .controls .demandButton {
-    border: dotted 1px red;
-    height: 120px; }
-  #main .controls button {
-    height: 120px;
-    width: 90%;
-    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-    font-size: 16px; }
-    #main .controls button:hover {
-      opacity: .9;
-      font-size: 16.2px;
-      color: #DDD8EC; }
-    #main .controls button.btn-default:hover {
-      color: #4E46EE; }
+    height: 105px; }
+    #main .controls .demandButton button {
+      height: 100%;
+      width: 90%;
+      font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+      font-size: 16px; }
+      #main .controls .demandButton button:hover {
+        opacity: .9;
+        font-size: 16.2px;
+        color: #DDD8EC; }
+      #main .controls .demandButton button.btn-default:hover {
+        color: #4E46EE; }
 
 /********************** PRODUCTS */
+#main .categories {
+  font-size: 17px;
+  margin-bottom: 10px; }
+
+#main button.quantity {
+  font-size: 18px;
+  width: 60px;
+  text-align: center; }
+
 #main .product {
   background-color: #CCC;
   color: #333;
@@ -263,7 +268,7 @@ body {
           align-items: center;
   cursor: pointer; }
   #main .product:hover {
-    border: solid 1px white;
+    border: solid 1px #FE8D07;
     margin-left: 2px;
     margin-right: 2px; }
   #main .product.productOrdered {
@@ -273,6 +278,56 @@ body {
     background-color: #666;
     text-decoration: line-through;
     pointer-events: none; }
+
+@media screen and (max-width: 1040px) {
+  #main {
+    margin-top: 100px; } }
+
+@media screen and (max-width: 850px) {
+  #main {
+    margin-top: 80px; } }
+
+@media screen and (max-width: 550px) {
+  #main {
+    margin-top: 60px; } }
+
+@media screen and (max-width: 480px) {
+  #main .controls .demandButton button {
+    font-size: 14px;
+    height: 100px;
+    width: 100%; }
+    #main .controls .demandButton button:hover {
+      font-size: 14px; } }
+
+@media screen and (max-width: 420px) {
+  #main .controls .demandButton button {
+    font-size: 12px;
+    height: 80px; } }
+
+@media screen and (max-width: 385px) {
+  #main .controls .demandButton button {
+    font-size: 11px; }
+    #main .controls .demandButton button:hover {
+      font-size: 12px; } }
+
+@media screen and (max-width: 340px) {
+  #main .controls .demandButton button {
+    font-size: 10px; } }
+
+@media screen and (max-width: 500px) {
+  #main .categories {
+    font-size: 15px; } }
+
+@media screen and (max-width: 450px) {
+  #main .product {
+    font-size: 16px; } }
+
+@media screen and (max-width: 450px) {
+  #main .containerX {
+    width: 95%; }
+  #main .product {
+    padding-left: 10px;
+    padding-right: 20px; } }
 
 /********************** CHANGE PRODUCT QUANTITY MODAL */
 #main #myModal .modal-header,

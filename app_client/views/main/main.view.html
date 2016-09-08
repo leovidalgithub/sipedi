@@ -1,6 +1,4 @@
 <headertag></headertag>
-
- <br><br><br>
  <div id="main">
 	<div class="containerX">
 		<div class="row controls">
@@ -13,7 +11,7 @@
 				</div>
 			</div>
 
-			 <!-- ORDER BUTTON -->
+			 <!-- DEMAND BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
 				<button ng-click="demandButton()" class="btn btn-default btn-block">
 					<strong>{{ demandLeyend }}</strong><br>
@@ -28,20 +26,19 @@
 				<!-- <form ng-show="credentials.admin"> -->
 					<form class="form-group">
 						<label for="selectClients">Mis clientes</label>
-						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients track by item._id"></select>
+						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients | orderBy : 'name'"></select>
 					</form>
 				<!-- </form> -->
 			</div>
-
 		</div> <!-- @end div.controls row -->
 
 			 <!-- CLIENTS PRODUCTS -->
 		<uib-tabset type="pills" active="activeTabIndex">
-			<uib-tab active="activeTabIndex==$index" index="$index" ng-repeat="tab in products | unique : 'category' | orderBy : 'category'">
+			<uib-tab class="categories" active="activeTabIndex==$index" index="$index" ng-repeat="tab in products | unique : 'category' | orderBy : 'category'">
 				<uib-tab-heading>{{tab.category}}</uib-tab-heading>
 					<div class="product" ng-click="productClicked($event, item)" ng-class="{'outOfStock':!item.stock, 'productOrdered':item.productOrdered}" ng-value="item._id" ng-repeat="item in products | uniqueCategory : tab.category | orderBy : 'product'">
 						<span>{{item.product}}</span>
-						<button type="button" class="btn btn-info btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, item)">{{ item.quantity }}</button>
+						<button type="button" class="btn btn-primary btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, item)">{{ item.quantity }}</button>
 					</div>
 			</uib-tab>
 		</uib-tabset>

@@ -1,5 +1,5 @@
 	#main {
-		margin-top: 60px;
+		margin-top: 120px;
 	}
 	#main .containerX {
 		width: 75%;
@@ -9,13 +9,13 @@
 /********************** TOP CONTROLS */
 	#main .controls {
 		margin-bottom: 15px;
-		border: solid 2px #8F87FC;
+		// border: solid 2px green;
 		.userInfo {
-			border: dotted 1px yellow;
+			// border: dotted 1px yellow;
 			height: $controlsHeight;
 		}
 		.userInfo .logo {
-		 	border: solid 2px white;
+		 	// border: solid 2px white;
 		 	height: 100%;
 		 	text-align: center;
 		 	img {
@@ -24,7 +24,7 @@
 		 	}
 		}
 		.clientsSelect {
-			border: dotted 3px blue;
+			// border: dotted 3px blue;
 			height: $controlsHeight;
 			line-height: $controlsHeight / 2.5;
 			text-align: center;
@@ -42,27 +42,37 @@
 			}
 		}
 		.demandButton {
-			border: dotted 1px red;
+			// border: dotted 1px red;
 			height: $controlsHeight;
-		}
-		button {
-			height: $controlsHeight;
-			width: 90%;
-			font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-			font-size: $fontSizeDemandButton;
-		&:hover {
-	 			opacity: .9;
-				font-size: $fontSizeDemandButton + .2;
-				// color: saturate( #FE9E7D, 30% );
-				color: #DDD8EC;
-			}
-			&.btn-default:hover{
-				color: #4E46EE;
+			button {
+				// height: $controlsHeight;
+				height: 100%;
+				width: 90%;
+				font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+				font-size: $fontSizeDemandButton;
+			&:hover {
+		 			opacity: .9;
+					font-size: $fontSizeDemandButton + .2;
+					// color: saturate( #FE9E7D, 30% );
+					color: #DDD8EC;
+				}
+				&.btn-default:hover{
+					color: #4E46EE;
+				}
 			}
 		}
 	}
 
 /********************** PRODUCTS */
+	#main .categories {
+		font-size: 17px;
+		margin-bottom: 10px;
+	}
+	#main button.quantity {
+		font-size: 18px;
+		width: 60px;
+		text-align: center;
+	}
 	#main .product {
 		background-color: #CCC;
 		color: #333;
@@ -79,7 +89,7 @@
 		align-items:center;
 		cursor: pointer;
 		&:hover {
-			border: solid 1px white;
+			border: solid 1px #FE8D07;
 			margin-left: 2px;
 			margin-right: 2px;
 		}
@@ -92,3 +102,48 @@
 			pointer-events: none;
 		}
 	}
+
+// MAIN CONTAINER
+@media screen and (max-width: 1040px) { #main { margin-top: 100px; } }
+@media screen and (max-width: 850px) { #main { margin-top: 80px; } }
+@media screen and (max-width: 550px) { #main { margin-top: 60px; } }
+// DEMAND BUTTON
+@media screen and (max-width: 480px) { 
+	#main .controls .demandButton button { 
+		font-size: 14px;
+		height: 100px;
+		width: 100%;
+		&:hover {
+			font-size: 14px;
+		}
+	}
+}
+@media screen and (max-width: 420px) { 
+	#main .controls .demandButton button { 
+		font-size: 12px;
+		height: 80px;
+	 }
+}
+@media screen and (max-width: 385px) { 
+	#main .controls .demandButton button { 
+		font-size: 11px;
+		&:hover {
+			font-size: 12px;
+		}
+	 }
+}
+@media screen and (max-width: 340px) { #main .controls .demandButton button { font-size: 10px; } }
+@media screen and (max-width: 500px) { #main .categories { font-size: 15px; } }
+@media screen and (max-width: 450px) { #main .product { font-size: 16px; } }
+
+@media screen and (max-width: 450px) { 
+	#main .containerX {
+		width: 95%;
+	}
+	#main .product {
+		padding-left: 10px;
+		padding-right: 20px;
+	}
+}
+
+

@@ -25,11 +25,11 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 				$demandButton.addClass( 'btn-default' );
 		        break;
 		    case 1:
-		    	$scope.demandLeyend = 'PEDIDO HECHO:';
+		    	$scope.demandLeyend = 'PEDIDO HECHO';
 				$demandButton.addClass( 'btn-success' );
 		        break;
 		    case 2:
-		    	$scope.demandLeyend = 'PEDIDO RECIBIDO:';
+		    	$scope.demandLeyend = 'PEDIDO RECIBIDO';
 				$demandButton.addClass( 'btn-danger' );
 		        break;
 		    default:
