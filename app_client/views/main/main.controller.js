@@ -5,9 +5,9 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 			getClients()
 		} else { //								 CLIENT LOGGED
 			getProducts();
-			getSupplierInfo()
+			getSupplierInfo();
 		}
-		formatDemandDate()
+		formatDemandDate();
 		$scope.setLoadTimer();
 	}
 
@@ -55,12 +55,14 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 			.then( function( data ) {
 				console.log( data )
 			});
-		var currentClientId = $rootScope.credentials.current.clientID;
-		var currentClientInfo = $scope.clients.filter( function( client ) {
-			return client._id === currentClientId; 
-		})
-		currentClientInfo[0].demandDate = $rootScope.credentials.current.demandDate;
-		currentClientInfo[0].demandState = $rootScope.credentials.current.demandState;
+		if( $scope.clients ) {
+			var currentClientId = $rootScope.credentials.current.clientID;
+			var currentClientInfo = $scope.clients.filter( function( client ) {
+				return client._id === currentClientId; 
+			})
+			currentClientInfo[0].demandDate = $rootScope.credentials.current.demandDate;
+			currentClientInfo[0].demandState = $rootScope.credentials.current.demandState;
+		}
 	}
 
 	$scope.productClicked = function( $event, product ) {
@@ -78,7 +80,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 		$rootScope.credentials.current.clientID = currentClientId;
 		$rootScope.credentials.current.demandState = currentClientInfo[0].demandState;
 		$rootScope.credentials.current.demandDate = currentClientInfo[0].demandDate;
-
+		$scope.currentLogo = currentClientInfo[0].logo.data;
 		formatDemandDate();
 		getProducts()
 	}
@@ -117,7 +119,8 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	function getSupplierInfo(){
 		mainService.getSupplierInfo()
 			.then( function( data ) {
-				$scope.credentials.supplier = data.data
+				$scope.credentials.supplier = data.data;
+				$scope.currentLogo = $scope.credentials.supplier.logo.data;
 		})
 	}
 
@@ -141,7 +144,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 				console.log('Error at main init')
 			})
 	} else {
-		// mainStart()
+		mainStart()
 	}
 
 } // @end mainCtrlFn()
