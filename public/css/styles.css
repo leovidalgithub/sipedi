@@ -15,13 +15,13 @@ body {
   margin: 20px auto; }
   #login .logo p {
     font-family: monospace, "Courier New", Courier;
-    font-size: 1.5vw;
+    font-size: 19px;
     padding: 0;
     margin: 0; }
-  #login .logo span {
-    text-shadow: 2px 2px 4px #666;
-    font-family: "Days One", sans-serif;
-    font-size: 4.5vw; }
+    #login .logo p span {
+      text-shadow: 2px 2px 4px #666;
+      font-family: "Days One", sans-serif;
+      font-size: 52px; }
 
 /*******************************************/
 #login #loginError .hide {
@@ -130,6 +130,12 @@ body {
 .forgot-password:focus {
   color: #0c6121; }
 
+@media screen and (max-width: 400px) {
+  #login .logo p {
+    font-size: 15px; }
+    #login .logo p span {
+      font-size: 42px; } }
+
 #divHeader {
   background-color: #333;
   width: 100%;
@@ -155,16 +161,16 @@ body {
   margin-bottom: 150px; }
   #divHeader .logo {
     margin-right: 35px; }
-  #divHeader .logo p {
-    text-shadow: 1px 1px 3px white;
-    font-family: monospace, "Courier New", Courier;
-    font-size: 1.8vw;
-    padding: 0;
-    margin: 0; }
-  #divHeader .logo span {
-    font-family: "Days One", sans-serif;
-    font-size: 3.1vw;
-    color: black; }
+    #divHeader .logo p {
+      text-shadow: 1px 1px 3px white;
+      font-family: monospace, "Courier New", Courier;
+      font-size: 1.8vw;
+      padding: 0;
+      margin: 0; }
+      #divHeader .logo p span {
+        font-family: "Days One", sans-serif;
+        font-size: 3.1vw;
+        color: black; }
   #divHeader .login {
     font-family: monospace;
     font-size: 1.7vw;

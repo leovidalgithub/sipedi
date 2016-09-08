@@ -9,14 +9,14 @@
 	margin: 20px auto;
 	p {
 		font-family:monospace, "Courier New", Courier;
-		font-size: 1.5vw;
+		font-size: 19px;
 		padding: 0;
 		margin: 0;
-	}
-	span {
-		text-shadow: 2px 2px 4px #666;
-		font-family: $logo-font;
-		font-size: 4.5vw;
+		span {
+			text-shadow: 2px 2px 4px #666;
+			font-family: $logo-font;
+			font-size: 52px;
+		}
 	}
 }
 /*******************************************/
@@ -164,4 +164,13 @@
 #login
 .forgot-password:focus{
 	color: rgb(12, 97, 33);
+}
+
+@media screen and (max-width: 400px) {
+	#login .logo p {
+		font-size: 15px;
+		span {
+			font-size: 42px;
+		}
+	}
 }

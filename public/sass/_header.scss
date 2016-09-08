@@ -13,21 +13,23 @@
 	top: 0;
 	z-index: 10;
 	margin-bottom: 150px;
-	.logo{
+	.logo {
 		margin-right: 35px;
+		p {
+			text-shadow: 1px 1px 3px white;
+			font-family:monospace, "Courier New", Courier;
+			font-size: 1.8vw;
+			padding: 0;
+			margin: 0;
+			span {
+				font-family: $logo-font;
+				font-size: 3.1vw;
+				color: black;
+			}
+		}
 	}
-	.logo p {
-		text-shadow: 1px 1px 3px white;
-		font-family:monospace, "Courier New", Courier;
-		font-size: 1.8vw;
-		padding: 0;
-		margin: 0;
-	}
-	.logo span {
-		font-family: $logo-font;
-		font-size: 3.1vw;
-		color: black;
-	}
+
+
 	.login {
 		font-family: monospace;
 		font-size: 1.7vw;
