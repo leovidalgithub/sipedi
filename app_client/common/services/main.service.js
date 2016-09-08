@@ -3,23 +3,29 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 		getProductsByClientID = function() {
 			var token = authenticationService.getToken();
 			var clientID = $rootScope.credentials.current.clientID;
-			return $http.get( '/api/products/' + clientID + '?token=' + token )
+			return $http.post( '/api/products/', {
+				clientID : clientID,
+				token    : token
+			})
 				.then( prepareProductsData.bind( null, clientID ) )
-				// .then( function( data ) {
-					// prepareProductsData( clientID, data )
-				// })
 		}
 
 		getClientsBySupplier = function() {
 			var token = authenticationService.getToken();
 			var supplier = $rootScope.credentials.supplier;
-			return $http.get( '/api/clients/' + supplier + '?token=' + token )
+			return $http.post( '/api/clients/', {
+				supplier : supplier,
+				token    : token
+			})
 		}
 
 		getSupplierInfo = function() {
 			var token = authenticationService.getToken();
 			var supplier = $rootScope.credentials.supplier;
-			return $http.get( '/api/supplier/' + supplier + '?token=' + token )
+			return $http.post( '/api/supplier/', {
+				supplier : supplier,
+				token    : token
+			})
 		}
 
 		setProductOrdered = function( product ) {

@@ -33,9 +33,9 @@ module.exports.middlewareToken = function ( req, res, next ) {
 	}
 }
 
-// GET /api/products/:clientID --> returns all client products
+// POST /api/products/ --> returns all client products
 module.exports.getProductsByClientID = function( req, res ) {
-	var clientID = req.params.clientID;
+	var clientID = req.body.clientID;
 	Product.find({'clients._id' : clientID })
 	.then( function( products ) {
 		return res.json( products )
@@ -43,9 +43,9 @@ module.exports.getProductsByClientID = function( req, res ) {
 
 }
 
-// GET /api/clients/:supplier --> returns all supplier clients
+// POST /api/clients/ --> returns all supplier clients
 module.exports.getClientsBySupplier = function( req, res ) {
-	var supplier = req.params.supplier;
+	var supplier = req.body.supplier;
 	connect.collection('users').find( { 'supplier' : supplier, 'admin' : false }, {} ).toArray( function( err, clients ) {
 		if ( err ) {
 			res.status( 403 ).send( 'Error getting clients by supplier' )
@@ -54,9 +54,9 @@ module.exports.getClientsBySupplier = function( req, res ) {
 	})
 }
 
-// GET /api/supplier/:supplier --> returns supplier info
+// POST /api/supplier/ --> returns supplier info
 module.exports.getSupplierInfo = function( req, res ) {
-	var supplier = req.params.supplier;
+	var supplier = req.body.supplier;
 	User.getSupplierInfo( supplier )
 		.then( function( supplierInfo ) {
 			return res.json( supplierInfo )
