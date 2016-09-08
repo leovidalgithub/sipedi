@@ -5,16 +5,8 @@ var express     = require( 'express' ),
 	User        = require('../../db/models/users'),
 	Product     = require('../../db/models/products');
 
-	// var mongoose = require( 'mongoose' ),
-	// 	Schema   = mongoose.Schema,
-	// 	ObjectId = Schema.ObjectId,
-
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
-
-	// next();
-	// return;
-
 	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
@@ -110,39 +102,3 @@ module.exports.setUserDemand = function( req, res ) {
 			return res.status( 403 ).res.send( 'Error setting userDemand' )
 		})
 }
-
-module.exports.addProductsClient = function( req, res ) {
-	var clientId = '57c943e237f93d2861c97085';
-	var client1 = {
-		_id : clientId,
-		quantity : 4,
-		productOrdered : false
-	};
-	Product.findById( '57c74a0bb276c6201f8d2b53' )
-		.then( function( data ) {
-			var a = data.clients.filter( function( el ) {
-				return el._id == clientId
-			});
-			if (a.length == 0) {
-				data.clients.push( client1 );
-				data.save();
-			} 
-		})
-	// User.findOne( name : 'deedwdweew' )
-	// .exec(function (err, user ){
- //        user.movies.push('deded')
- //        user.save()
-	// })
-	// 	.then( function( data ) {
-	// 		var a = data.clients.filter( function( el ) {
-	// 			return el._id == clientId
-	// 		});
-	// 		if (a.length == 0) {
-	// 			data.clients.push( client1 );
-	// 			data.save();
-	// 		} 
-	// 	})
-	res.end()
-}
-
-

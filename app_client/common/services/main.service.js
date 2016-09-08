@@ -85,12 +85,3 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 mainServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
 module.exports = mainServiceFn;
-
-
-
-				// GET 	/api/products
-				// POST 	/api/products
-				// GET 	/api/products/provider/:id
-				// GET 	/api/product/:id 
-				// POST 	/api/product/:id
-				// DELETE 	/api/product/:id

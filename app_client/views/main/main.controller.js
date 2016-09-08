@@ -51,10 +51,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 		}
 		$rootScope.credentials.current.demandDate = Date.now();
 		formatDemandDate();
-		mainService.setUserDemand()
-			.then( function( data ) {
-				console.log( data )
-			});
+		mainService.setUserDemand();
 		if( $scope.clients ) {
 			var currentClientId = $rootScope.credentials.current.clientID;
 			var currentClientInfo = $scope.clients.filter( function( client ) {
@@ -73,14 +70,16 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	}
 
 	$scope.clientChanged = function() {
-		var currentClientId = $scope.selectedClientModel._id;
-		var currentClientInfo = $scope.clients.filter( function( client ) {
-			return client._id === currentClientId
-		})
-		$rootScope.credentials.current.clientID = currentClientId;
-		$rootScope.credentials.current.demandState = currentClientInfo[0].demandState;
-		$rootScope.credentials.current.demandDate = currentClientInfo[0].demandDate;
-		$scope.currentLogo = currentClientInfo[0].logo.data;
+		if ( $rootScope.credentials.admin ) { // SUPPLIER LOGGED
+			var currentClientId = $scope.selectedClientModel._id;
+			var currentClientInfo = $scope.clients.filter( function( client ) {
+				return client._id === currentClientId
+			})
+			$rootScope.credentials.current.clientID = currentClientId;
+			$rootScope.credentials.current.demandState = currentClientInfo[0].demandState;
+			$rootScope.credentials.current.demandDate = currentClientInfo[0].demandDate;
+			$scope.currentLogo = currentClientInfo[0].logo.data;
+		}
 		formatDemandDate();
 		getProducts()
 	}
@@ -88,8 +87,30 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	$scope.setLoadTimer = function() {
 		$scope.LoadTimerId = setInterval( function() {
 			console.log('timer');
-			getProducts()
-		}, 20000)
+				updateClients();
+		}, 10000)
+	}
+
+		function updateClients() {
+		mainService.getClientsBySupplier()
+			.then( function( data ) {
+				if ( data.data.length > 0) {
+					var clientsTemp = data.data;
+					if ( $rootScope.credentials.admin ) {
+						clientsTemp.forEach( function( client, index) {
+							$scope.clients[index].demandState = clientsTemp[index].demandState;
+							$scope.clients[index].demandDate = clientsTemp[index].demandDate;
+						})
+					} else {
+						var clientInfo = clientsTemp.filter(function( client ) {
+							return client._id == $rootScope.credentials.current.clientID;
+						})
+						$rootScope.credentials.current.demandState = clientInfo[0].demandState;
+						$rootScope.credentials.current.demandDate = clientInfo[0].demandDate;
+					}
+				$scope.clientChanged();
+				}
+		})
 	}
 
 	function getProducts() {
@@ -119,8 +140,8 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	function getSupplierInfo(){
 		mainService.getSupplierInfo()
 			.then( function( data ) {
-				$scope.credentials.supplier = data.data;
-				$scope.currentLogo = $scope.credentials.supplier.logo.data;
+				var supplier = data.data;
+				$scope.currentLogo = supplier.logo.data;
 		})
 	}
 
@@ -143,6 +164,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 			.catch( function( err ) {
 				console.log('Error at main init')
 			})
+
 	} else {
 		mainStart()
 	}
@@ -151,15 +173,3 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 
 mainCtrlFn.$inject = [ '$scope', 'mainService', '$rootScope', '$timeout', 'moment', 'authenticationService' ];
 module.exports = mainCtrlFn;
-
-
-
-	// function initializeClientsSelect() {
-	// 	$('.selectpicker').selectpicker({
-	// 	    style: 'btn-primary',
-	// 	    showIcon: true,
-	// 	    title: 'Mis clientes',
-	// 	    'font-size' : '23'
-	// 	});
-	// 	$('select').selectpicker('refresh')
-	// }

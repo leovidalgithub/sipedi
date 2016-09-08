@@ -13,8 +13,6 @@
 				</div>
 			</div>
 
-<!-- {{ demandDay }}<br> -->
-
 			 <!-- ORDER BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
 				<button ng-click="demandButton()" class="btn btn-default btn-block">
@@ -30,7 +28,7 @@
 				<!-- <form ng-show="credentials.admin"> -->
 					<form class="form-group">
 						<label for="selectClients">Mis clientes</label>
-						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients"></select>
+						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients track by item._id"></select>
 					</form>
 				<!-- </form> -->
 			</div>
@@ -48,37 +46,6 @@
 			</uib-tab>
 		</uib-tabset>
 
-			<!-- CLIENTS SELECT -->
-<!-- 			<div id="clientsSelect" ng-show="credentials.admin">
-				<div class="form-group">
-					<select class="selectpicker form-control" ng-change="clientChanged(selectedClientModel)" data-style="btn btn-default btn-md" data-live-search="true" ng-model="selectedClientModel" ng-options="item.name for item in clients" title="Mis Clientes"></select>
-				</div>
-			</div>
- -->			
-			<!-- ADMIN BUTTON -->
-<!-- 			<button type="button" class="btn btn-default btn-lg">
-				<span class="glyphicon glyphicon-cog"></span> Administrar
-			</button>
- -->
-
-		<!-- Nav tabs -->
-<!-- 		<ul class="nav nav-tabs" role="tablist">
-			<li ng-repeat="( key, value ) in products | uniqueCategory:'category' | orderBy : 'category'" ng-class="{'active':$first}" role="presentation"><a href="#{{ value.category }}" aria-controls="{{ value.category }}" role="tab" data-toggle="tab">{{ value.category }}</a></li>
-		</ul>
- -->
-<!-- 		Tab panes
-		<div class="tab-content">
-			<div ng-repeat="( key1, value_1 ) in products | uniqueCategory:'category' | orderBy : 'category'" ng-class="{'active in':$first}" role="tabpanel" class="tab-pane fade" id="{{ value_1.category }}">
-
-				<div ng-click="productClicked($event, value_2)" ng-value="value_2._id" ng-class="{'outOfStock':!value_2.stock, 'productOrdered':value_2.productOrdered}" ng-repeat="( key2, value_2 ) in products | filter : value_1.category | orderBy : 'product'" class="product">
-
-					<div>{{ value_2.product }}</div>
-					<button type="button" class="btn btn-info btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, value_2)">{{ value_2.quantity }}</button>
-
-				</div>
-			</div>
-		</div>
- -->
 		<div ng-include="'views/main/modal.html'"></div>
 
 	</div>

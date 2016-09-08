@@ -20,9 +20,7 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 		function setCredentials( token ) { // get -> token & payload and set credentials 
 			$rootScope.credentials = {};
 			$rootScope.credentials.current = {};
-			// var token = getToken();
 			var tokenPayload = jwtHelper.decodeToken( token );
-			// console.log(tokenPayload);
 			// logged user credentials
 			$rootScope.credentials.userID = tokenPayload._doc._id;
 			$rootScope.credentials.name = tokenPayload._doc.name;
@@ -34,7 +32,6 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 			$rootScope.credentials.current.demandDate = tokenPayload._doc.demandDate;
 		}
 
-		// verifies if token exists and if it has expired
 		function isLoggedIn() {
 			try {
 				var token = getToken();
