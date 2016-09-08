@@ -51,10 +51,16 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 		}
 		$rootScope.credentials.current.demandDate = Date.now();
 		formatDemandDate();
-				mainService.setUserDemand()
-				.then( function( data ) {
-					console.log( data )
-			})
+		mainService.setUserDemand()
+			.then( function( data ) {
+				console.log( data )
+			});
+		var currentClientId = $rootScope.credentials.current.clientID;
+		var currentClientInfo = $scope.clients.filter( function( client ) {
+			return client._id === currentClientId; 
+		})
+		currentClientInfo[0].demandDate = $rootScope.credentials.current.demandDate;
+		currentClientInfo[0].demandState = $rootScope.credentials.current.demandState;
 	}
 
 	$scope.productClicked = function( $event, product ) {
@@ -126,7 +132,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	}
 
 	 // main init
-	if ( !$rootScope.credentials) {
+	if ( !$rootScope.credentials ) {
 		authenticationService.updateClientToken()
 			.then( function( token ) {
 				mainStart()
@@ -135,7 +141,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 				console.log('Error at main init')
 			})
 	} else {
-		mainStart()
+		// mainStart()
 	}
 
 } // @end mainCtrlFn()
