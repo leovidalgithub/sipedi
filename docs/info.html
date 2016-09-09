@@ -1,22 +1,19 @@
-
-// "start": "NODE_ENV=development nodemon server.js"
+<p>// &quot;start&quot;: &quot;NODE_ENV=development nodemon server.js&quot;
 //
 //npm run build:client:watch
-//npm run start
-
-**images file upload**
-```js
-server.js
-// var multer = require('multer');
-// app.use(multer({dest:__dirname+'/uploads/'}).any());
+//npm run start</p>
+<p><strong>images file upload</strong></p>
+<pre><code class="lang-js">server.js
+// var multer = require(&#39;multer&#39;);
+// app.use(multer({dest:__dirname+&#39;/uploads/&#39;}).any());
 -----------------------------------------------------------------
 api.handler.js
 // module.exports.saveImg = function( req, res ) {
 //  // console.log(req.files);
-//  var imgPath = './app_api/routes/handlers/logos/mochacino_bar.jpg';
-//  User.findById( '57cecd84d1d5214025d052e1', function ( err, user ) {
+//  var imgPath = &#39;./app_api/routes/handlers/logos/mochacino_bar.jpg&#39;;
+//  User.findById( &#39;57cecd84d1d5214025d052e1&#39;, function ( err, user ) {
 //      user.logo.data = fs.readFileSync( imgPath );
-//      user.logo.contentType = 'image/png';
+//      user.logo.contentType = &#39;image/png&#39;;
 //      user.save()
 //      .then( function( data ) {
 //          console.log( data );
@@ -25,30 +22,28 @@ api.handler.js
 // }
 
 // module.exports.getImg = function( req, res ) {
-//  User.findById( '57cecd84d1d5214025d052d9', function ( err, user ) {
+//  User.findById( &#39;57cecd84d1d5214025d052d9&#39;, function ( err, user ) {
 //      console.log( user.logo.contentType );
 //      res.contentType(user.logo.contentType);
-//      var base64 = (user.logo.data.toString('base64'));
+//      var base64 = (user.logo.data.toString(&#39;base64&#39;));
 //      res.send(base64);
 //      // res.send(user.logo.data);
 //  })
 // }
 ------------------------------------------------------------------------------
 api.router.js
-// apiRouter.post( '/saveImg/',   apiHandler.saveImg );
-// apiRouter.get( '/img/',   apiHandler.getImg );
+// apiRouter.post( &#39;/saveImg/&#39;,   apiHandler.saveImg );
+// apiRouter.get( &#39;/img/&#39;,   apiHandler.getImg );
 ------------------------------------------------------------------------------
-``` 
-
-```js
-module.exports.addProductsClient = function( req, res ) {
-    var clientId = '57c943e237f93d2861c97085';
+</code></pre>
+<pre><code class="lang-js">module.exports.addProductsClient = function( req, res ) {
+    var clientId = &#39;57c943e237f93d2861c97085&#39;;
     var client1 = {
         _id : clientId,
         quantity : 4,
         productOrdered : false
     };
-    Product.findById( '57c74a0bb276c6201f8d2b53' )
+    Product.findById( &#39;57c74a0bb276c6201f8d2b53&#39; )
         .then( function( data ) {
             var a = data.clients.filter( function( el ) {
                 return el._id == clientId
@@ -58,9 +53,9 @@ module.exports.addProductsClient = function( req, res ) {
                 data.save();
             } 
         })
-    // User.findOne( name : 'deedwdweew' )
+    // User.findOne( name : &#39;deedwdweew&#39; )
     // .exec(function (err, user ){
- //        user.movies.push('deded')
+ //        user.movies.push(&#39;deded&#39;)
  //        user.save()
     // })
     //  .then( function( data ) {
@@ -74,70 +69,60 @@ module.exports.addProductsClient = function( req, res ) {
     //  })
     res.end()
 }
-```
-
-```js
-     function initializeClientsSelect() {
-      $('.selectpicker').selectpicker({
-          style: 'btn-primary',
+</code></pre>
+<pre><code class="lang-js">     function initializeClientsSelect() {
+      $(&#39;.selectpicker&#39;).selectpicker({
+          style: &#39;btn-primary&#39;,
           showIcon: true,
-          title: 'Mis clientes',
-          'font-size' : '23'
+          title: &#39;Mis clientes&#39;,
+          &#39;font-size&#39; : &#39;23&#39;
       });
-      $('select').selectpicker('refresh')
+      $(&#39;select&#39;).selectpicker(&#39;refresh&#39;)
      }
-```
-
-**login.controller**
-
-
-```js
-      this.logout = function() {
+</code></pre>
+<p><strong>login.controller</strong></p>
+<pre><code class="lang-js">      this.logout = function() {
         authenticationService.logout()
       }
 
       this.register = function() { // --------------- register new user
         authenticationService.register( this.credentials )
           .then( function( data ) {
-            console.log('USER registred');
+            console.log(&#39;USER registred&#39;);
             authenticationService.saveToken( data.data.token )
           })
           .catch( function( err ) {
-            console.log('USER register error')
+            console.log(&#39;USER register error&#39;)
           })
       }
-
-```
-
-**db.js**
-```js
-  // var gracefulShutdown;
+</code></pre>
+<p><strong>db.js</strong></p>
+<pre><code class="lang-js">  // var gracefulShutdown;
 
   // CAPTURE APP TERMINATION / RESTART EVENTS
   // To be called when process is restarted or terminated
   // gracefulShutdown = function(msg, callback) {
   //   mongoose.connection.close(function() {
-  //     console.log('Mongoose disconnected through ' + msg);
+  //     console.log(&#39;Mongoose disconnected through &#39; + msg);
   //     callback();
   //   });
   // };
   // // For nodemon restarts
-  // process.once('SIGUSR2', function() {
-  //   gracefulShutdown('nodemon restart', function() {
-  //     process.kill(process.pid, 'SIGUSR2');
+  // process.once(&#39;SIGUSR2&#39;, function() {
+  //   gracefulShutdown(&#39;nodemon restart&#39;, function() {
+  //     process.kill(process.pid, &#39;SIGUSR2&#39;);
   //   });
   // });
   // // For app termination
-  // process.on('SIGINT', function() {
-  //   gracefulShutdown('app termination', function() {
+  // process.on(&#39;SIGINT&#39;, function() {
+  //   gracefulShutdown(&#39;app termination&#39;, function() {
   //     process.exit(0);
   //   });
   // });
   // // For Heroku app termination
-  // process.on('SIGTERM', function() {
-  //   gracefulShutdown('Heroku app termination', function() {
+  // process.on(&#39;SIGTERM&#39;, function() {
+  //   gracefulShutdown(&#39;Heroku app termination&#39;, function() {
   //     process.exit(0);
   //   });
   // });
-```
-
+</code></pre>
