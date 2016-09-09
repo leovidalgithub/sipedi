@@ -87,6 +87,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	$scope.setLoadTimer = function() {
 		$scope.LoadTimerId = setInterval( function() {
 			console.log('timer');
+				$scope.refreshMode = true;
 				updateClients();
 		}, 10000)
 	}
@@ -98,8 +99,12 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 					var clientsTemp = data.data;
 					if ( $rootScope.credentials.admin ) {
 						clientsTemp.forEach( function( client, index) {
+							try {
 							$scope.clients[index].demandState = clientsTemp[index].demandState;
 							$scope.clients[index].demandDate = clientsTemp[index].demandDate;
+							} catch(e) {
+								console.log(e);
+							}
 						})
 					} else {
 						var clientInfo = clientsTemp.filter(function( client ) {
@@ -118,13 +123,41 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 			.then( function( data ) {
 				if ( !$scope.changeQuantityMode ) { // while not in QuantityModal it can refresh products data
 					var tabIndex = $scope.activeTabIndex || 0; // save tab-products active index before refresh
-					$scope.products = data.data;
+					
+					if ( $scope.refreshMode ) {
+						var products = data.data;
+						products.forEach( function( product, index) {
+							$scope.products[index].category = products[index].category;
+							$scope.products[index].product = products[index].product;
+							$scope.products[index].productOrdered = products[index].productOrdered;
+							$scope.products[index].quantity = products[index].quantity;
+							$scope.products[index].stock = products[index].stock;
+						});
+						$scope.refreshMode = false;
+					} else {
+						$scope.products = data.data;
+					}
+
 					$timeout(function() {
 						$scope.activeTabIndex = tabIndex;
 					});
 				}
 			})
 	}
+
+
+	// function getProducts() {
+	// 	mainService.getProductsByClientID()
+	// 		.then( function( data ) {
+	// 			if ( !$scope.changeQuantityMode ) { // while not in QuantityModal it can refresh products data
+	// 				var tabIndex = $scope.activeTabIndex || 0; // save tab-products active index before refresh
+	// 				$scope.products = data.data;
+	// 				$timeout(function() {
+	// 					$scope.activeTabIndex = tabIndex;
+	// 				});
+	// 			}
+	// 		})
+	// }
 
 	function getClients() {
 		mainService.getClientsBySupplier()
@@ -156,6 +189,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	}
 
 	 // main init
+	$scope.refreshMode = false;
 	if ( !$rootScope.credentials ) {
 		authenticationService.updateClientToken()
 			.then( function( token ) {

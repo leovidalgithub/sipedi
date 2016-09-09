@@ -1,7 +1,8 @@
 function headerTagCtrlFn( $scope, authenticationService ) {
 
 	$scope.logout = function() {
-		authenticationService.logout()
+		// clearInterval( $scope.$parent.LoadTimerId );
+		authenticationService.logout();
 	}
 }
 
