@@ -58,7 +58,6 @@ Develonment<br />
 >prepros 5.10.2<br />
 >github<br />
 >heroku<br />
->mlab<br />
 
 ### Usuarios para pruebas - SiPEDi
 #### Test users - SiPEDi
