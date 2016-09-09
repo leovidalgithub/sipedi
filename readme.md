@@ -53,7 +53,8 @@ client-side
 
 Develonment<br />
 >browserify 13.1.0<br />
->watchify": 3.7.0<br />
+>watchify 3.7.0<br />
+>prepros 5.10.2<br />
 
 ### Usuarios para pruebas - SiPEDi
 #### Test users - SiPEDi
