@@ -119,11 +119,11 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	}
 
 	function getProducts() {
-		mainService.getProductsByClientID()
-			.then( function( data ) {
-				if ( !$scope.changeQuantityMode ) { // while not in QuantityModal it can refresh products data
+		if ( !$scope.changeQuantityMode ) { // while not in QuantityModal it can refresh products data
+			mainService.getProductsByClientID()
+				.then( function( data ) {
 					var tabIndex = $scope.activeTabIndex || 0; // save tab-products active index before refresh
-					
+
 					if ( $scope.refreshMode ) {
 						var products = data.data;
 						products.forEach( function( product, index) {
@@ -132,7 +132,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 							$scope.products[index].productOrdered = products[index].productOrdered;
 							$scope.products[index].quantity = products[index].quantity;
 							$scope.products[index].stock = products[index].stock;
-						});
+					});
 						$scope.refreshMode = false;
 					} else {
 						$scope.products = data.data;
@@ -141,8 +141,8 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 					$timeout(function() {
 						$scope.activeTabIndex = tabIndex;
 					});
-				}
-			})
+				})
+		}
 	}
 
 
