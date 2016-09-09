@@ -37,6 +37,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 	};
 
 	$scope.demandButton = function() {
+		$scope.changeQuantityMode = true; // to prevent products from update
 		var demandState = $rootScope.credentials.current.demandState;
 		if ( demandState === 0 ) {
 			$rootScope.credentials.current.demandState = 1
@@ -51,7 +52,10 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 		}
 		$rootScope.credentials.current.demandDate = Date.now();
 		formatDemandDate();
-		mainService.setUserDemand();
+		mainService.setUserDemand()
+			.then( function( data ) {
+				$scope.changeQuantityMode = false; // to restart products update
+			})
 		if( $scope.clients ) {
 			var currentClientId = $rootScope.credentials.current.clientID;
 			var currentClientInfo = $scope.clients.filter( function( client ) {
@@ -64,6 +68,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 
 	$scope.productClicked = function( $event, product ) {
 		if ( !$scope.changeQuantityMode ) { // if not in QuantityModal it means product click ordered
+			$scope.changeQuantityMode = true; // to prevent products from update
 			product.productOrdered = product.productOrdered ? false : true;
 			setProductOrdered( product )
 		}
@@ -182,7 +187,7 @@ function mainCtrlFn( $scope, mainService, $rootScope, $timeout, moment, authenti
 		mainService.setProductOrdered( product )
 			.then( function( data ) { 
 				console.log( 'productOrdered set correctly' );
-				// $scope.setLoadTimer();
+				$scope.changeQuantityMode = false; // to restart products update
 			})
 			.catch( function( err ) {
 			})

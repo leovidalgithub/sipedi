@@ -12,7 +12,7 @@ function modalCtrlFn( $scope, $rootScope, mainService ) {
 		$scope.product.quantity = $scope.modalQuantityNumber;
 		mainService.setProductQuantity( $scope.product )
 			.then( function( data ) { 
-				console.log( 'productQuantity set correctly' )
+				console.log( 'productQuantity set correctly' );
 			})
 			.catch( function( err ) {
 			})
@@ -31,7 +31,9 @@ function modalCtrlFn( $scope, $rootScope, mainService ) {
 	});
 
 	$('#myModal').on('hide.bs.modal', function ( e ) { // hidden.bs.modal fires after modal closes
-		$scope.$parent.$parent.changeQuantityMode = false;
+		setTimeout( function() {
+			$scope.$parent.$parent.changeQuantityMode = false;
+		}, 2000)
 		// $scope.$parent.$parent.setLoadTimer();
 	})
 

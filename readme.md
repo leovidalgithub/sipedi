@@ -23,8 +23,8 @@ Currently, the products and customers configuration are been developing.
 
 ### to run app:
 **npm run start**<br />
-**npm run dev** (dev mod)<br />
-**npm run build:client:watch** (dev mod)<br />
+**npm run dev** #(dev mod)<br />
+**npm run build:client:watch** #(dev mod)<br />
 
 ### Login page
 ![alt text](docs/img/login.png "Login page")
@@ -41,6 +41,7 @@ server-side
 >mongodb 2.2.9<br />
 >mongoose 4.5.9<br />
 >jsonwebtoken 7.1.9<br />
+>mlab<br />
 
 client-side
 >angularJS 1.5.8<br />
@@ -53,7 +54,10 @@ client-side
 
 Develonment<br />
 >browserify 13.1.0<br />
->watchify": 3.7.0<br />
+>watchify 3.7.0<br />
+>prepros 5.10.2<br />
+>github<br />
+>heroku<br />
 
 ### Usuarios para pruebas - SiPEDi
 #### Test users - SiPEDi
