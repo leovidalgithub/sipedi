@@ -7,26 +7,49 @@
 		</div>
 
 		<img id="profile-img" class="profile-img-card" src="img/sipedi_logo.png" />
-		<p id="profile-name" class="profile-name-card"></p>
 
-		<form class="form-signin" ng-submit="ctrl.loginButton()">
-			<span id="reauth-email" class="reauth-email"></span>
+		<form ng-submit="ctrl.loginButton()">
 
-<div id="loginError" class="alert alert-danger hide" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  Email o contraseña inválida
-</div>
-			<input type="email" ng-model="ctrl.credentials.email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-			<input type="password" ng-model="ctrl.credentials.password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-			<div id="remember" class="checkbox">
-				<label>
-					<input type="checkbox" value="remember-me" ng-model="remember"> Recordarme
-				</label>
+			<div ng-if="ctrl.showError" class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Email o contraseña inválida
 			</div>
-			<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
-		</form><!-- /form -->
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="glyphicon glyphicon-envelope"></i>
+					</div>
+					<input type="email" ng-model="ctrl.credentials.email" class="form-control" placeholder="Email" required autofocus>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="glyphicon glyphicon-lock"></i>
+					</div>
+					<input type="password" ng-model="ctrl.credentials.password" class="form-control" placeholder="Contraseña" required>
+				</div>
+			</div>
+
+			<div class="form-group">
+						<div id="remember" class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="ctrl.credentials.remember"> Recordarme
+							</label>
+						</div>
+			</div>
+
+			<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
+			</div>
+
+		</form>
+		
 		<a href="#" class="forgot-password">
 			¿Olvidó su contraseña?
-		</a><br>
+		</a>
+
 	</div><!-- /card-container -->
 </div><!-- /container -->

@@ -1,7 +1,7 @@
 // main.js
 
-	// to prevent a-> href '#' goes anywhere
-	// $( document.body ).on('click', 'a', function( event ) {
-	// 	event.preventDefault();
-	// });
+	// to prevent a-href from refresh page 
+	$( document.body ).on('click', 'a', function( event ) {
+		event.preventDefault();
+	});
 

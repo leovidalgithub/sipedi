@@ -1,49 +1,82 @@
 <headertag></headertag>
+
  <div id="main">
 	<div class="containerX">
 		<div class="row controls">
-			 <!-- CLIENT/SUPPLIER INFO -->
+
 			<div class="userInfo col-xs-6 col-md-3">
-				<!-- <h4 ng-hide="credentials.admin">{{ credentials.supplier.name }}</h4> -->
-				<!-- <h4 ng-show="credentials.admin">{{ selectedClientModel.name }}</h4> -->
 				<div class="logo">
-					 <img data-ng-src="data:image/png;base64,{{currentLogo}}" />
+					 <img ng-show="credentials.admin"
+						  data-ng-src="data:image/png;base64, {{ current.user.logo.data || genericLogo }}" />
+					 <img ng-hide="credentials.admin"
+					 	  data-ng-src="data:image/png;base64, {{ current.supplier.logo.data || genericLogo }}" />
 				</div>
 			</div>
 
 			 <!-- DEMAND BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
-				<button ng-click="demandButton()" class="btn btn-default btn-block">
-					<strong>{{ demandLeyend }}</strong><br>
-					{{ demandState > 0 ? demandDay : '' }}<br>
-					{{ demandState > 0 ? demandDate : '' }}<br>
-					{{ demandState > 0 ? demandHour : '' }}<br>
+				<button ng-click="demandButton()" class="btn btn-block"
+					ng-class="{ 'btn-default': current.user.demandState == 0,
+								'btn-success': current.user.demandState == 1,
+								'btn-danger' : current.user.demandState == 2 }">
+					<strong>
+						{{ current.user.demandState == 0 ? 'HACER PEDIDO' : current.user.demandState == 1 ? 'PEDIDO HECHO' : 'PEDIDO RECIBIDO' }}
+					</strong><br>
+					<div ng-show="current.user.demandState > 0">
+						<span>{{ current.user.demandDate | amDateFormat:'dddd' }}</span><br>
+						<span>{{ current.user.demandDate | amDateFormat:'MM Do YYYY' }}</span><br>
+						<span>{{ current.user.demandDate | amDateFormat:'h:mm a' }}</span>
+					</div>
 				</button>
 			</div>
 
 			 <!-- CLIENTS SELECT -->
 			<div ng-show="credentials.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
-				<!-- <form ng-show="credentials.admin"> -->
 					<form class="form-group">
 						<label for="selectClients">Mis clientes</label>
-						<select id="selectClients" ng-change="clientChanged()" ng-model="selectedClientModel" ng-options="item.name for item in clients | orderBy : 'name'"></select>
+						<select ng-selected="$first" class="form-control input-lg" id="selectClients" 
+						ng-change="clientChanged()" ng-model="selectedClientModel"
+						ng-options="item.name for item in users | filter: {'admin':false} | orderBy : 'name' track by item._id">
+						<!-- <option value="">Select Option</option> -->
+						</select>
 					</form>
-				<!-- </form> -->
 			</div>
-		</div> <!-- @end div.controls row -->
+		</div> <!-- @end row -->
 
-			 <!-- CLIENTS PRODUCTS -->
-		<uib-tabset type="pills" active="activeTabIndex">
-			<uib-tab class="categories" active="activeTabIndex==$index" index="$index" ng-repeat="tab in products | unique : 'category' | orderBy : 'category'">
-				<uib-tab-heading>{{tab.category}}</uib-tab-heading>
-					<div class="product" ng-click="productClicked($event, item)" ng-class="{'outOfStock':!item.stock, 'productOrdered':item.productOrdered}" ng-value="item._id" ng-repeat="item in products | uniqueCategory : tab.category | orderBy : 'product'">
-						<span>{{item.product}}</span>
-						<button type="button" class="btn btn-primary btn-md quantity" data-toggle="modal" data-target="#myModal" ng-click="quantityClicked($event, item)">{{ item.quantity }}</button>
-					</div>
-			</uib-tab>
-		</uib-tabset>
+<!-- <button class="btn btn-danger btn-md" ng-click="fn1()">ERROR</button> -->
+<!-- <button class="btn btn-success btn-md" ng-click="fn2()">SUCCESSS</button> -->
 
-		<div ng-include="'views/main/modal.html'"></div>
+<!-- SUCCESS ALERT -->
+<div class="row">
+	<div class="col-sm-offset-3 col-sm-7">
+		<div class="collapse successAlert closeAlert">
+			<div style="text-align: center; font-size: 17px;" class="alert alert-success alert-dismissible" role="alert">
+			<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Guardado correctamente!<br>
+				{{ alertMsg.success }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ERROR ALERT -->
+<div class="row">
+	<div class="col-sm-offset-1 col-sm-10">
+		<div class="collapse errorAlert closeAlert">
+			<div style="text-align: center; font-size: 17px;" class="alert alert-danger alert-dismissible" role="alert">
+			<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Hubo un problema al accesar la base de datos.<br>
+				{{ alertMsg.error }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ****************************products controller***************************************** ####-->
+		<div ng-include="'views/main/products.template.html'"></div>
+<!-- **************************************************************************************** ####-->
 
 	</div>
 </div> <!-- @end #main -->

@@ -35,60 +35,27 @@ module.exports.getProductsByClientID = function( req, res ) {
 
 }
 
-// POST /api/clients/ --> returns all supplier clients
-module.exports.getClientsBySupplier = function( req, res ) {
+// POST /api/clients/ --> returns all supplier users
+module.exports.getUsersBySupplier = function( req, res ) {
 	var supplier = req.body.supplier;
-	connect.collection('users').find( { 'supplier' : supplier, 'admin' : false }, {} ).toArray( function( err, clients ) {
+	connect.collection('users').find( { 'supplier' : supplier }, {} ).toArray( function( err, users ) {
 		if ( err ) {
-			res.status( 403 ).send( 'Error getting clients by supplier' )
+			res.status( 403 ).send( 'Error getting users by supplier' )
 		}
-		res.json( clients )
+		res.json( users )
 	})
-}
-
-// POST /api/supplier/ --> returns supplier info
-module.exports.getSupplierInfo = function( req, res ) {
-	var supplier = req.body.supplier;
-	User.getSupplierInfo( supplier )
-		.then( function( supplierInfo ) {
-			return res.json( supplierInfo )
-		})
-		.catch( function ( err ) {
-			return res.status( 403 ).res.send( 'Error getting supplier info' )
-		})
 }
 
 // POST /api/products/setOrdered/ --> set client product ordered
-module.exports.setProductOrdered = function( req, res ) {
+module.exports.setProductOrder = function( req, res ) {
 	var productID = req.body.productID;
 	Product.findById( productID, function ( err, productFound ) {
-		productFound.setProductOrdered( req.body )
+		productFound.setProductOrder( req.body )
 			.then( function( data ) {
 				return res.json( data )
 			})
 			.catch( function( err ) {
-				return res.status( 403 ).res.send( 'Error setting productOrdered' )
-			})
-	})
-
-	// Product.setProductOrdered( req.body )
-	// 	.then( function( data ) {
-	// 		return res.json( data )
-	// 	})
-	// 	.catch( function( err ) {
-	// 		return res.status( 403 ).res.send( 'Error setting productOrdered' )
-	// 	})
-}
-
-module.exports.setProductQuantity = function( req, res ) {
-	var productID = req.body.productID;
-	Product.findById( productID, function ( err, productFound ) {
-		productFound.setProductQuantity( req.body )
-			.then( function( data ) {
-				return res.json( data )
-			})
-			.catch( function( err ) {
-				return res.status( 403 ).res.send( 'Error setting productQuantity' )
+				return res.status( 403 ).res.send( 'Error setting productOrder' )
 			})
 	})
 }

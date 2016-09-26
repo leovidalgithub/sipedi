@@ -28,6 +28,21 @@
 		}]
 	})
 
+	productSchema.methods.setProductOrder = function( data ){
+		var clientID          = data.clientID,
+			productOrdered = data.productOrdered,
+			quantity = data.quantity;
+
+		var client = this.clients.find( function( el ) {
+			return el._id == clientID
+		});
+		client.productOrdered = productOrdered;
+		client.quantity = quantity;
+		return this.save()
+	}
+
+module.exports = mongoose.model( 'Product', productSchema )
+
 	// productSchema.statics.setProductOrdered = function( data ){
 	// 	var productID         = data.productID,
 	// 		clientID          = data.clientID,
@@ -41,25 +56,3 @@
 	// 			return productFound.save(); // return promise
 	// 	})
 	// }
-
-	productSchema.methods.setProductOrdered = function( data ){
-		var clientID          = data.clientID,
-			newProductOrdered = data.newProductOrdered;
-		var client = this.clients.find( function( el ) {
-			return el._id == clientID
-		});
-		client.productOrdered = newProductOrdered;
-		return this.save()
-	}
-
-	productSchema.methods.setProductQuantity = function( data ){
-		var clientID           = data.clientID,
-			newProductQuantity = data.newProductQuantity;
-		var client = this.clients.find( function( el ) {
-			return el._id == clientID
-		});
-		client.quantity = newProductQuantity;
-		return this.save()
-	}
-
-module.exports = mongoose.model( 'Product', productSchema )

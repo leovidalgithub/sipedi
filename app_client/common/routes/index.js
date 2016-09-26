@@ -1,5 +1,3 @@
-// app-client / common / routes / index
-
 function config ( $routeProvider, $locationProvider ) {
 	$routeProvider
 		.when( '/', {

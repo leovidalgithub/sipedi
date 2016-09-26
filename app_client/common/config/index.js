@@ -1,10 +1,9 @@
 function run ( $location, authenticationService ) {
-		// every time app runs verifies a valid token
-		if ( $location.path() !== '/' ) {
-			if ( !authenticationService.isLoggedIn() ) {
-					$location.path( '/' )
-			}
+	if ( $location.path() !== '/' ) {
+		if ( !authenticationService.isLoggedIn() ) { //verifies token
+				$location.path( '/' )
 		}
+	}
 	// $rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {})
 }
 

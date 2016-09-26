@@ -24,9 +24,6 @@ body {
       font-size: 52px; }
 
 /*******************************************/
-#login #loginError .hide {
-  display: none; }
-
 #login .card-container.card {
   max-width: 450px;
   padding: 3px 40px 20px 40px; }
@@ -240,51 +237,6 @@ body {
       #main .controls .demandButton button.btn-default:hover {
         color: #4E46EE; }
 
-/********************** PRODUCTS */
-#main .categories {
-  font-size: 17px;
-  margin-bottom: 10px; }
-
-#main button.quantity {
-  font-size: 18px;
-  width: 60px;
-  text-align: center; }
-
-#main .product {
-  background-color: #CCC;
-  color: #333;
-  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-  font-size: 20px;
-  margin-bottom: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 4px;
-  height: 65px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row nowrap;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer; }
-  #main .product:hover {
-    border: solid 1px #FE8D07;
-    margin-left: 2px;
-    margin-right: 2px; }
-  #main .product.productOrdered {
-    background-color: #6C0;
-    /* 6F0 3F0 */ }
-  #main .product.outOfStock {
-    background-color: #666;
-    text-decoration: line-through;
-    pointer-events: none; }
-
 @media screen and (max-width: 1040px) {
   #main {
     margin-top: 100px; } }
@@ -335,13 +287,58 @@ body {
     padding-left: 10px;
     padding-right: 20px; } }
 
-/********************** CHANGE PRODUCT QUANTITY MODAL */
-#main #myModal .modal-header,
-#main #myModal .modal-footer {
+/********************** PRODUCTS */
+#main .categories {
+  font-size: 17px;
+  margin-bottom: 10px; }
+
+#main button.quantity {
+  font-size: 18px;
+  width: 60px;
+  text-align: center; }
+
+#main .product {
+  background-color: #CCC;
+  color: #333;
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 4px;
+  height: 65px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer; }
+  #main .product:hover {
+    border: solid 1px #FE8D07;
+    margin-left: 2px;
+    margin-right: 2px; }
+  #main .product.productOrdered {
+    background-color: #6C0;
+    /* 6F0 3F0 */ }
+  #main .product.outOfStock {
+    background-color: #666;
+    text-decoration: line-through;
+    pointer-events: none; }
+
+/********************** CHANGE QUANTITY MODAL */
+#main #quantityModal .modal-header,
+#main #quantityModal .modal-footer {
   text-align: center;
   color: #333; }
 
-#main #myModal .modal-body {
+#main #quantityModal .modal-body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -356,7 +353,7 @@ body {
           align-items: center;
   text-align: center; }
 
-#main #myModal
+#main #quantityModal
 .modal-body .changeQantity {
   width: 65px;
   height: 60px;
@@ -364,15 +361,15 @@ body {
   border-radius: 10px;
   border-style: none; }
 
-#main #myModal
+#main #quantityModal
 .modal-body button.changeQantity {
   color: white; }
 
-#main #myModal
+#main #quantityModal
 .modal-body span.changeQantity {
   color: #333; }
 
-#main #myModal
+#main #quantityModal
 .modal-body span.changeQantity {
   line-height: 60px; }
 
