@@ -36,9 +36,6 @@ function productsCtrl( $scope, mainService ) {
 		$( '#quantityModal' ).modal( 'show' ); // because of $event.stopPropagation()
 	}
 
-	$scope.incrementButton = function() { $scope.product.quantity++; }
-	$scope.decrementButton = function() { $scope.product.quantity--; }
-
 	$scope.$watch('product.quantity', function() {
 		if ( $scope.product.quantity > 100) $scope.product.quantity = 100;
 		if ( $scope.product.quantity < 0) $scope.product.quantity = 0;

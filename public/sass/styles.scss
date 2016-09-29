@@ -1,7 +1,9 @@
 @import "variables";
 @import "init";
 @import "login";
-@import "header";
+@import "navbar";
+@import "sidebar";
 @import "main";
-@import "products";
+@import "main.products";
+@import "admin.products";
 @import "medias.query";

@@ -1,0 +1,19 @@
+function productsServiceFn ( $http, authenticationService, $rootScope ) {
+
+		getAllProductsBySupplier = function() {
+			var token = authenticationService.getToken();
+			var supplier = $rootScope.credentials.supplier;
+			return $http.post( '/api/products/', {
+				supplier    : supplier,
+				token       : token,
+				allProducts : true
+			})
+		}
+
+		return {
+					getAllProductsBySupplier : getAllProductsBySupplier
+		}
+}
+
+productsServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
+module.exports = productsServiceFn;

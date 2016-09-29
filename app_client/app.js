@@ -6,25 +6,40 @@ var angular               = require( 'angular' ),
 
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
+	shareDataFtry         = require( './common/factories/shareData.factory' ),
 	categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
 	authenticationService = require( './common/services/authentication.service' ),
 	mainService           = require( './common/services/main.service' ),
+	productsService       = require( './common/services/products.service' ),
 	loginCtrl             = require( './views/login/login.controller' ),
 	mainCtrl              = require( './views/main/main.controller' ),
 	productsCtrl          = require( './views/main/products.controller' ),
+	productsAdminCtrl     = require( './views/products/productsAdmin.controller' ),
 
-	headerTagDirective    = require( './common/directives/headertag/headertag.directive.js' ),
-	headerTagCtrl         = require( './common/directives/headertag/headertag.controller' );
+	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
+	navbarCtrl            = require( './common/directives/navbar/navbar.controller' );
 
-angular.module('sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial'] )
-	.run( initialConfig )
-	.config( configRoutes )
-	.filter( 'uniqueCategory', categoryFilter ) // filter for unique category
-	.service( 'authenticationService', authenticationService )
-	.service( 'mainService', mainService )
+	sidemenuDirective     = require( './common/directives/sidemenu/sidemenu.directive' ),
+	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' );
+
+angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial'] )
+	.run       ( initialConfig )
+	.config    ( configRoutes )
+	.factory   ( 'shareDataFtry', shareDataFtry )
+	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
+// LOGIN
 	.controller( 'loginCtrl', loginCtrl )
+	.service   ( 'authenticationService', authenticationService )
+// MAIN
 	.controller( 'mainCtrl', mainCtrl )
 	.controller( 'productsCtrl', productsCtrl )
-	.directive( 'headertag', headerTagDirective )
-	.controller( 'headerTagCtrl', headerTagCtrl )
+	.service   ( 'mainService', mainService )
+// PRODUCTS ADMIN
+	.controller( 'productsAdminCtrl', productsAdminCtrl )
+	.service   ( 'productsService', productsService )
 
+// DIRECTIVES
+	.directive ( 'navbar', navbarDirective ) // éste es 
+	.controller( 'navbarCtrl', navbarCtrl )
+	.directive ( 'sidemenu', sidemenuDirective ) // éste es 
+	.controller( 'sidemenuCtrl', sidemenuCtrl )

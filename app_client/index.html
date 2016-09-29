@@ -23,9 +23,12 @@
 	<link rel="stylesheet" href="css/tabs.css">
 	<base href="/">
 </head>
+
 <body ng-cloak>
 
-	<div ng-view></div>
+	<navbar ng-show="credentials"></navbar>
+	<sidemenu ng-show="credentials"></sidemenu>
+	<div id="index" class="container" ng-view></div>
 
 	<script src="lib/jquery/jquery-2.2.4.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>

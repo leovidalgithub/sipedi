@@ -1,0 +1,66 @@
+<div id="productsAdmin" ng-cloak>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Administrador de Productos</h3>
+		</div>
+
+		<div class="panel-body">
+			 <!-- CATEGORIES FILTER SELECT -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label for="categories">Filtrar por categoría</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-folder-open"></i>
+							</div>
+							<select class="form-control input-lg"
+							ng-model="selectedCategory"
+							ng-options="cate.category for cate in products | unique:'category' | orderBy : 'category' track by cate._id">
+							</select>
+						</div>
+					</div>
+				</div>
+				 <!-- TEXT FILTER INPUT -->
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label for="userFilter">Filtrar por texto</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-search"></i>
+							</div>
+							<input ng-model="userFilter" id="userFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
+						</div>
+					</div>
+				</div>
+			</div>
+
+<!-- <h1 style="color: black">{{confirmed}}</h1> -->
+
+			 <!-- PRODUCTS DATAGRIDVIEW -->
+			<div class="well productsDGV col-xs-12 col-sm-10 col-sm-offset-1">
+				<div class="form-group"
+					ng-repeat="(key, produ) in products | filter : selectedCategory.category | filter : {product : userFilter} track by produ._id">
+					<div class="product row">
+						<div class="col-xs-10" ng-click="stockChange(produ)">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<input type="checkbox" ng-model="produ.stock" ng-change="stockChange(produ)">
+								</div>
+								<input ng-class="{'outOfStock': !produ.stock }" class="form-control input-md" type="text" value="{{ produ.product }}" readonly>
+							</div>
+						</div>
+						<div class="tools col-xs-2">
+							<i ng-click="editClicked($event, produ)" class="glyphicon glyphicon-pencil" title="Editar {{produ.product}}"></i>
+							<i ng-click="trashClicked($event, produ)" class="glyphicon glyphicon-trash" title="Eliminar {{produ.product}}"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- ng-checked="produ.stock" -->
+		</div> <!-- panel body -->
+	</div> <!-- panel primary -->
+</div>
+
+
+<!-- <button class="btn btn-danger" ng-click="back()">BACK</button> -->

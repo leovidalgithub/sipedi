@@ -1,0 +1,22 @@
+#navbar {
+	opacity: .95;
+	z-index: 100;
+}
+#navbar .logo {
+	margin-left: 5px !important;
+	font-family: $logo-font;
+	font-size: 20px;
+}
+
+#navbar img {
+	max-width:100px;
+	margin-top: -7px;
+	width: 35px;
+	height: 35px;
+}
+
+#navbar .rightText {
+	font-size: 17px;
+	margin-right: 10px;
+	padding-left: 0;
+}

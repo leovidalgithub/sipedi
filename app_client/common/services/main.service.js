@@ -2,9 +2,12 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function( id ) {
 			var token = authenticationService.getToken();
+			var supplier = $rootScope.credentials.supplier;
 			return $http.post( '/api/products/', {
-				clientID : id,
-				token    : token
+				clientID    : id,
+				supplier    : supplier,
+				token       : token,
+				allProducts : false
 			})
 				.then( prepareProductsData.bind( null, id ) )
 		}

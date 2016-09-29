@@ -4,6 +4,8 @@ function loginCtrlFn( $location, authenticationService, $rootScope, $timeout ) {
 	vm.credentials.remember = true; // remember password
 	vm.showError = false; // login fail message
 
+console.log('login controller');
+
 	vm.loginButton = function() { // ---------------- login
 		authenticationService.login( vm.credentials )
 			.then( function( data ) {

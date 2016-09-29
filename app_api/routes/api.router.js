@@ -3,7 +3,7 @@ var express     = require( 'express' ),
 	apiHandler  = require( './handlers/api.handler' );
 
 apiRouter.use (                         apiHandler.middlewareToken );
-apiRouter.post( '/products/',           apiHandler.getProductsByClientID );
+apiRouter.post( '/products/',           apiHandler.getProducts );
 apiRouter.post( '/users/',              apiHandler.getUsersBySupplier );
 apiRouter.post( '/products/setOrder/',  apiHandler.setProductOrder );
 apiRouter.post( '/user/setUserDemand/', apiHandler.setUserDemand );

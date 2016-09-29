@@ -1,7 +1,6 @@
-<headertag></headertag>
+<div id="main">
+	<div class="mainContainer">
 
- <div id="main">
-	<div class="containerX">
 		<div class="row controls">
 
 			<div class="userInfo col-xs-6 col-md-3">
@@ -12,7 +11,6 @@
 					 	  data-ng-src="data:image/png;base64, {{ current.supplier.logo.data || genericLogo }}" />
 				</div>
 			</div>
-
 			 <!-- DEMAND BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
 				<button ng-click="demandButton()" class="btn btn-block"
@@ -34,49 +32,50 @@
 			<div ng-show="credentials.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
 					<form class="form-group">
 						<label for="selectClients">Mis clientes</label>
-						<select ng-selected="$first" class="form-control input-lg" id="selectClients" 
+						<select class="form-control input-lg" id="selectClients" 
 						ng-change="clientChanged()" ng-model="selectedClientModel"
 						ng-options="item.name for item in users | filter: {'admin':false} | orderBy : 'name' track by item._id">
 						<!-- <option value="">Select Option</option> -->
 						</select>
 					</form>
 			</div>
+
 		</div> <!-- @end row -->
 
-<!-- <button class="btn btn-danger btn-md" ng-click="fn1()">ERROR</button> -->
-<!-- <button class="btn btn-success btn-md" ng-click="fn2()">SUCCESSS</button> -->
+<!-- <button class="btn btn-danger btn-md" ng-click="fn1()">CONT++</button> -->
+<!-- <button class="btn btn-success btn-md" ng-click="fn3()">TEMPLATE</button> -->
 
-<!-- SUCCESS ALERT -->
-<div class="row">
-	<div class="col-sm-offset-3 col-sm-7">
-		<div class="collapse successAlert closeAlert">
-			<div style="text-align: center; font-size: 17px;" class="alert alert-success alert-dismissible" role="alert">
-			<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				Guardado correctamente!<br>
-				{{ alertMsg.success }}
+		<!-- SUCCESS ALERT -->
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-7">
+				<div class="collapse successAlert closeAlert">
+					<div style="text-align: center; font-size: 17px;" class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Guardado correctamente!<br>
+						{{ alertMsg.success }}
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-<!-- ERROR ALERT -->
-<div class="row">
-	<div class="col-sm-offset-1 col-sm-10">
-		<div class="collapse errorAlert closeAlert">
-			<div style="text-align: center; font-size: 17px;" class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				Hubo un problema al accesar la base de datos.<br>
-				{{ alertMsg.error }}
+		<!-- ERROR ALERT -->
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<div class="collapse errorAlert closeAlert">
+					<div style="text-align: center; font-size: 17px;" class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Hubo un problema al accesar la base de datos.<br>
+						{{ alertMsg.error }}
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-<!-- ****************************products controller***************************************** ####-->
-		<div ng-include="'views/main/products.template.html'"></div>
-<!-- **************************************************************************************** ####-->
+		<!-- ******************************************************PRODUCTS TABS*********************-->
+		<div ng-include="'views/main/products.view.html'"></div>
+		<!-- ****************************************************************************************-->
 
 	</div>
 </div> <!-- @end #main -->

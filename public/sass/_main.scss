@@ -1,11 +1,3 @@
-	#main {
-		margin-top: 120px;
-	}
-	#main .containerX {
-		width: 75%;
-		margin: auto;
-	}
-
 /********************** TOP CONTROLS */
 	#main .controls {
 		margin-bottom: 15px;
@@ -58,10 +50,6 @@
 		}
 	}
 
-// MAIN CONTAINER
-@media screen and (max-width: 1040px) { #main { margin-top: 100px; } }
-@media screen and (max-width: 850px) { #main { margin-top: 80px; } }
-@media screen and (max-width: 550px) { #main { margin-top: 60px; } }
 // DEMAND BUTTON
 @media screen and (max-width: 480px) { 
 	#main .controls .demandButton button { 
@@ -92,7 +80,7 @@
 @media screen and (max-width: 450px) { #main .product { font-size: 16px; } }
 
 @media screen and (max-width: 450px) { 
-	#main .containerX {
+	#main .mainContainer {
 		width: 95%;
 	}
 	#main .product {

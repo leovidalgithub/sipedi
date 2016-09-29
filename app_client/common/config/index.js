@@ -1,7 +1,7 @@
 function run ( $location, authenticationService ) {
 	if ( $location.path() !== '/' ) {
 		if ( !authenticationService.isLoggedIn() ) { //verifies token
-				$location.path( '/' )
+				$location.path( '/' );
 		}
 	}
 	// $rootScope.$on( '$routeChangeStart', function( event, nextRoute, currentRoute ) {})
