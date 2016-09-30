@@ -30,7 +30,7 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 		}
 
 		function login( user ) {
-			return $http.post( '/login', user )
+			return $http.post( '/login', user );
 		}
 
 		function home() {
@@ -44,16 +44,16 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 			console.log( 'logout bye...' )
 		}
 
-		register = function( user ) {
-			return $http.post('/login/register', user)
-		}
+		// register = function( user ) {
+		// 	return $http.post('/login/register', user)
+		// }
 
 		return {
 			saveToken : saveToken,
 			setCredentials : setCredentials,
 			getToken : getToken,
 			isLoggedIn : isLoggedIn,
-			register : register,
+			// register : register,
 			login : login,
 			home : home,
 			logout : logout

@@ -43,7 +43,7 @@ function productsCtrl( $scope, mainService ) {
 
 	$( '#quantityModal' ).on( 'hide.bs.modal', function ( $event ) { // hidden.bs.modal fires after modal closes
 		setProductOrder( $scope.product );
-	})
+	});
 
 }
 

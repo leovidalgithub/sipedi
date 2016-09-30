@@ -4,26 +4,24 @@
 		<div class="navbar-toggler animate" ng-click="sibarOpen = sibarOpen ? false : true">
 			<span class="menu-icon"></span>
 		</div>
+<!-- ng-click="$parent.modes = $parent.modes != 'users' ? 'users' : 'main'" -->
 		<ul class="navbar-menu animate">
 			<li>
 				<a ng-class="{'notAllowed' : !credentials.admin, 'active' : $parent.modes == 'users'}"
-					href="#" class="animate"
-					
-					ng-click="$parent.modes = $parent.modes != 'users' ? 'users' : 'main'">
-					
+					href="#" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Usuarios </span>
 					<span class="glyphicon glyphicon-user"></span>
 				</a>
 			</li>
 			<li>
 				<a ng-class="{'notAllowed' : !credentials.admin, 'active' : $parent.modes == 'products'}"
-					href="/products" class="animate">
+					href="/products" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Productos </span>
 					<span class="glyphicon glyphicon-list-alt"></span>
 				</a>
 			</li>
 			<li>
-				<a href="/template" class="animate">
+				<a href="#" class="animate">
 					<span class="desc animate"> Cambiar contraseña </span>
 					<span class="glyphicon glyphicon-lock"></span>
 				</a>
@@ -42,5 +40,4 @@
 			</li>
 		</ul>
 	</nav>
-<!-- <h1 style="color: black">side : {{$parent.modes}}</h1> -->
 </div>

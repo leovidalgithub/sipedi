@@ -15,6 +15,7 @@ var angular               = require( 'angular' ),
 	mainCtrl              = require( './views/main/main.controller' ),
 	productsCtrl          = require( './views/main/products.controller' ),
 	productsAdminCtrl     = require( './views/products/productsAdmin.controller' ),
+	modifyProductsCtrl    = require( './views/products/modifyProducts.controller' ),
 
 	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
 	navbarCtrl            = require( './common/directives/navbar/navbar.controller' );
@@ -25,7 +26,7 @@ var angular               = require( 'angular' ),
 angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial'] )
 	.run       ( initialConfig )
 	.config    ( configRoutes )
-	.factory   ( 'shareDataFtry', shareDataFtry )
+	.factory   ( 'sharedData', shareDataFtry )
 	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
 // LOGIN
 	.controller( 'loginCtrl', loginCtrl )
@@ -36,6 +37,7 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.service   ( 'mainService', mainService )
 // PRODUCTS ADMIN
 	.controller( 'productsAdminCtrl', productsAdminCtrl )
+	.controller( 'modifyProductsCtrl', modifyProductsCtrl )
 	.service   ( 'productsService', productsService )
 
 // DIRECTIVES

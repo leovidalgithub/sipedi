@@ -11,10 +11,10 @@ module.exports.middlewareToken = function ( req, res, next ) {
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
 			if ( err ) {
-				console.log( 'main.router.middleware : token err' );
+				console.log( 'middleware : token err' );
 				res.status( 403 ).send( { success: false, message: 'Invalid token.' } )
 			} else { 					// if everything is good
-				console.log( 'main.router.middleware : token ok' );
+				console.log( 'middleware : token ok' );
 				req.decoded = decoded;
 				next()
 			}
@@ -32,10 +32,12 @@ module.exports.getProducts = function( req, res ) {
 	var allProducts = req.body.allProducts;
 	var query = allProducts ? { 'supplier' : supplier } : { 'clients._id' : clientID, 'supplier' : supplier }
 	Product.find( query )
-	.then( function( products ) {
-		return res.json( products )
-	})
-
+		.then( function( products ) {
+			return res.json( products );
+		})
+		.catch( function( err ) {
+			return res.status( 503 ).res.send( 'Error getting products' );
+		});
 }
 
 // POST /api/clients/ --> returns all supplier users
@@ -43,7 +45,7 @@ module.exports.getUsersBySupplier = function( req, res ) {
 	var supplier = req.body.supplier;
 	connect.collection('users').find( { 'supplier' : supplier }, {} ).sort( { name: 1 } ).toArray( function( err, users ) {
 		if ( err ) {
-			res.status( 403 ).send( 'Error getting users by supplier' )
+			res.status( 503 ).send( 'Error getting users by supplier' );
 		}
 		res.json( users )
 	})
@@ -55,10 +57,10 @@ module.exports.setProductOrder = function( req, res ) {
 	Product.findById( productID, function ( err, productFound ) {
 		productFound.setProductOrder( req.body )
 			.then( function( data ) {
-				return res.json( data )
+				return res.json( data );
 			})
 			.catch( function( err ) {
-				return res.status( 403 ).res.send( 'Error setting productOrder' )
+				return res.status( 503 ).res.send( 'Error setting productOrder' );
 			})
 	})
 }
@@ -66,9 +68,9 @@ module.exports.setProductOrder = function( req, res ) {
 module.exports.setUserDemand = function( req, res ) {
 	User.setUserDemand( req.body )
 		.then( function( data ) {
-			return res.json( data )
+			return res.json( data );
 		})
 		.catch( function( err ) {
-			return res.status( 403 ).res.send( 'Error setting userDemand' )
+			return res.status( 503 ).res.send( 'Error setting userDemand' );
 		})
 }

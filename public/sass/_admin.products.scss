@@ -11,9 +11,10 @@
 	background-color: white;
 }
 
-#productsAdmin .productsDGV .product .outOfStock {
+#productsAdmin .productsDGV .product .outOfStock,
+#productsAdmin #modifyProductModal .outOfStock {
 	background-color: #6B6B6B;
-	color: #EBEBEB;
+	color: black;
 	}
 
 #productsAdmin .productsDGV .product:hover .input-group {

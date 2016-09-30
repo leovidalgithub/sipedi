@@ -10,6 +10,9 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				allProducts : false
 			})
 				.then( prepareProductsData.bind( null, id ) )
+				.catch( function ( err ) {
+					if ( err.status == 403 ) authenticationService.logout();
+			});
 		}
 
 		getUsersBySupplier = function() {
@@ -19,6 +22,10 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				supplier : supplier,
 				token    : token
 			})
+			.catch( function ( err ) {
+				if ( err.status == 403 ) authenticationService.logout();
+			});
+
 		}
 
 		setProductOrder = function( clientID, product ) {
@@ -28,12 +35,18 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				clientID : clientID,
 				productID : product._id,
 				productOrdered : product.productOrdered,
-				quantity : product.quantity } );
+				quantity : product.quantity } )
+				.catch( function ( err ) {
+					if ( err.status == 403 ) authenticationService.logout();
+				});
 		}
 
 		setUserDemand = function( data ) {
 			data.token = authenticationService.getToken();
-			return $http.post( '/api/user/setUserDemand/', data );
+			return $http.post( '/api/user/setUserDemand/', data )
+				.catch( function ( err ) {
+					if ( err.status == 403 ) authenticationService.logout();
+				});
 		}
 
 		function prepareProductsData( clientID, data ) {

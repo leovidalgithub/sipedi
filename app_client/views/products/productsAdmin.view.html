@@ -16,7 +16,7 @@
 							</div>
 							<select class="form-control input-lg"
 							ng-model="selectedCategory"
-							ng-options="cate.category for cate in products | unique:'category' | orderBy : 'category' track by cate._id">
+							ng-options="cate for cate in categories | orderBy : ASC">
 							</select>
 						</div>
 					</div>
@@ -35,19 +35,18 @@
 				</div>
 			</div>
 
-<!-- <h1 style="color: black">{{confirmed}}</h1> -->
-
 			 <!-- PRODUCTS DATAGRIDVIEW -->
 			<div class="well productsDGV col-xs-12 col-sm-10 col-sm-offset-1">
 				<div class="form-group"
-					ng-repeat="(key, produ) in products | filter : selectedCategory.category | filter : {product : userFilter} track by produ._id">
+					ng-repeat="(key, produ) in products | filter : selectedCategory | filter : {product : userFilter} track by produ._id"
+					ng-hide="produ.action == 'deleted'">
 					<div class="product row">
 						<div class="col-xs-10" ng-click="stockChange(produ)">
 							<div class="input-group">
 								<div class="input-group-addon">
 									<input type="checkbox" ng-model="produ.stock" ng-change="stockChange(produ)">
 								</div>
-								<input ng-class="{'outOfStock': !produ.stock }" class="form-control input-md" type="text" value="{{ produ.product }}" readonly>
+								<input ng-class="{'outOfStock': !produ.stock }" class="form-control input-md" type="text" value="{{ produ.product }}" readonly title="{{ produ.product }}">
 							</div>
 						</div>
 						<div class="tools col-xs-2">
@@ -60,7 +59,24 @@
 <!-- ng-checked="produ.stock" -->
 		</div> <!-- panel body -->
 	</div> <!-- panel primary -->
+
+	<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
+			class="btn btn-lg" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes">
+			<span class="glyphicon glyphicon-save"></span> Guardar</button>
+	<button ng-class="{'btn-warning': pendingChanges, 'btn-default': !pendingChanges }"
+			class="btn btn-md" ng-disabled="!pendingChanges"
+			title="Deshacer los cambios pendientes" ng-click="undoChanges()">Deshacer cambios</button>
+
+<!-- <button class="btn btn-dange btn-lg" ng-click="fn1()">$scope.pendingChanges</button> -->
+<!-- <button class="btn btn-dange btn-lg" ng-click="fn2()">Remove</button> -->
+
+		<!-- MODIFY MODAL****************************************************************************-->
+		<div ng-include="'views/products/modifyProducts.view.html'"></div>
+		<!-- ****************************************************************************************-->
 </div>
 
 
-<!-- <button class="btn btn-danger" ng-click="back()">BACK</button> -->
+<!-- ################################################################################################################## -->
+<!-- ################################################################################################################## -->
+<!-- ################################################################################################################## -->
+

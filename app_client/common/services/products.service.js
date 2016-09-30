@@ -8,6 +8,9 @@ function productsServiceFn ( $http, authenticationService, $rootScope ) {
 				token       : token,
 				allProducts : true
 			})
+			.catch( function ( err ) {
+				if ( err.status == 403 ) authenticationService.logout();
+			});
 		}
 
 		return {
