@@ -1,9 +1,8 @@
 function productsAdminCtrl( $scope, productsService, sharedData ) {
 
 	(function Init() {
-		if ( sharedData.getData('products') ) {
+		if ( sharedData.getData( 'products' ) ) {
 			$scope.products = sharedData.getData( 'products' );
-			fillCategories();
 		} else {
 			getAllProducts();
 		}
@@ -13,7 +12,6 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		productsService.getAllProductsBySupplier()
 				.then( function( data ) {
 					$scope.products = data.data;
-					fillCategories();
 				})
 				.catch( function ( err ) {
 				});
@@ -27,13 +25,18 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		}
 		$scope.categories = $scope.categories.filter( onlyUnique );
 		$scope.selectedCategory = $scope.selectedCategory || $scope.categories[0];
-	}
+	};
 
-	$scope.$watch( 'products' , function ( newVal, oldVal ) { // watch for products.action changes
+
+	$scope.$watch( 'products' , function ( newVal, oldVal ) { // watch for $scope.products set and properties changes
 		if ( !newVal ) return;
+		if ( !$scope.categories ) fillCategories();
 		$scope.pendingChanges = $scope.products.some( function( element, index ) {
 			return ( element.action && element.action != '' );
 		});
+		$scope.productsSelected = $scope.products.filter( function ( element ) {
+			return element.selected;
+		}).length;
 	}, true);
 
 	$scope.saveChanges = function() {
@@ -45,6 +48,16 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		getAllProducts();
 	}
 
+	$scope.removeSelected = function() {
+		angular.forEach( $scope.products, function( product, index ) {
+			if ( product.selected ) {
+				product.action = 'deleted';
+				product.selected = '';
+			} 
+		});
+
+	}
+
 	$scope.$on( '$destroy', function() { // scope destroy when change route
 		if ( $scope.pendingChanges ) {
 			sharedData.setData( 'products', $scope.products );
@@ -53,10 +66,6 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		}
 	})
 
-
-	$scope.$on( 'reloadProducts', function( event, data ) {
-		getAllProducts();
-	} );
 
 // *********************** TESTING *
 // $scope.fn1 = function() {};

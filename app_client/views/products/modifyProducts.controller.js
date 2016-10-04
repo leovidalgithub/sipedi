@@ -1,15 +1,18 @@
 function modifyProductsCtrl( $scope ) {
 
-	$scope.$parent.$parent.stockChange = function( product ) {
-		product.stock = product.stock ? false : true;
-		product.action = 'modified';
-	}
-
-	$scope.$parent.$parent.editClicked = function( $event, product ) {
+	$scope.$parent.$parent.editClicked = function( product ) {
 		// $scope.modiProductForm.$setPristine();
 		// $scope.modiProductForm.$setUntouched();
-		$scope.productReference = product;
-		$scope.product = angular.copy( product );
+
+			$scope.product = null;
+		if ( $scope.$parent.productsSelected == 0 ) { // just one product selected
+			$scope.productReference = product;
+			$scope.product = angular.copy( product );
+			// $scope.productsReference  = $scope.$parent.products.filter(function( elem ) {
+				// return elem.selected;
+			// });
+		}
+
 		$( '#modifyProductModal' ).modal( 'show' );
 
 	};
@@ -21,16 +24,23 @@ function modifyProductsCtrl( $scope ) {
 
 
 	$scope.$parent.$parent.modiProductOK = function() {
-		$scope.productReference.product = $scope.product.product;
-		$scope.productReference.stock = $scope.product.stock;
-		$scope.productReference.category = $scope.product.category;
-		$scope.productReference.action = 'modified';
-		// $scope.$emit( 'reloadProducts');
-	}
 
-	$scope.$parent.$parent.trashClicked = function( $event, product ) {
-		product.action = 'deleted';
-	};
+		if ( $scope.$parent.productsSelected ) { // setting products selected
+			angular.forEach( $scope.$parent.products, function( element, index ) {
+				if ( element.selected ) {
+					element.category = $scope.product.category;
+					element.action = 'modified';
+					element.selected = false;
+				}
+			});
+		} else { // setting just the one product selected
+			$scope.productReference.product = $scope.product.product;
+			$scope.productReference.stock = $scope.product.stock;
+			$scope.productReference.category = $scope.product.category;
+			$scope.productReference.action = 'modified';
+		}
+		$( '#modifyProductModal' ).modal( 'hide' );
+	}
 
 }
 

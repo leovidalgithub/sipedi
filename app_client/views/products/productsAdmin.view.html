@@ -16,7 +16,7 @@
 							</div>
 							<select class="form-control input-lg"
 							ng-model="selectedCategory"
-							ng-options="cate for cate in categories | orderBy : ASC">
+							ng-options="cate for cate in categories | orderBy : ASC track by cate">
 							</select>
 						</div>
 					</div>
@@ -36,7 +36,11 @@
 			</div>
 
 			 <!-- PRODUCTS DATAGRIDVIEW -->
-			<div class="well productsDGV col-xs-12 col-sm-10 col-sm-offset-1">
+			<dgw-products products="products" selectedcategory="{{selectedCategory}}" userfilter="{{userFilter}}"
+							productsselected="{{productsSelected}}" editclicked="editClicked(produ)">
+			</dgw-products>
+
+<!-- 			<div class="well productsDGV col-xs-12 col-sm-10 col-sm-offset-1">
 				<div class="form-group"
 					ng-repeat="(key, produ) in products | filter : selectedCategory | filter : {product : userFilter} track by produ._id"
 					ng-hide="produ.action == 'deleted'">
@@ -56,16 +60,36 @@
 					</div>
 				</div>
 			</div>
-<!-- ng-checked="produ.stock" -->
+ -->
+
 		</div> <!-- panel body -->
+			<div class="modal-footer">
+				<div class="row">
+
+					<div class="col-xs-6">
+						<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
+								class="btn btn-lg" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes">
+								<span class="glyphicon glyphicon-save"></span> Guardar</button>
+						<button ng-class="{'btn-warning': pendingChanges, 'btn-default': !pendingChanges }"
+								class="btn btn-md" ng-disabled="!pendingChanges"
+								title="Deshacer los cambios pendientes" ng-click="undoChanges()">Deshacer cambios</button>
+								</div>
+					<div class="col-xs-6">
+						<button ng-class="{'btn-warning': productsSelected, 'btn-default': !productsSelected }"
+								class="btn btn-md" ng-disabled="!productsSelected" title="Editar seleccionados"
+								ng-click="editClicked()">
+								<span class="glyphicon glyphicon-pencil"></span> Editar ({{productsSelected}})</button>
+						<button ng-class="{'btn-danger': productsSelected, 'btn-default': !productsSelected }"
+								class="btn btn-md" ng-disabled="!productsSelected" title="Eliminar seleccionados"
+								ng-click="removeSelected()">
+								<span class="glyphicon glyphicon-trash"></span> Eliminar ({{productsSelected}})</button>
+
+					</div>
+				</div>
+			</div>
+
 	</div> <!-- panel primary -->
 
-	<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
-			class="btn btn-lg" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes">
-			<span class="glyphicon glyphicon-save"></span> Guardar</button>
-	<button ng-class="{'btn-warning': pendingChanges, 'btn-default': !pendingChanges }"
-			class="btn btn-md" ng-disabled="!pendingChanges"
-			title="Deshacer los cambios pendientes" ng-click="undoChanges()">Deshacer cambios</button>
 
 <!-- <button class="btn btn-dange btn-lg" ng-click="fn1()">$scope.pendingChanges</button> -->
 <!-- <button class="btn btn-dange btn-lg" ng-click="fn2()">Remove</button> -->

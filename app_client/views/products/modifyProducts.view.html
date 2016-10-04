@@ -4,7 +4,7 @@
 		<div class="modal-content">
 			
 			<div class="modal-header">
-				<button ng-disabled="!product.product.length" type="button"
+				<button type="button"
 				 class="close"><span aria-hidden="true" data-dismiss="modal">&times;</span></button>
 				<h4>Modificar producto</h4>
 			</div>
@@ -20,16 +20,24 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-folder-open"></i>
 									</div>
-									<select class="form-control input-lg"
+									<select class="form-control input-lg" id="categories"
 									ng-model="product.category"
-									ng-options="cate2 for cate2 in categories | orderBy : ASC">
+									ng-options="cate for cate in categories | orderBy : ASC">
+										<option ng-show="$parent.productsSelected" value="">Seleccionar categoría</option>
 									</select>
+
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="form-group"
+
+			 <!-- PRODUCTS DATAGRIDVIEW -->
+			<dgw-products 
+				ng-show="$parent.productsSelected" products="products" mofifygroup="true">
+			</dgw-products>
+
+					<div ng-hide="$parent.productsSelected" class="form-group"
 							ng-class="{'has-error':modiProductForm.productName.$invalid && modiProductForm.productName.$dirty}">
 						<label for="productName">Producto</label>
 							<div class="input-group">
@@ -47,13 +55,18 @@
 			</div>
 
 			<div class="modal-footer">
-				<!-- <button ng-click="modiProductOK(product)" type="button" class="btn btn-primary">Aceptar</button> -->
-				<button ng-class="{'btn-primary': product.product.length, 'btn-default': !product.product.length }"
-								ng-disabled="!product.product.length" ng-click="modiProductOK()" type="button"
+				<button ng-class="{'btn-primary': ($parent.productsSelected == 0 && product.product.length > 0) ||
+									($parent.productsSelected > 0 && product.category),
+									'btn-default': ($parent.productsSelected == 0 && product.product.length == 0) ||
+									($parent.productsSelected > 0 && !product.category)}"
+
+						ng-disabled="($parent.productsSelected == 0 && !product.product.length) ||
+									($parent.productsSelected > 0 && !product.category)"
+
+								ng-click="modiProductOK()" type="button"
 								href="#" class="btn btn-lg" data-dismiss="modal">
 						<span class="glyphicon glyphicon-ok"></span> Aceptar
 				</button>
-
 			</div>
 		</div>
 	</div>

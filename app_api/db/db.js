@@ -1,7 +1,6 @@
 var mongoose         = require('mongoose');
 	mongoose.Promise = Promise;  
-var config           = require('../config/config'),
-	dbURI            = 'mongodb://localhost/meanAuth';
+var config           = require('../config/config');
 
 if ( process.env.NODE_ENV === 'production' ) {
 	dbURI =  process.env.MONGO_URI;

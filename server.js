@@ -12,8 +12,8 @@ app.use( express.static( path.join( __dirname, 'app_client' )) );
 
 app.use( require( './app_api/config/setHeader' ) );
 
-app.use( '/products', function( req, res ) {
-	res.redirect('http://localhost:8080/#/products' );
+app.use( '/products', function( req, res, next ) {
+	res.redirect('/#/products' );
 })
 
 var loginRouter = require( './app_api/routes/login.router' );

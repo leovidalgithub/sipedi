@@ -23,7 +23,7 @@ var angular               = require( 'angular' ),
 	sidemenuDirective     = require( './common/directives/sidemenu/sidemenu.directive' ),
 	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' );
 
-angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial'] )
+angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial' ] )
 	.run       ( initialConfig )
 	.config    ( configRoutes )
 	.factory   ( 'sharedData', shareDataFtry )
@@ -45,3 +45,5 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.controller( 'navbarCtrl', navbarCtrl )
 	.directive ( 'sidemenu', sidemenuDirective ) // éste es 
 	.controller( 'sidemenuCtrl', sidemenuCtrl )
+
+	require( './common/directives/dgvProducts/dgvProducts.directive' );
