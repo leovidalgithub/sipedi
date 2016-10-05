@@ -506,3 +506,6 @@ body {
 #productsAdmin dgw-products .tools {
   padding: 0;
   text-align: center; }
+
+#productsAdmin .modal-footer div {
+  text-align: center; }

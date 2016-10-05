@@ -6,7 +6,8 @@
 			<div class="modal-header">
 				<button type="button"
 				 class="close"><span aria-hidden="true" data-dismiss="modal">&times;</span></button>
-				<h4>Modificar producto</h4>
+				<h4 ng-show="mode != 'addNew'">Editar {{ $parent.productsSelected ? 'productos' : 'producto' }}</h4>
+				<h4 ng-show="mode == 'addNew'">Agregar nuevo producto</h4>
 			</div>
 
 			<div class="modal-body">
@@ -31,42 +32,66 @@
 						</div>
 					</div>
 
-
 			 <!-- PRODUCTS DATAGRIDVIEW -->
-			<dgw-products 
-				ng-show="$parent.productsSelected" products="products" mofifygroup="true">
-			</dgw-products>
+			<!-- <dgw-products ng-show="$parent.productsSelected" products="products" mofifygroup="true"></dgw-products> -->
+			<dgw-products ng-show="mode == 'mofifyGroup'" products="products" mofifygroup="true" mode="{{mode}}"></dgw-products>
 
-					<div ng-hide="$parent.productsSelected" class="form-group"
+					 <!-- PRODUCT DESCRIPTION --> <!-- ng-hide="$parent.productsSelected" -->
+					<div ng-show="mode != 'mofifyGroup'" class="form-group"
 							ng-class="{'has-error':modiProductForm.productName.$invalid && modiProductForm.productName.$dirty}">
 						<label for="productName">Producto</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<input type="checkbox" ng-model="product.stock">
-								</div>
-								<input ng-model="product.product" ng-class="{'outOfStock': !product.stock }" class="form-control input-lg" type="text"
-									value="{{ product.product }}" maxlength="50" ng-required="true" name="productName" id="productName">
-								<span ng-if="modiProductForm.productName.$invalid && modiProductForm.productName.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<input type="checkbox" ng-model="product.stock">
 							</div>
-							<span ng-if="modiProductForm.productName.$invalid && modiProductForm.productName.$dirty" class="help-block">La descripción no puede estar vacía.</span>
+
+							<input ng-show="mode == 'addNew'" 
+								ng-keyup="$event.keyCode == 13 && product.product.length && product.category && addNewProduct()"
+								ng-model="product.product" class="form-control input-lg" type="text"
+								value="{{ product.product }}" maxlength="50" ng-required="true" name="productName" id="productName" />
+
+							<input ng-show="mode == 'modifyOne'" 
+								ng-keyup="$event.keyCode == 13 && product.product.length && product.category && modiProductOK()"
+								ng-model="product.product" class="form-control input-lg" type="text"
+								value="{{ product.product }}" maxlength="50" ng-required="true" name="productName" id="productName" />
+
+							<span ng-if="modiProductForm.productName.$invalid && modiProductForm.productName.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						</div>
+						<span ng-if="modiProductForm.productName.$invalid && modiProductForm.productName.$dirty" class="help-block">La descripción no puede estar vacía.</span>
 					</div>
 
 				</form>
 			</div>
 
 			<div class="modal-footer">
-				<button ng-class="{'btn-primary': ($parent.productsSelected == 0 && product.product.length > 0) ||
+
+				<button ng-show="mode != 'addNew'"
+						ng-class="{'btn-primary': ($parent.productsSelected == 0 && product.product.length > 0) ||
 									($parent.productsSelected > 0 && product.category),
 									'btn-default': ($parent.productsSelected == 0 && product.product.length == 0) ||
 									($parent.productsSelected > 0 && !product.category)}"
-
 						ng-disabled="($parent.productsSelected == 0 && !product.product.length) ||
 									($parent.productsSelected > 0 && !product.category)"
-
-								ng-click="modiProductOK()" type="button"
-								href="#" class="btn btn-lg" data-dismiss="modal">
+						ng-click="modiProductOK()" type="button" class="btn btn-lg" data-dismiss="modal">
 						<span class="glyphicon glyphicon-ok"></span> Aceptar
 				</button>
+
+			 <!-- ADDNEW PRODUCT BUTTON -->
+				<button ng-show="mode == 'addNew'"
+						ng-class="{'btn-success': (product.product.length) && (product.category),
+									'btn-default': (!product.product.length) || (!product.category)}"
+
+						ng-disabled="(!product.product.length) || (!product.category)"
+
+						ng-click="addNewProduct()" type="button" class="btn btn-md">
+						<span class="glyphicon glyphicon-plus"></span> Agregar
+				</button>
+			 <!-- EXIT ADDNEW PRODUCT BUTTON -->
+				<button ng-show="mode == 'addNew'" data-dismiss="modal"
+						type="button" class="btn btn-default btn-md">
+						<span class="glyphicon glyphicon-log-out"></span> Salir
+				</button>
+
 			</div>
 		</div>
 	</div>

@@ -3,6 +3,8 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 	(function Init() {
 		if ( sharedData.getData( 'products' ) ) {
 			$scope.products = sharedData.getData( 'products' );
+			$scope.categories = sharedData.getData( 'categories' );
+			$scope.selectedCategory = $scope.categories[0];
 		} else {
 			getAllProducts();
 		}
@@ -12,6 +14,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		productsService.getAllProductsBySupplier()
 				.then( function( data ) {
 					$scope.products = data.data;
+					fillCategories();
 				})
 				.catch( function ( err ) {
 				});
@@ -24,13 +27,18 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 			return self.indexOf( value ) === index;
 		}
 		$scope.categories = $scope.categories.filter( onlyUnique );
-		$scope.selectedCategory = $scope.selectedCategory || $scope.categories[0];
+		// $scope.selectedCategory = $scope.selectedCategory || $scope.categories[0];
+		if ( $scope.categories.indexOf( $scope.selectedCategory ) === -1 ) {
+			$scope.selectedCategory = $scope.categories[0];
+		} else {
+			$scope.selectedCategory = $scope.selectedCategory;
+		}
 	};
 
 
 	$scope.$watch( 'products' , function ( newVal, oldVal ) { // watch for $scope.products set and properties changes
 		if ( !newVal ) return;
-		if ( !$scope.categories ) fillCategories();
+		// if ( !$scope.categories ) fillCategories();
 		$scope.pendingChanges = $scope.products.some( function( element, index ) {
 			return ( element.action && element.action != '' );
 		});
@@ -39,14 +47,74 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		}).length;
 	}, true);
 
+
 	$scope.saveChanges = function() {
+		angular.forEach( $scope.products, function(element, index) {
+			console.log( element.product + ' - ' + element.action);
+		});
 		// mandar a guardar API
 		// getAllProducts();
-	}
+	};
 
 	$scope.undoChanges = function() {
 		getAllProducts();
-	}
+	};
+
+	(function() { // CATEGORIES ADMIN
+		var tempCategory = '';
+		$scope.addCategory = function () {
+			$scope.category = '';
+			$scope.modeCategory = 'addNew';
+			$scope.openCategoriesAdmin();
+		};
+		$scope.editCategory = function () {
+			$scope.category = angular.copy( $scope.selectedCategory );
+			tempCategory = angular.copy( $scope.selectedCategory );
+			$scope.modeCategory = 'edit';
+			$scope.openCategoriesAdmin();
+		};
+		$scope.add_editCategory = function() {
+			if ( $scope.modeCategory == 'addNew' ) {
+				if ( categoryNotExist() ) { // adding new category
+					$scope.categories.push( $scope.category.trim() );
+					$scope.selectedCategory = $scope.category.trim();
+				}
+			} else { // changing category
+				if ( categoryNotExist() ) {
+					angular.forEach( $scope.products, function( element, index ) {
+						if ( element.category == tempCategory ) {
+							element.category = $scope.category.trim();
+							if ( element.action != 'added' ) element.action = 'modified';
+						}
+					});
+					var indexCategory = $scope.categories.indexOf( tempCategory );
+					$scope.categories[indexCategory] = $scope.category.trim(); 
+					$scope.selectedCategory = $scope.category.trim();
+				}
+			}
+			function categoryNotExist() {
+				return ( $scope.categories.toString().toLowerCase().indexOf( $scope.category.trim().toLowerCase() ) === -1 );
+			}
+			$scope.closeCategoriesAdmin();
+		};
+		$scope.removeCategory = function() {
+			angular.forEach( $scope.products, function( element, index ) {
+				if ( element.category == $scope.selectedCategory ) {
+					element.action = 'deleted';
+				}
+			});
+			var indexCategory = $scope.categories.indexOf( $scope.selectedCategory );
+			$scope.categories.splice( indexCategory, 1 );
+			$scope.selectedCategory = $scope.categories[0];
+		};
+		$scope.openCategoriesAdmin = function () {
+			$( '#productsAdmin .categoriesAdmin' ).collapse( 'show' );
+			$( '#productsAdmin .categoriesAdmin input' ).focus();
+		};
+		$scope.closeCategoriesAdmin = function () { $( '#productsAdmin .categoriesAdmin' ).collapse( 'hide' ) };
+	})();
+
+
 
 	$scope.removeSelected = function() {
 		angular.forEach( $scope.products, function( product, index ) {
@@ -55,20 +123,18 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 				product.selected = '';
 			} 
 		});
-
-	}
+	};
 
 	$scope.$on( '$destroy', function() { // scope destroy when change route
 		if ( $scope.pendingChanges ) {
 			sharedData.setData( 'products', $scope.products );
+			sharedData.setData( 'categories', $scope.categories );
 		} else {
 			sharedData.removeData( 'products' );
+			sharedData.removeData( 'categories' );
 		}
-	})
+	});
 
-
-// *********************** TESTING *
-// $scope.fn1 = function() {};
 
 }
 

@@ -1,6 +1,6 @@
 <div class="well col-xs-12 col-sm-10 col-sm-offset-1">
 	<div class="form-group product"
-		ng-repeat="(key, produ) in products | filter : selectedcategory | filter : {product : userfilter} track by produ._id"
+		ng-repeat="(key, produ) in products | filter : selectedcategory | filter : {product : userfilter} | orderBy : 'product'"
 		ng-hide="(produ.action == 'deleted') || (mofifyGroup && !produ.selected)">
 		<div class="row">
 
@@ -8,8 +8,9 @@
 				<div ng-class="{'input-group': !mofifyGroup, 'form-group': mofifyGroup}">
 					<div ng-hide="mofifyGroup" class="input-group-addon">
 						<input type="checkbox" ng-model="produ.stock" ng-change="stockChange(produ)"
-							title="{{produ.stock ? 'En stock' : 'Fuera de stock'}}" ng-click="produ.action = 'modified'" >
+							title="{{produ.stock ? 'En stock' : 'Fuera de stock'}}">
 					</div>
+					<!-- ng-click="produ.action = 'modified'" -->
 					<input ng-disabled="mofifyGroup" ng-click="produ.selected = !produ.selected"
 							ng-class="{'outOfStock': !produ.stock, 'productSelected': (!mofifyGroup && produ.selected) }"
 							class="form-control input-md" type="text" value="{{ produ.product }}" readonly title="{{ produ.product }}" />
@@ -17,7 +18,7 @@
 			</div>
 
 			<div ng-hide="mofifyGroup" class="tools col-xs-2">
-				<i ng-class="{'icon-disabled': productsselected > 0 }" ng-click="editclicked({produ : produ})"
+				<i ng-class="{'icon-disabled': productsselected > 0 }" ng-click="editone({produ : produ})"
 					class="glyphicon glyphicon-pencil" title="Editar {{produ.product}}"></i>
 				<i ng-class="{'icon-disabled': productsselected > 0 }" ng-click="produ.action = 'deleted'"
 					class="glyphicon glyphicon-trash" title="Eliminar {{produ.product}}"></i>
