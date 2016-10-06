@@ -5,12 +5,12 @@ var express     = require( 'express' ),
 	User        = require('../../db/models/users'),
 	Product     = require('../../db/models/products');
 
+var mongoose = require( '../../db/db' );
+// var myConn = mongoose.connection;
+// myConn.collection( 'products' ).insert( dataUser )
+
 // middleware for verify token in all /api requests
 module.exports.middlewareToken = function ( req, res, next ) {
-
-	next();
-	return;
-	
 	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
@@ -64,10 +64,11 @@ module.exports.setProductOrder = function( req, res ) {
 				return res.json( data );
 			})
 			.catch( function( err ) {
+				console.log(err);
 				return res.status( 503 ).res.send( 'Error setting productOrder' );
 			})
 	})
-}
+};
 
 module.exports.setUserDemand = function( req, res ) {
 	User.setUserDemand( req.body )
@@ -77,4 +78,15 @@ module.exports.setUserDemand = function( req, res ) {
 		.catch( function( err ) {
 			return res.status( 503 ).res.send( 'Error setting userDemand' );
 		})
+};
+
+// PUT /api/products/ --> set products into DB
+module.exports.setProducts = function( req, res ) {
+	Product.setProducts( req.body.products )
+		.then( function ( data ) {
+			return res.json( data );
+		})
+		.catch( function ( err ) {
+			return res.status( 503 ).res.send( 'Error setting products' );
+		});
 }

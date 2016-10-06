@@ -19,9 +19,12 @@ $scope.product = {};
 	$scope.$parent.$parent.newProductClicked = function() {
 		function productReset() {
 			$scope.mode = 'addNew';
+			$scope.product._id = '';
 			$scope.product.stock = true;
 			$scope.product.product = '';
-			$scope.product.action = 'added';
+			$scope.product.clients = [];
+			$scope.product.action = 'added_modified';
+			$scope.product.selected = false;
 			$scope.product.supplier = $rootScope.credentials.supplier;
 		}
 		$scope.addNewProduct = function () {
@@ -38,25 +41,24 @@ $scope.product = {};
 	});
 	// $( '#modifyProductModal' ).on( 'hide.bs.modal', function ( $event ) {});
 
-
+// ( $scope.$parent.productsSelected )
 	$scope.modiProductOK = function() {
-		if ( $scope.$parent.productsSelected ) { // setting products selected
+		if ( $scope.mode == 'mofifyGroup' ) { // setting products selected
 			angular.forEach( $scope.$parent.products, function( element, index ) {
 				if ( element.selected ) {
 					element.category = $scope.product.category;
 					element.selected = false;
-					if ( element.action != 'added' ) element.action = 'modified';
+					element.action = 'added_modified'; //if ( element.action != 'added' )
 				}
 			});
-		} else { // setting just the one product selected
+		} else if ( $scope.mode == 'modifyOne' ) { // setting just the one product selected
 			$scope.productReference.product = $scope.product.product;
 			$scope.productReference.stock = $scope.product.stock;
 			$scope.productReference.category = $scope.product.category;
-			if ( $scope.productReference.action != 'added' ) $scope.productReference.action = 'modified';
-		}
+			$scope.productReference.action = 'added_modified';
+		};
 		$( '#modifyProductModal' ).modal( 'hide' );
 	}
-
 }
 
 modifyProductsCtrl.$inject = [ '$scope', '$rootScope' ];

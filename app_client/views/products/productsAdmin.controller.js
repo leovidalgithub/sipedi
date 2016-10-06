@@ -40,7 +40,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		if ( !newVal ) return;
 		// if ( !$scope.categories ) fillCategories();
 		$scope.pendingChanges = $scope.products.some( function( element, index ) {
-			return ( element.action && element.action != '' );
+			return ( element.action != '' ); // ( element.action && element.action != '' )
 		});
 		$scope.productsSelected = $scope.products.filter( function ( element ) {
 			return element.selected;
@@ -49,11 +49,17 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 
 
 	$scope.saveChanges = function() {
-		angular.forEach( $scope.products, function(element, index) {
-			console.log( element.product + ' - ' + element.action);
+		var productsToSend = $scope.products.filter( function( product ) {
+			return ( product.action != '' )
 		});
-		// mandar a guardar API
-		// getAllProducts();
+		productsService.setProducts( productsToSend )
+			.then( function( data ) {
+					console.log(' products correctly updated' );
+					getAllProducts();
+			})
+			.catch( function ( err ) {
+					console.log(' error updating products' );
+			});
 	};
 
 	$scope.undoChanges = function() {
@@ -84,7 +90,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 					angular.forEach( $scope.products, function( element, index ) {
 						if ( element.category == tempCategory ) {
 							element.category = $scope.category.trim();
-							if ( element.action != 'added' ) element.action = 'modified';
+							element.action = 'added_modified';
 						}
 					});
 					var indexCategory = $scope.categories.indexOf( tempCategory );

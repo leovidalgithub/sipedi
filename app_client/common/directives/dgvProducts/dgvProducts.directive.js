@@ -17,7 +17,7 @@ angular.module( 'sipediApp')
 			link : function( scope, elem, attrs ) {
 				scope.mofifyGroup = attrs.mofifygroup == 'true' ? true : false;
 				scope.stockChange = function( produ ) {
-					if ( produ.action != 'added' ) produ.action = 'modified';
+					produ.action = 'added_modified';
 				};
 			}
 		}

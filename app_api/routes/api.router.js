@@ -4,6 +4,7 @@ var express     = require( 'express' ),
 
 apiRouter.use (                         apiHandler.middlewareToken );
 apiRouter.post( '/products/',           apiHandler.getProducts );
+apiRouter.put ( '/products/',           apiHandler.setProducts );
 apiRouter.post( '/users/',              apiHandler.getUsersBySupplier );
 apiRouter.post( '/products/setOrder/',  apiHandler.setProductOrder );
 apiRouter.post( '/user/setUserDemand/', apiHandler.setUserDemand );
