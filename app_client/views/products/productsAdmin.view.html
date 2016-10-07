@@ -12,22 +12,27 @@
 						<label for="categories">Filtrar por categoría</label>
 						<div class="input-group">
 							<div class="input-group-addon">
-								<i class="glyphicon glyphicon-folder-open"></i>
+								<button ng-init="disablefilter = false" ng-class="{'btn-success' : !disablefilter}"
+										class="btn btn-sm" ng-click="disablefilter = !disablefilter"
+										title="{{disablefilter ? 'Activar' : 'Desactivar'}} filtro">
+										<i class="glyphicon glyphicon-folder-open"></i>
+								</button>
 							</div>
 							<select class="form-control input-lg"
-							ng-model="selectedCategory"
+							ng-model="selectedCategory" ng-disabled="disablefilter"
 							ng-options="cate for cate in categories | orderBy : ASC track by cate">
 							</select>
 							<div class="input-group-addon">
-								<button class="btn btn-info btn-sm" title="Nueva categoría" ng-click="addCategory()">
+								<button class="btn btn-info btn-sm" title="Nueva categoría"
+										ng-click="addCategory()" ng-disabled="disablefilter">
 									<i class="glyphicon glyphicon-plus"></i>
 								</button>
 								<button class="btn btn-warning btn-sm" title="Editar categoría"
-										ng-click="editCategory()" ng-disabled="(!categories.length)">
+										ng-click="editCategory()" ng-disabled="(!categories.length) || (disablefilter)">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
 								<button class="btn btn-danger btn-sm" title="Eliminar categoría"
-										ng-click="removeCategory()" ng-disabled="(!categories.length)">
+										ng-click="removeCategory()" ng-disabled="(!categories.length) || (disablefilter)">
 									<i class="glyphicon glyphicon-trash"></i>
 								</button>
 							</div>
@@ -96,40 +101,20 @@
 			<!-- PRODUCTS DATAGRIDVIEW -->
 			<div class="row">
 				<dgw-products products="products" selectedcategory="{{selectedCategory}}" userfilter="{{userFilter}}"
-								productsselected="{{productsSelected}}" editone="editOne(produ)">
+								productsselected="{{productsSelected}}" editone="editOne(produ)"
+								disablefilter="disablefilter">
 				</dgw-products>
 			</div>
 
-<!-- 			<div class="well productsDGV col-xs-12 col-sm-10 col-sm-offset-1">
-				<div class="form-group"
-					ng-repeat="(key, produ) in products | filter : selectedCategory | filter : {product : userFilter} track by produ._id"
-					ng-hide="produ.action == 'deleted'">
-					<div class="product row">
-						<div class="col-xs-10" ng-click="stockChange(produ)">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<input type="checkbox" ng-model="produ.stock" ng-change="stockChange(produ)">
-								</div>
-								<input ng-class="{'outOfStock': !produ.stock }" class="form-control input-md" type="text" value="{{ produ.product }}" readonly title="{{ produ.product }}">
-							</div>
-						</div>
-						<div class="tools col-xs-2">
-							<i ng-click="editClicked($event, produ)" class="glyphicon glyphicon-pencil" title="Editar {{produ.product}}"></i>
-							<i ng-click="trashClicked($event, produ)" class="glyphicon glyphicon-trash" title="Eliminar {{produ.product}}"></i>
-						</div>
-					</div>
-				</div>
-			</div>
- -->
-
 		</div> <!-- panel body -->
+
 			<div class="modal-footer">
 				<div class="row">
 
 					<div class="col-xs-6">
 						<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes"
-								ng-click="saveChanges()">
+								ng-click="saveChanges()" id="saveButton" data-loading-text="Guardando..." autocomplete="off">
 								<span class="glyphicon glyphicon-save"></span> Guardar</button>
 						<button ng-class="{'btn-warning': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges"
@@ -151,17 +136,8 @@
 
 	</div> <!-- panel primary -->
 
-
-<!-- <button class="btn btn-dange btn-lg" ng-click="fn1()">$scope.pendingChanges</button> -->
-<!-- <button class="btn btn-dange btn-lg" ng-click="fn2()">Remove</button> -->
-
 		<!-- MODIFY MODAL****************************************************************************-->
 		<div ng-include="'views/products/modifyProducts.view.html'"></div>
 		<!-- ****************************************************************************************-->
+
 </div>
-
-
-<!-- ################################################################################################################## -->
-<!-- ################################################################################################################## -->
-<!-- ################################################################################################################## -->
-

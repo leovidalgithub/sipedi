@@ -1,6 +1,6 @@
 <div class="well col-xs-12 col-sm-10 col-sm-offset-1">
 	<div class="form-group product"
-		ng-repeat="(key, produ) in products | filter : selectedcategory | filter : {product : userfilter} | orderBy : 'product'"
+		ng-repeat="(key, produ) in products | filter : (!disablefilter || '') && {category : selectedcategory} | filter : {product : userfilter} | orderBy : 'product'"
 		ng-hide="(produ.action == 'deleted') || (mofifyGroup && !produ.selected)">
 		<div class="row">
 
@@ -8,7 +8,7 @@
 				<div ng-class="{'input-group': !mofifyGroup, 'form-group': mofifyGroup}">
 					<div ng-hide="mofifyGroup" class="input-group-addon">
 						<input type="checkbox" ng-model="produ.stock" ng-change="stockChange(produ)"
-							title="{{produ.stock ? 'En stock' : 'Fuera de stock'}}">
+							title="{{produ.stock ? 'En stock' : 'Fuera de stock'}}" />
 					</div>
 					<!-- ng-click="produ.action = 'modified'" -->
 					<input ng-disabled="mofifyGroup" ng-click="produ.selected = !produ.selected"

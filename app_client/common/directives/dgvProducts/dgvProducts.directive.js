@@ -1,15 +1,15 @@
-// angular.module( 'directives', [])
 angular.module( 'sipediApp')
 
 	.directive('dgwProducts', function () {
 		return {
 			restrict: 'E',
 			scope: {
-				products : '=',
+				products         : '=',
 				selectedcategory : '@',
-				userfilter : '@',
+				userfilter       : '@',
 				productsselected : '@',
-				editone : '&'
+				editone          : '&',
+				disablefilter    : '='
 			},
 			templateUrl: 'common/directives/dgvProducts/dgvProducts.template.html',
 			controller : function( $scope ) {
