@@ -1,6 +1,6 @@
 var mongoose         = require('mongoose');
-	mongoose.Promise = Promise;  
-var config           = require('../config/config');
+	mongoose.Promise = Promise; 
+	config           = require('../config/config');
 
 if ( process.env.NODE_ENV === 'production' ) {
 	dbURI =  process.env.MONGO_URI;

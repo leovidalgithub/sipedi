@@ -5,26 +5,26 @@ module.exports.login = function( req, res ) {
 	console.log( 'API authentication.js login function' );
 
 	if( !req.body.email || !req.body.password ) {
-		res.status( 400 ). send( 'All fields required' );
-		return
+		res.status( 400 ).send( 'All fields required' );
+		return;
 	}
 
 	User.findOne({ email: req.body.email }, function ( err, user ) {
 		if ( err ) {
 			console.log( 'authentication.login findOne err' );
 			res.status( 403).send( 'user error' );
-			return
-		}
+			return;
+		};
 		if ( !user ) { // user not found
 			console.log( 'authentication.login: user not found' );
 			res.status( 403 ).json( 'User not found' );
-			return
-		}
+			return;
+		};
 		if ( !user.validPassword( req.body.password ) ) { // password wrong
 			console.log( 'authentication.login : password wrong' );
 			res.status( 403 ).json( 'Password is wrong' );
-			return
-		}
+			return;
+		};
 		console.log( 'authentication.login : credentials correct' );
 		var token = user.generateJwt( user ); // credentials correct --> token generate
 
@@ -32,9 +32,9 @@ module.exports.login = function( req, res ) {
 			res.status( 200 );
 			res.json( { 'token'   : token,
 						'decoded' : decoded
-					  })
-		})
-	})
+					  });
+		});
+	});
 }
 
 module.exports.getClientToken = function( req, res ) {
@@ -46,7 +46,7 @@ module.exports.getClientToken = function( req, res ) {
 		})
 		.catch( function( err ) {
 			return res.status( 403 ).res.send( 'Error getting client/token' )
-		})
+		});
 }
 
 module.exports.register = function( req, res ) {
@@ -75,5 +75,5 @@ module.exports.register = function( req, res ) {
 		.catch( function( err ) {
 			console.log( err );
 			res.status( 403 ).json( 'Error creating new user' );
-		})
+		});
 }

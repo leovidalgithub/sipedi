@@ -1,14 +1,124 @@
-<div ng-show="modes == 'users'" ng-cloak>
+<div id="usersAdmin" ng-cloak>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Administrador de Usuarios</h3>
+		</div>
 
-<div style="color: gray;">
-	<h2>$scope.modes = {{ modes }}</h2>
-<p>
-	<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas nulla doloribus, ex voluptatem reiciendis eligendi pariatur quaerat unde delectus totam cumque fugit nam corporis, minus quae illo itaque ad! Perferendis!</span>
-	<span>Sint consequatur expedita iusto dolorem eligendi molestias fugit quas id atque, earum dignissimos voluptates eaque animi nostrum adipisci odio vitae eius? Sapiente placeat id explicabo, nihil ut iste enim odio.</span>
-	<span>Beatae a nobis voluptas suscipit animi pariatur. Cupiditate non, autem quod debitis ab dicta eveniet, illum iure accusamus corporis nam mollitia animi earum id assumenda sapiente nulla velit quibusdam quae!</span>
-	<span>Odit totam quis ut praesentium rem dolores sapiente optio sequi excepturi ratione voluptate enim, quasi incidunt quas eum corrupti blanditiis unde, illo, accusamus aspernatur eveniet explicabo maxime ipsam repellendus. Temporibus.</span>
-	<span>Quaerat optio deserunt ut a consequuntur odio! Ut autem ipsum vel natus reiciendis rem doloribus sed alias reprehenderit, esse eligendi, totam ea hic nostrum. Modi neque libero illum distinctio dignissimos!</span>
-	<span>Fuga minima, sunt qui quos fugit autem voluptatum doloribus sed sit itaque accusamus incidunt fugiat neque blanditiis omnis soluta facere tempore repudiandae. Vel culpa doloribus perspiciatis consequuntur, ipsa esse voluptatem.</span>
-</p>
-</div>
+		<div class="panel-body">
+
+			<div class="row">
+				<!-- CLIENTS SELECT -->
+				<div class="col-lg-7 col-lg-offset-2 col-md-8 col-md-offset-1 col-sm-9 col-xs-7">
+					<div class="clientsSelect">
+						<form class="form-group">
+							<label for="selectClients">Mis clientes</label>
+							<select class="form-control input-lg" id="selectClients" ng-model="currentClient"
+							ng-disabled="!userForm.$pristine" title="{{!userForm.$pristine ? 'Primero debe guardar o deshacer los cambios realizados.' : 'Seleccionar otro cliente.'}}" 
+							ng-options="user as user.name for user in users | orderBy : 'name'"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
+							</select>
+						</form>
+					</div>
+				</div>
+				<!-- LOGO -->
+				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+					<div class="logo">
+						 <img ng-show="credentials.admin"
+							  data-ng-src="data:image/png;base64, {{ currentClient.logo.data || sipediLogo }}" />
+					</div>
+				</div>
+			</div> <!-- @row -->
+
+			<!-- FORM -->
+			<div class="row">
+				<div class="well col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-2">
+					<form novalidate name="userForm" id="userForm">
+						<!-- NAME -->
+						<div class="form-group"	ng-class="{'has-error':!userForm.name.$pristine && userForm.name.$invalid}">
+							<label for="name">Nombre</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-tower"></i>
+								</div>
+								<input ng-model="currentClient.name" class="form-control input-md" type="text"
+										maxlength="50" required name="name" id="name" autofocus />
+								<span ng-if="!userForm.name.$pristine && userForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+							<span ng-if="!userForm.name.$pristine && userForm.name.$invalid" class="help-block">Debe proporcionar un nombre.</span>
+						</div>
+						<!-- EMAIL -->
+						<div class="form-group"	ng-class="{'has-error':userForm.email.$invalid}">
+							<label for="email">Email</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-envelope"></i>
+								</div>
+								<input ng-model="currentClient.email" class="form-control input-md" type="email"
+										maxlength="50" required name="email" id="email" />
+								<span ng-if="!userForm.email.$pristine && userForm.email.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+							<span ng-if="!userForm.email.$pristine && userForm.email.$invalid" class="help-block">Debe proporcionar un email válido.</span>
+						</div>
+						<!-- CONTACT -->
+						<div class="form-group">
+							<label for="contact">Contacto</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-user"></i>
+								</div>
+								<input ng-model="currentClient.contact" class="form-control input-md" type="text"
+										maxlength="50" name="contact" id="contact" placeholder="Persona de contacto" />
+							</div>
+						</div>
+						<!-- ADDRESS -->
+						<div class="form-group">
+							<label for="address">Dirección</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-map-marker"></i>
+								</div>
+								<input ng-model="currentClient.address" class="form-control input-md" type="text"
+										maxlength="80" name="address" id="address" placeholder="Dirección" />
+							</div>
+						</div>
+						<!-- PHONES -->
+						<div class="form-group">
+							<label for="phones">Teléfonos</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-phone-alt"></i>
+								</div>
+								<input ng-model="currentClient.phone" class="form-control input-md" type="text"
+										maxlength="80" name="phones" id="phones" placeholder="Teléfonos" />
+							</div>
+						</div>
+						<!-- NOTES -->
+						<div class="form-group">
+							<label for="notes">Notas</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-book"></i>
+								</div>
+								<textarea ng-model="currentClient.notes" class="form-control" cols="30" rows="5" 
+										maxlength="80" name="notes" id="notes" placeholder="Notas varias"></textarea>
+							</div>
+						</div>
+
+					</form>
+				</div> <!-- @well -->
+			</div><!-- @row -->
+		</div> <!-- @panel body -->
+
+		<div class="modal-footer">
+			<div class="row">
+				<div class="col-xs-6">
+					<button ng-click="saveChanges()" ng-disabled="userForm.$invalid || userForm.$pristine" class="btn btn-primary">GUARDAR</button>
+					<button ng-click="undoChanges()" ng-disabled="userForm.$pristine" class="btn btn-warning">DESHACER</button>
+<!-- {{userForm.name.$pristine}} -->
+<!-- invalid {{userForm.$invalid}} / pristine {{userForm.$pristine}} -->
+				</div>
+			</div>
+		</div>
+
+	</div> <!-- @panel primary -->
+
 </div>

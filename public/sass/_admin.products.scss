@@ -1,5 +1,5 @@
 #productsAdmin {
-	color: #333;
+	color: $normalFontColor;
 }
 
 #productsAdmin dgw-products .well {
@@ -22,7 +22,7 @@
 	}
 
 #productsAdmin dgw-products .product .productSelected {
-	border: solid 2.5px #4fa84f;
+	border: $selectedItem;
 	}
 
 #productsAdmin dgw-products .product:hover .input-group {

@@ -17,16 +17,15 @@
 			line-height: $controlsHeight / 2.5;
 			text-align: center;
 			label {
-				font-family: monospace;
-				font-size: 22px;
-				color: #333;
+				font-family: $titlesFont;
+				font-size: $titlesFontSize;
+				color: $normalFontColor;
 			}
 			select {
-			 	width: 100%;
-			 	border-radius: 5px;
-				color: #333;
-				background-color: #E8E8E8;
-				font-size: 22px;
+				border-radius    : $selectBorderRadius;
+				color            : $normalFontColor;
+				background-color : $selectsBackGround;
+				font-size        : $selectsFontSize;
 			}
 		}
 		.demandButton {
@@ -77,16 +76,4 @@
 }
 @media screen and (max-width: 340px) { #main .controls .demandButton button { font-size: 10px; } }
 @media screen and (max-width: 500px) { #main .categories { font-size: 15px; } }
-@media screen and (max-width: 450px) { #main .product { font-size: 16px; } }
-
-@media screen and (max-width: 450px) { 
-	#main .mainContainer {
-		width: 95%;
-	}
-	#main .product {
-		padding-left: 10px;
-		padding-right: 20px;
-	}
-}
-
 

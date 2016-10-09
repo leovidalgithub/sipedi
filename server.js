@@ -12,9 +12,9 @@ app.use( express.static( path.join( __dirname, 'app_client' )) );
 
 app.use( require( './app_api/config/setHeader' ) );
 
-app.use( '/products', function( req, res, next ) {
-	res.redirect('/#/products' );
-})
+app.use( '/main'    , function( req, res ) { res.redirect( '/#/main' ) });
+app.use( '/products', function( req, res ) { res.redirect( '/#/products' ) });
+app.use( '/users'    , function( req, res ) { res.redirect( '/#/users' ) });
 
 var loginRouter = require( './app_api/routes/login.router' );
 app.use( '/login', loginRouter );
@@ -22,10 +22,6 @@ app.use( '/login', loginRouter );
 var apiRouter = require( './app_api/routes/api.router' );
 app.use( '/api', apiRouter );
 
-app.use( '/main', function( req, res, next ) {
-	res.redirect( '/#/main' );
-	next();
-});
 
 var conn = require( './app_api/db/db' );
 	conn.connection.on( 'connected', function() {

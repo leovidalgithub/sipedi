@@ -1,12 +1,20 @@
-var express     = require( 'express' ),
-	apiRouter   = express.Router(),
-	apiHandler  = require( './handlers/api.handler' );
+var express       = require( 'express' ),
+	apiRouter     = express.Router(),
+	apiMiddleware = require( './handlers/api.middleware.handler' ),
+	apiProducts   = require( './handlers/api.products.handler' );
+	apiUsers      = require( './handlers/api.users.handler' );
 
-apiRouter.use (                         apiHandler.middlewareToken );
-apiRouter.post( '/products/',           apiHandler.getProducts );
-apiRouter.put ( '/products/',           apiHandler.setProducts );
-apiRouter.post( '/users/',              apiHandler.getUsersBySupplier );
-apiRouter.post( '/products/setOrder/',  apiHandler.setProductOrder );
-apiRouter.post( '/user/setUserDemand/', apiHandler.setUserDemand );
+//MIDDLEWARE TOKEN
+apiRouter.use (                         apiMiddleware.middlewareToken );
+
+//PRODUCTS
+apiRouter.post( '/products/',           apiProducts.getProducts );
+apiRouter.put ( '/products/',           apiProducts.setProducts );
+apiRouter.post( '/products/setOrder/',  apiProducts.setProductOrder );
+
+//USERS
+apiRouter.post( '/users/',              apiUsers.getUsersBySupplier );
+apiRouter.put ( '/users/',              apiUsers.setUser );
+apiRouter.post( '/user/setUserDemand/', apiUsers.setUserDemand );
 
 module.exports = apiRouter;

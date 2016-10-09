@@ -1,0 +1,40 @@
+// .selectClients
+
+#usersAdmin {
+	color: $normalFontColor;
+	.logo {
+		height: $controlsHeight;
+		text-align: center;
+		line-height: $controlsHeight / 1.15;
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			opacity: .8;
+			&:hover {
+				opacity: 1;
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+#usersAdmin .clientsSelect {
+	height: $controlsHeight;
+	line-height: $controlsHeight / 2.5;
+	text-align: center;
+	label {
+		font-size   : $titlesFontSize;
+		font-family : $titlesFont;
+		color       : $normalFontColor;
+	}
+	select {
+		border-radius    : $selectBorderRadius;
+		font-family      : $selectsFont;
+		color            : $normalFontColor;
+		background-color : $selectsBackGround;
+		font-size        : $selectsFontSize;
+	}
+}
+
+// hacer los media para "Mis clientes" -> $titlesFontSize -10;
+// y select  -> $selectsFontSize -10;

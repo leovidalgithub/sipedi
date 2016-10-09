@@ -1,6 +1,6 @@
 function sideMenuDirective () {
 	return {
-		restrict: 'EA',
+		restrict: 'E',
 		templateUrl: 'common/directives/sidemenu/sidemenu.template.html',
 		controller: 'sidemenuCtrl'
 	}

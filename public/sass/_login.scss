@@ -1,6 +1,6 @@
 #login {
 	background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
-	color: #333;
+	color: $normalFontColor;
 }
 
 /* LOGO*************************************/
@@ -9,20 +9,20 @@
 	margin: 20px auto;
 	p {
 		font-family:monospace, "Courier New", Courier;
-		font-size: 19px;
+		font-size: $titlesFontSize - 3;
 		padding: 0;
 		margin: 0;
 		span {
 			text-shadow: 2px 2px 4px #666;
-			font-family: $logo-font;
-			font-size: 52px;
+			font-family: $sipediFont;
+			font-size: $sipediFontSize + 29;
 		}
 	}
 }
 /*******************************************/
 #login .card-container.card {
 	max-width: 450px;
-	padding: 3px 40px 20px 40px;
+	padding: 3px 30px 20px 30px;
 }
 
 #login .btn {
@@ -164,9 +164,9 @@
 
 @media screen and (max-width: 400px) {
 	#login .logo p {
-		font-size: 15px;
+		font-size: $titlesFontSize - 10;
 		span {
-			font-size: 42px;
+			font-size: $sipediFontSize + 13;
 		}
 	}
 }

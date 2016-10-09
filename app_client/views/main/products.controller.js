@@ -18,7 +18,7 @@ function productsCtrl( $scope, mainService ) {
 	};
 
 	function setProductOrder( product ) {
-		var currentUserId = $scope.$parent.current.user._id;
+		var currentUserId = $scope.$parent.userData.currentClient._id;
 		mainService.setProductOrder( currentUserId, product )
 			.then( function( data ) { 
 				console.log( 'productOrder set correctly' );

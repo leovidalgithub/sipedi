@@ -7,33 +7,33 @@
 <!-- ng-click="$parent.modes = $parent.modes != 'users' ? 'users' : 'main'" -->
 		<ul class="navbar-menu animate">
 			<li>
-				<a ng-class="{'notAllowed' : !credentials.admin, 'active' : $parent.modes == 'users'}"
-					href="#" class="animate" ng-click="closeMenu()">
+				<a ng-class="{'notAllowed' : !credentials.admin}"
+					href="/users" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Usuarios </span>
 					<span class="glyphicon glyphicon-user"></span>
 				</a>
 			</li>
 			<li>
-				<a ng-class="{'notAllowed' : !credentials.admin, 'active' : $parent.modes == 'products'}"
+				<a ng-class="{'notAllowed' : !credentials.admin}"
 					href="/products" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Productos </span>
 					<span class="glyphicon glyphicon-list-alt"></span>
 				</a>
 			</li>
 			<li>
-				<a href="#" class="animate">
+				<a href="#" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Cambiar contraseña </span>
 					<span class="glyphicon glyphicon-lock"></span>
 				</a>
 			</li>
 			<li>
-				<a href="#" class="animate">
-					<span class="desc animate">{{credentials.admin ? current.user.name : current.supplier.name}}</span>
+				<a href="#" class="animate" ng-click="closeMenu()">
+					<span class="desc animate">{{credentials.admin ? user.currentClient.name : user.supplier.name}}</span>
 					<span class="glyphicon glyphicon-info-sign"></span>
 				</a>
 			</li>
 			<li>
-				<a 	href="/main" class="animate">
+				<a 	href="/main" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Regresar </span>
 					<span class="glyphicon glyphicon-arrow-left"></span>
 				</a>

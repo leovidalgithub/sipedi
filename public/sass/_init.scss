@@ -5,7 +5,14 @@ body {
 	background-color: $backgroundColor;
 	color: white;
 }
-#index {
+
+#mainIndex {
+	background-color: #3c7a64;
+	&.marginTop {
+		background-color: $backgroundColor;
+	}
+}
+#mainIndex .marginTop {
 	margin-top: 80px;
 }
 

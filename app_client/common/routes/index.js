@@ -18,6 +18,10 @@ function config ( $routeProvider, $locationProvider ) {
 			templateUrl: 'views/products/productsAdmin.view.html',
 			controller: 'productsAdminCtrl'
 		})
+		.when( '/users', {
+			templateUrl: 'views/users/users.view.html',
+			controller: 'usersCtrl'
+		})
 		.otherwise( { redirectTo: '/' } )
 
 		// use the HTML5 History API

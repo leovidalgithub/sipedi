@@ -2,10 +2,15 @@
   transition: all .7s; }
 
 body {
-  background-color: white;
+  background-color: #EAEAEA;
   color: white; }
 
-#index {
+#mainIndex {
+  background-color: #3c7a64; }
+  #mainIndex.marginTop {
+    background-color: #EAEAEA; }
+
+#mainIndex .marginTop {
   margin-top: 80px; }
 
 #login {
@@ -18,18 +23,18 @@ body {
   margin: 20px auto; }
   #login .logo p {
     font-family: monospace, "Courier New", Courier;
-    font-size: 19px;
+    font-size: 17px;
     padding: 0;
     margin: 0; }
     #login .logo p span {
       text-shadow: 2px 2px 4px #666;
       font-family: "Days One", sans-serif;
-      font-size: 52px; }
+      font-size: 49px; }
 
 /*******************************************/
 #login .card-container.card {
   max-width: 450px;
-  padding: 3px 40px 20px 40px; }
+  padding: 3px 30px 20px 30px; }
 
 #login .btn {
   font-weight: 700;
@@ -132,9 +137,9 @@ body {
 
 @media screen and (max-width: 400px) {
   #login .logo p {
-    font-size: 15px; }
+    font-size: 10px; }
     #login .logo p span {
-      font-size: 42px; } }
+      font-size: 33px; } }
 
 #navbar {
   opacity: .95;
@@ -298,10 +303,7 @@ body {
 
 #sidebar .notAllowed {
   pointer-events: none;
-  opacity: 0.4; }
-
-#sidebar .active {
-  background-color: #4180b5; }
+  opacity: 0.3; }
 
 /********************** TOP CONTROLS */
 #main .controls {
@@ -320,11 +322,10 @@ body {
     text-align: center; }
     #main .controls .clientsSelect label {
       font-family: monospace;
-      font-size: 22px;
+      font-size: 20px;
       color: #333; }
     #main .controls .clientsSelect select {
-      width: 100%;
-      border-radius: 5px;
+      border-radius: 10px;
       color: #333;
       background-color: #E8E8E8;
       font-size: 22px; }
@@ -369,22 +370,7 @@ body {
   #main .categories {
     font-size: 15px; } }
 
-@media screen and (max-width: 450px) {
-  #main .product {
-    font-size: 16px; } }
-
-@media screen and (max-width: 450px) {
-  #main .mainContainer {
-    width: 95%; }
-  #main .product {
-    padding-left: 10px;
-    padding-right: 20px; } }
-
 /********************** PRODUCTS */
-#main .categories {
-  font-size: 17px;
-  margin-bottom: 10px; }
-
 #main button.quantity {
   font-size: 18px;
   width: 60px;
@@ -394,7 +380,7 @@ body {
   background-color: #CCC;
   color: #333;
   font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 10px;
   padding-left: 40px;
   padding-right: 40px;
@@ -466,6 +452,12 @@ body {
   line-height: 60px; }
 
 /*******************************************************/
+@media screen and (max-width: 450px) {
+  #main .product {
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px; } }
+
 #productsAdmin {
   color: #333; }
 
@@ -509,3 +501,32 @@ body {
 
 #productsAdmin .modal-footer div {
   text-align: center; }
+
+#usersAdmin {
+  color: #333; }
+  #usersAdmin .logo {
+    height: 105px;
+    text-align: center;
+    line-height: 91.30435px; }
+    #usersAdmin .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      opacity: .8; }
+      #usersAdmin .logo img:hover {
+        opacity: 1;
+        cursor: pointer; }
+
+#usersAdmin .clientsSelect {
+  height: 105px;
+  line-height: 42px;
+  text-align: center; }
+  #usersAdmin .clientsSelect label {
+    font-size: 20px;
+    font-family: monospace;
+    color: #333; }
+  #usersAdmin .clientsSelect select {
+    border-radius: 10px;
+    font-family: monospace;
+    color: #333;
+    background-color: #E8E8E8;
+    font-size: 22px; }

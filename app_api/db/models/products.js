@@ -28,7 +28,7 @@
 		client.productOrdered = productOrdered;
 		client.quantity = quantity;
 		return this.save()
-	}
+	};
 
 	productSchema.statics.setProducts = function( products ) {
 		myPromises = [],
@@ -44,10 +44,10 @@
 			// REMOVE
 			} else if ( product.action == 'deleted' ) {
 				myPromises.push( vm.findByIdAndRemove( product._id ) );
-			}
+			};
 		});
 		return Promise.all( myPromises );
-	}
+	};
 
 module.exports = mongoose.model( 'Product', productSchema )
 

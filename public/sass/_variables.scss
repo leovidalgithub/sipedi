@@ -1,9 +1,23 @@
-// INIT
-// $backgroundColor : #333;
-$backgroundColor : white;
-$logo-font: 'Days One', sans-serif;
+// GENERAL
+$backgroundColor : #EAEAEA;
+$normalFontColor : #333;
 
-// LOGIN
+//SIPEDI
+$sipediFont     : 'Days One', sans-serif;
+$sipediFontSize : 20px;
+
+// TITLES
+$titlesFont: monospace;
+$titlesFontSize: 20px;
+
+// SELECTS
+$selectsFontSize: 20px;
+$selectsFont: monospace;
+$selectsBackGround: #E8E8E8;
+$selectBorderRadius: 10px;
+
+// NAVBAR
+$selectsFontSize: 22px;
 
 // HEADER
 $backgroundColorHeader: #333;
@@ -11,3 +25,6 @@ $backgroundColorHeader: #333;
 // MAIN CONTROLS
 $controlsHeight : 105px;
 $fontSizeDemandButton : 16px;
+
+//PRODUCTS
+$selectedItem : solid 2.5px #4fa84f;

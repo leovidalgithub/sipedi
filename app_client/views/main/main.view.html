@@ -2,47 +2,45 @@
 	<div class="mainContainer">
 
 		<div class="row controls">
-
+			<!-- LOGO -->
 			<div class="userInfo col-xs-6 col-md-3">
 				<div class="logo">
 					 <img ng-show="credentials.admin"
-						  data-ng-src="data:image/png;base64, {{ current.user.logo.data || genericLogo }}" />
+						  data-ng-src="data:image/png;base64, {{ userData.currentClient.logo.data || sipediLogo }}" />
 					 <img ng-hide="credentials.admin"
-					 	  data-ng-src="data:image/png;base64, {{ current.supplier.logo.data || genericLogo }}" />
+					 	  data-ng-src="data:image/png;base64, {{ userData.supplier.logo.data || sipediLogo }}" />
 				</div>
 			</div>
-			 <!-- DEMAND BUTTON -->
+			<!-- DEMAND BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
 				<button ng-click="demandButton()" class="btn btn-block"
-					ng-class="{ 'btn-default': current.user.demandState == 0,
-								'btn-success': current.user.demandState == 1,
-								'btn-danger' : current.user.demandState == 2 }">
+					ng-class="{ 'btn-default': userData.currentClient.demandState == 0,
+								'btn-success': userData.currentClient.demandState == 1,
+								'btn-danger' : userData.currentClient.demandState == 2 }">
 					<strong>
-						{{ current.user.demandState == 0 ? 'HACER PEDIDO' : current.user.demandState == 1 ? 'PEDIDO HECHO' : 'PEDIDO RECIBIDO' }}
+						{{ userData.currentClient.demandState == 0 ? 'HACER PEDIDO' : userData.currentClient.demandState == 1 ? 'PEDIDO HECHO' : 'PEDIDO RECIBIDO' }}
 					</strong><br>
-					<div ng-show="current.user.demandState > 0">
-						<span>{{ current.user.demandDate | amDateFormat:'dddd' }}</span><br>
-						<span>{{ current.user.demandDate | amDateFormat:'MM Do YYYY' }}</span><br>
-						<span>{{ current.user.demandDate | amDateFormat:'h:mm a' }}</span>
+					<div ng-show="userData.currentClient.demandState > 0">
+						<span>{{ userData.currentClient.demandDate | amDateFormat:'dddd' }}</span><br>
+						<span>{{ userData.currentClient.demandDate | amDateFormat:'MM Do YYYY' }}</span><br>
+						<span>{{ userData.currentClient.demandDate | amDateFormat:'h:mm a' }}</span>
 					</div>
 				</button>
 			</div>
-
-			 <!-- CLIENTS SELECT -->
+			<!-- CLIENTS SELECT -->
 			<div ng-show="credentials.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
-					<form class="form-group">
-						<label for="selectClients">Mis clientes</label>
-						<select class="form-control input-lg" id="selectClients" 
-						ng-change="clientChanged()" ng-model="selectedClientModel"
-						ng-options="item.name for item in users | filter: {'admin':false} | orderBy : 'name' track by item._id">
-						<!-- <option value="">Select Option</option> -->
-						</select>
-					</form>
+				<form class="form-group">
+					<label for="selectClients">Mis clientes</label>
+					<select class="form-control input-lg" id="selectClients" 
+							ng-model="userData.currentClient"
+							ng-options="user as user.name for user in users | orderBy : 'name' track by user._id"> <!-- filter: {'admin':false} -->
+					<!-- <option value="">Select Option</option> -->
+					</select>
+				</form>
 			</div>
+		</div> <!-- @row -->
 
-		</div> <!-- @end row -->
-
-<!-- <button class="btn btn-danger btn-md" ng-click="fn1()">CONT++</button> -->
+<button class="btn btn-danger btn-md" ng-click="fn()">DALE</button>
 <!-- <button class="btn btn-success btn-md" ng-click="fn3()">TEMPLATE</button> -->
 
 		<!-- SUCCESS ALERT -->

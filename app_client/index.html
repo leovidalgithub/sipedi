@@ -23,12 +23,13 @@
 	<link rel="stylesheet" href="css/tabs.css">
 	<base href="/">
 </head>
-
 <body ng-cloak>
 
-	<navbar ng-show="credentials"></navbar>
-	<sidemenu ng-show="credentials"></sidemenu>
-	<div id="index" class="container" ng-view></div>
+	<main ng-class="{'marginTop' : credentials}" id="mainIndex">
+		<nav-bar ng-show="credentials"></nav-bar>
+		<side-menu ng-show="credentials"></side-menu>
+		<div ng-class="{'marginTop' : credentials}" class="container" ng-view></div>
+	</main>
 
 	<script src="lib/jquery/jquery-2.2.4.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
