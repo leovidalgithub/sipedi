@@ -1,18 +1,18 @@
 <div id="login" class="container">
 	<div class="card card-container">
-
 		<div class="logo">
 			<p><span>SiPEDi &copy</span></p>
 			<p>Sistema de Pedido a<br>Empresas de Distribución</p>
 		</div>
-
 		<img id="profile-img" class="profile-img-card" src="img/sipedi_logo.png" />
-
 		<form ng-submit="ctrl.loginButton()">
 
-			<div ng-if="ctrl.showError" class="alert alert-danger" role="alert">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				Email o contraseña inválida
+			<!-- ERROR ALERT -->
+			<div class="collapse errorAlert">
+				<div style="text-align: center; font-size: 16px;" class="alert alert-danger alert-dismissible" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					Email o contraseña inválida
+				</div>
 			</div>
 
 			<div class="form-group">
@@ -20,7 +20,7 @@
 					<div class="input-group-addon">
 						<i class="glyphicon glyphicon-envelope"></i>
 					</div>
-					<input type="email" ng-model="ctrl.credentials.email" class="form-control" placeholder="Email" required autofocus>
+					<input type="email" ng-model="ctrl.loginData.email" class="form-control" placeholder="Email" required autofocus>
 				</div>
 			</div>
 
@@ -29,24 +29,22 @@
 					<div class="input-group-addon">
 						<i class="glyphicon glyphicon-lock"></i>
 					</div>
-					<input type="password" ng-model="ctrl.credentials.password" class="form-control" placeholder="Contraseña" required>
+					<input type="password" ng-model="ctrl.loginData.password" class="form-control" placeholder="Contraseña" required>
 				</div>
 			</div>
 
 			<div class="form-group">
-						<div id="remember" class="checkbox">
+						<div class="checkbox">
 							<label>
-								<input type="checkbox" ng-model="ctrl.credentials.remember"> Recordarme
+								<input type="checkbox" ng-model="ctrl.loginData.rememberMe"> Recordarme
 							</label>
 						</div>
 			</div>
-
 			<div class="form-group">
 					<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
 			</div>
-
 		</form>
-		
+
 		<a href="#" class="forgot-password">
 			¿Olvidó su contraseña?
 		</a>

@@ -16,8 +16,10 @@ function socketService ( $rootScope, $http ) {
             });
         },
         disconnectMe : function() {
-            var _id = $rootScope.credentials.userLogged._id;
-            $http.get( '/socket/disconnet/' + _id );
+            if ( $rootScope.credentials ) {
+                var _id = $rootScope.credentials.userLogged._id;
+                $http.get( '/socket/disconnet/' + _id );
+            }
         },
         listConnected : function() {
             $http.get( '/socket/list/' );

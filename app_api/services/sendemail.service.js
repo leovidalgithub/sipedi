@@ -11,20 +11,32 @@ module.exports.sendMail = function( data ) {
 	var newPass = data.newPass;
 	var supplier = data.supplier;
 	var user = data.user;
-
+//*******************************************************************
 	var smtpConfig = {
-			host: 'smtp.gmail.com',
+			host: 'smtp.sipedi.net',
 			port: 465,
 			secure: true, // use SSL
 			auth: {
-			user: 'leoamiguo@gmail.com',
+			user: 'webmaster@sipedi.net',
 			pass: emailPass
 			},
 			tls: {
 				rejectUnauthorized: false // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 		}
 	};
-
+	// var smtpConfig = {
+	// 		host: 'smtp.gmail.com',
+	// 		port: 465,
+	// 		secure: true, // use SSL
+	// 		auth: {
+	// 		user: 'leoamiguo@gmail.com',
+	// 		pass: emailPass
+	// 		},
+	// 		tls: {
+	// 			rejectUnauthorized: false // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+	// 	}
+	// };
+//*******************************************************************
 	var transporter = nodemailer.createTransport( smtpConfig );
 
 	var mailOptions = {
@@ -34,8 +46,8 @@ module.exports.sendMail = function( data ) {
 		// cc :
 		bcc : 'webmaster@sipedi.net',
 		subject : 'SiPEDi acceso ✔',
-		text : '🐴' + supplier + '\n\nhttp://sipedi.herokuapp.com\n\nlogin : ' + user.email + '\n\npass: ' + newPass,
-		// html : '<h2>Hello world 🐴</h2>'
+		// text : '🐴 ' + supplier + '\n\nhttp://sipedi.herokuapp.com\n\nlogin : ' + user.email + '\n\npass: ' + newPass,
+		html : '<h3>🐴 ' + supplier + '</h3><hr>http://sipedi.herokuapp.com<br><br>login : ' + user.email + '<br><br>pass : ' + newPass,
 	};
 
 	var emailPromise = new Promise( function ( resolve, reject ) {

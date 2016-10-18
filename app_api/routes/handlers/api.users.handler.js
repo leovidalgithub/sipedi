@@ -57,24 +57,25 @@ module.exports.setUser = function( req, res ) {
 				supplier : req.body.supplier,
 				newPass  : newPass,
 			};
-			function promiseFindUser() {
-				console.log('findUser');
-				return User.findById( user._id );
-			}
-			function promiseSetNewPass( userFound ) {
-				console.log('setPass');
-				userFound.setPassword( newPass );
-				user.hash = userFound.hash;
-				user.salt = userFound.salt;
-			}
-			function promiseSendEmail() {
-				return sendEmailService.sendMail( data );
-			}
 			return promiseFindUser()
 				.then ( promiseSetNewPass )
 				.then ( promiseSendEmail );
 		} else {
 			return Promise.resolve();
 		}
+		function promiseFindUser() {
+			console.log('findUser');
+			return User.findById( user._id );
+		}
+		function promiseSetNewPass( userFound ) {
+			console.log('setPass');
+			userFound.setPassword( newPass );
+			user.hash = userFound.hash;
+			user.salt = userFound.salt;
+		}
+		function promiseSendEmail() {
+			return sendEmailService.sendMail( data );
+		}
 	}
+
 };

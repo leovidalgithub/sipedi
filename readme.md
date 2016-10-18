@@ -2,7 +2,11 @@
 
 ## Sistema de Pedido a Empresas de Distribución
 #### Order System to Distribution Companies
+ion Companies
+ion Companies
+>nodemailer 2.6.4
 
+>socket.io" 1.5.0
 http://sipedi.herokuapp.com/<br />
 https://dry-badlands-61893.herokuapp.com/<br />
 https://git.heroku.com/dry-badlands-61893.git<br />
@@ -41,6 +45,8 @@ server-side
 >mongodb 2.2.9<br />
 >mongoose 4.5.9<br />
 >jsonwebtoken 7.1.9<br />
+>nodemailer 2.6.4<br />
+>socket.io 1.5.0<br />
 >mlab<br />
 
 client-side
@@ -69,7 +75,7 @@ _clientes/clients
 >arturo@gmail.com (Arturo Rubio - Drink & Fly) password: 1234<br />
 >carl@gmail.com (Carl - Liquor Store ) password: 1234<br />
 >angel@hotmail.com (Ángel San Nicolás Lobby Bar) password: 1234<br />
->anna@yahoo.es (Anna Vila - Manhattan Bar) password: 1234<br />
+>anna@yhoo.es (Anna Vila - Manhattan Bar) password: 1234<br />
 >david@gmail.com (David Monreal - Mochacino Coffee Bar) password: 1234<br />
 >leo@leovidal.es (Leo Rdgz. - Bar De Bellota) password: 1234<br />
 

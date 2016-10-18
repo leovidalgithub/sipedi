@@ -15,7 +15,7 @@ function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
 		setUser = function( user, generatePassword ) {
 			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.userLogged.supplier;
+			var supplier = $rootScope.credentials.supplier.name;
 			var defered  = $q.defer();
 			var promise  = defered.promise;
 			$http.put( '/api/users/', {

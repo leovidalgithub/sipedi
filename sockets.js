@@ -4,7 +4,7 @@ var sipediSocket,
 module.exports.initConnect = function ( io ) {
     sipediSocket = io.of('/sipedi');
     sipediSocket.on( 'connection', function ( socket ) {
-        var id         = socket.handshake.query.id,
+        var _id         = socket.handshake.query.id,
             supplier   = socket.handshake.query.supplier,
             admin      = socket.handshake.query.admin,
             clientInfo = {
@@ -13,16 +13,15 @@ module.exports.initConnect = function ( io ) {
                 supplier : supplier
             };
 
-        clients[ id ] = clientInfo;
+        clients[ _id ] = clientInfo;
         socket.join( supplier );
-        console.log( 'SUPPLIER ' + supplier );
-        console.log( 'ID ' + socket.id );
+        console.log( 'CONNECT _ID ' + _id + ' / SOCKET_ID ' + socket.id + ' / SUPPLIER ' + supplier );
 
         socket.on( 'disconnect', function() {
             console.log('****************************');
             console.log( 'disconnect ID ' + socket.id );
-            for ( var id in clients ) {
-                if ( clients[ id ].socket.id === socket.id ) delete clients[ id ];
+            for ( var _id in clients ) {
+                if ( clients[ _id ].socket.id === socket.id ) delete clients[ _id ];
             }
         });
     });
@@ -46,8 +45,8 @@ module.exports.disconnectClient = function( _id ) {
 };
 module.exports.list = function() {
     console.log('***********LIST*************');
-    for( var client in clients ) {
-        console.log( '_id ' + client + ' / socketID ' + clients[client].socket.id );
+    for( var _id in clients ) {
+        console.log( '_id ' + _id + ' / socketID ' + clients[ _id ].socket.id );
     }
     console.log('****************************');
 };

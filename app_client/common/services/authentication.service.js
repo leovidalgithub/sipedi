@@ -1,8 +1,7 @@
 function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper, $location, $route, sharedData ) {
 
 		function saveToken( token ) {
-			$window.localStorage['mean-token'] = token;
-			console.log( 'Token saved' );
+			$window.localStorage[ 'mean-token' ] = token;
 		}
 
 		function getUserLogged() {
@@ -16,18 +15,33 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 				if ( !jwtHelper.isTokenExpired( token ) ) { // token up-to-date
 					return true;
 				}
-			} catch( e ) {
-			}
+			} catch( e ) { }
 			logout();
 			return false;
 		}
 
 		function getToken() {
-			return $window.localStorage['mean-token'];
+			return $window.localStorage[ 'mean-token' ];
 		}
 
-		function login( user ) {
-			return $http.post( '/login', user );
+		function login( loginData ) {
+			setLoginData( loginData );
+			return $http.post( '/login', loginData )
+				.then( function( data ) { // login Ok
+					saveToken( data.data.token );
+					$location.path( 'main' );
+				});
+				function setLoginData( loginData ) {
+					if ( loginData.rememberMe ) {
+						$window.localStorage.setItem( 'login-data', JSON.stringify( loginData ));
+					} else {
+						$window.localStorage.removeItem( 'login-data' );
+					}
+				}
+		}
+
+		function getLoginData() {
+			return JSON.parse( $window.localStorage.getItem( 'login-data' ) );
 		}
 
 		function home() {
@@ -40,17 +54,16 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			sharedData.removeAll();
 			$window.localStorage.removeItem( 'mean-token' );
 			$location.path( '/' );
-			console.log( 'logout bye...' );
 		}
 
 		return {
-			saveToken : saveToken,
-			getToken : getToken,
+			getToken      : getToken,
 			getUserLogged : getUserLogged,
-			isLoggedIn : isLoggedIn,
-			login : login,
-			home : home,
-			logout : logout
+			isLoggedIn    : isLoggedIn,
+			login         : login,
+			getLoginData  : getLoginData,
+			home          : home,
+			logout        : logout
 		};
 }
 
