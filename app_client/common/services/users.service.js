@@ -1,33 +1,44 @@
-function usersServiceFn ( $http, authenticationService, $rootScope ) {
+function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
-		getUsersBySupplier = function() {
+		getUsersBySupplier = function( justSupplier ) { // get just supplier or clients
 			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.supplier;
+			var supplier = $rootScope.credentials.userLogged.supplier;
 			return $http.post( '/api/users/', {
-				token    : token,
-				supplier : supplier
+				token        : token,
+				supplier     : supplier,
+				justSupplier : justSupplier
 			})
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
 			});
 		};
 
-		setUser = function( user ) {
+		setUser = function( user, generatePassword ) {
 			var token    = authenticationService.getToken();
-			return $http.put( '/api/users/', {
-				token : token,
-				user  : user
+			var supplier = $rootScope.credentials.userLogged.supplier;
+			var defered  = $q.defer();
+			var promise  = defered.promise;
+			$http.put( '/api/users/', {
+				token            : token,
+				user             : user,
+				generatePassword : generatePassword,
+				supplier         : supplier
+			})
+			.then( function ( data ) {
+				defered.resolve( data );
 			})
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
+				defered.reject( err );
 			});
+			return promise;
 		};
 
 		return {
 					getUsersBySupplier : getUsersBySupplier,
-					setUser           : setUser
+					setUser            : setUser
 		};
 }
 
-usersServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
+usersServiceFn.$inject = [ '$http', '$q', 'authenticationService', '$rootScope' ];
 module.exports = usersServiceFn;

@@ -73,17 +73,17 @@
 									</div>
 								</div>
 							</div>
-
 							<button ng-class="{'btn-primary': (category.length),
 									'btn-default': (!category.length)}"
 									ng-disabled="(!category.length)"
 									ng-click="add_editCategory()" type="button" class="btn btn-sm">
-									<span class="glyphicon glyphicon-plus"></span> {{modeCategory == 'addNew' ? 'Agregar' : 'Aceptar'}} 
+									<span ng-show="modeCategory == 'addNew'" class="glyphicon glyphicon-plus"></span>
+									<span ng-hide="modeCategory == 'addNew'" class="glyphicon glyphicon-ok"></span>
+									 {{modeCategory == 'addNew' ? 'Agregar' : 'Aceptar'}}
 							</button>
-							<button  type="button" class="btn btn-default btn-md" ng-click="closeCategoriesAdmin()">
+							<button  type="button" class="btn btn-default btn-sm" ng-click="closeCategoriesAdmin()">
 									<span class="glyphicon glyphicon-log-out"></span> Salir
 							</button>
-
 						</div>
 					</div>
 				</div>
@@ -109,17 +109,19 @@
 		</div> <!-- panel body -->
 
 			<div class="modal-footer">
-				<div class="row">
 
+				<div class="row">
 					<div class="col-xs-6">
+
 						<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes"
 								ng-click="saveChanges()" id="saveButton" data-loading-text="Guardando..." autocomplete="off">
 								<span class="glyphicon glyphicon-save"></span> Guardar</button>
+
 						<button ng-class="{'btn-warning': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges"
 								title="Deshacer los cambios hechos" ng-click="undoChanges()">Deshacer cambios</button>
-								</div>
+					</div>
 					<div class="col-xs-6">
 						<button ng-class="{'btn-warning': productsSelected, 'btn-default': !productsSelected }"
 								class="btn btn-md" ng-disabled="!productsSelected" title="Editar seleccionados"
@@ -129,9 +131,9 @@
 								class="btn btn-md" ng-disabled="!productsSelected" title="Eliminar seleccionados"
 								ng-click="removeSelected()">
 								<span class="glyphicon glyphicon-trash"></span> Eliminar ({{productsSelected}})</button>
-
 					</div>
 				</div>
+
 			</div>
 
 	</div> <!-- panel primary -->

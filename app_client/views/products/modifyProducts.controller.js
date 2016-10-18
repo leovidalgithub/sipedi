@@ -1,7 +1,7 @@
 function modifyProductsCtrl( $scope, $rootScope ) {
 
-$scope.mode;
-$scope.product = {};
+	$scope.mode = '';
+	$scope.product = {};
 
 	$scope.$parent.$parent.editOne = function( product ) {
 		$scope.mode = 'modifyOne';
@@ -14,7 +14,7 @@ $scope.product = {};
 		$scope.product.category = null; // reset category
 		$scope.mode = 'mofifyGroup';
 		$( '#modifyProductModal' ).modal( 'show' );
-	}
+	};
 
 	$scope.$parent.$parent.newProductClicked = function() {
 		function productReset() {
@@ -25,12 +25,12 @@ $scope.product = {};
 			$scope.product.clients = [];
 			$scope.product.action = 'added_modified';
 			$scope.product.selected = false;
-			$scope.product.supplier = $rootScope.credentials.supplier;
+			$scope.product.supplier = $rootScope.credentials.userLogged.supplier;
 		}
 		$scope.addNewProduct = function () {
 			$scope.$parent.$parent.products.push( angular.copy( $scope.product ) );
 			productReset();
-		}
+		};
 		productReset();
 		$scope.product.category = null;
 		$( '#modifyProductModal' ).modal( 'show' );
@@ -41,7 +41,6 @@ $scope.product = {};
 	});
 	// $( '#modifyProductModal' ).on( 'hide.bs.modal', function ( $event ) {});
 
-// ( $scope.$parent.productsSelected )
 	$scope.modiProductOK = function() {
 		if ( $scope.mode == 'mofifyGroup' ) { // setting products selected
 			angular.forEach( $scope.$parent.products, function( element, index ) {
@@ -56,23 +55,10 @@ $scope.product = {};
 			$scope.productReference.stock = $scope.product.stock;
 			$scope.productReference.category = $scope.product.category;
 			$scope.productReference.action = 'added_modified';
-		};
+		}
 		$( '#modifyProductModal' ).modal( 'hide' );
-	}
+	};
 }
 
 modifyProductsCtrl.$inject = [ '$scope', '$rootScope' ];
 module.exports = modifyProductsCtrl;
-
-
-
-// <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
-//   Loading state
-// </button>
-// <script>
-//   $('#myButton').on('click', function () {
-//     var $btn = $(this).button('loading')
-//     // business logic...
-//     $btn.button('reset')
-//   })
-// </script>

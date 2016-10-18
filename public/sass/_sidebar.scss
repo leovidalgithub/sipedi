@@ -20,7 +20,7 @@
     background-color: rgb(51, 51, 51);
     background-color: rgba(51, 51, 51, 0.8);
     border-width: 0px;
-    z-index: 1000;
+    z-index: 500;
   }
 
   #sidebar .navbar-minimal > .navbar-toggler {
@@ -150,7 +150,7 @@
       width: 0;
       height: 0;
       border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;  
+      border-bottom: 10px solid transparent;
       border-right: 10px solid rgb(51, 51, 51);
       border-right-color: rgba(51, 51, 51, 0.8);
     }
@@ -160,7 +160,12 @@
     }
   }
 
+// sipedi own code
   #sidebar .notAllowed {
       pointer-events: none;
       opacity: 0.3;
+    }
+
+    #sidebar .navbar-minimal > .navbar-menu > li > a span {
+        font-size: 17px;
     }

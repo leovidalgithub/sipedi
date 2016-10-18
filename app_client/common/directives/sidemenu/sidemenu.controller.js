@@ -3,11 +3,11 @@ function sidemenuCtrl( $scope, $timeout ) {
 	$scope.closeMenu = function() {
 		$timeout( function() {
 			$scope.sibarOpen = false;
-		}, 2000);
-	}
+		}, 3000);
+	};
 
-	$scope.$on( 'userChanged', function( event, currentUser ) { // from main controller
-		$scope.user = currentUser;
+	$scope.$on( 'clientChanged', function( event, currentClient ) { // from main controller
+		$scope.currentClient = currentClient;
 	});
 
 }

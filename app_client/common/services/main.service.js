@@ -1,8 +1,8 @@
 function mainServiceFn ( $http, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function( id ) {
-			var token = authenticationService.getToken();
-			var supplier = $rootScope.credentials.supplier;
+			var token    = authenticationService.getToken();
+			var supplier = $rootScope.credentials.userLogged.supplier;
 			return $http.post( '/api/products/', {
 				clientID    : id,
 				supplier    : supplier,
@@ -13,33 +13,24 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
 			});
-		}
-
-		getUsersBySupplier = function() {
-			var token = authenticationService.getToken();
-			var supplier = $rootScope.credentials.supplier;
-			return $http.post( '/api/users/', {
-				supplier : supplier,
-				token    : token
-			})
-			.catch( function ( err ) {
-				if ( err.status == 403 ) authenticationService.logout();
-			});
-
-		}
+		};
 
 		setProductOrder = function( clientID, product ) {
 			var token = authenticationService.getToken();
+			var admin = $rootScope.credentials.userLogged.admin;
+			var supplierID = $rootScope.credentials.supplier._id;
 			return $http.post( '/api/products/setOrder/', {
-				token : token,
-				clientID : clientID,
-				productID : product._id,
-				productOrdered : product.productOrdered,
-				quantity : product.quantity } )
+								token          : token,
+								clientID       : clientID,
+								supplierID     : supplierID,
+								admin          : admin,
+								productID      : product._id,
+								productOrdered : product.productOrdered,
+								quantity       : product.quantity } )
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
 				});
-		}
+		};
 
 		setUserDemand = function( data ) {
 			data.token = authenticationService.getToken();
@@ -47,7 +38,7 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
 				});
-		}
+		};
 
 		function prepareProductsData( clientID, data ) {
 			data.data.forEach( function( product, index ) {
@@ -57,16 +48,15 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 				product.quantity = getClient.quantity;
 				product.productOrdered = getClient.productOrdered;
 				product.clients = []; // not need this
-			})
+			});
 			return data;
 		}
 
 		return {
 					getProductsByClientID : getProductsByClientID,
-					getUsersBySupplier  : getUsersBySupplier,
 					setProductOrder     : setProductOrder,
 					setUserDemand         : setUserDemand
-		}
+		};
 }
 
 mainServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];

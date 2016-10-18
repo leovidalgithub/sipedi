@@ -7,15 +7,15 @@ module.exports.middlewareToken = function ( req, res, next ) {
 			verifyToken( token, function( err, decoded ) {
 			if ( err ) {
 				console.log( 'middleware : token err' );
-				res.status( 403 ).send( { success: false, message: 'Invalid token.' } )
+				res.status( 403 ).send( { success: false, message: 'Invalid token.' } );
 			} else { 					// if everything is good
 				console.log( 'middleware : token ok' );
 				req.decoded = decoded;
-				next()
+				next();
 			}
-		})
+		});
 	} else { 						// token not received
 			console.log( 'main.router.middleware : token not received' );
-			res.status( 403 ).send( { success: false, message: 'No token provided.' } )
+			res.status( 403 ).send( { success: false, message: 'No token provided.' } );
 	}
-}
+};

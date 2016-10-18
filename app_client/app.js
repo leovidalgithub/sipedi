@@ -6,10 +6,13 @@ var angular               = require( 'angular' ),
 
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
-	shareDataFtry         = require( './common/factories/shareData.factory' ),
 	categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
+// FACTORIES
+	shareDataFtry         = require( './common/factories/shareData.factory' ),
+	socketFtry            = require( './common/factories/socket.factory' ),
 // SERVICES
 	authenticationService = require( './common/services/authentication.service' ),
+	credentialsService    = require( './common/services/credentials.service' ),
 	mainService           = require( './common/services/main.service' ),
 	productsService       = require( './common/services/products.service' ),
 	usersService          = require( './common/services/users.service' ),
@@ -25,16 +28,18 @@ var angular               = require( 'angular' ),
 	navbarCtrl            = require( './common/directives/navbar/navbar.controller' );
 
 	sidemenuDirective     = require( './common/directives/sidemenu/sidemenu.directive' ),
-	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' );
+	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' ),
 
 angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial' ] )
 	.run       ( initialConfig )
 	.config    ( configRoutes )
 	.factory   ( 'sharedData'    , shareDataFtry )
+	.factory   ( 'socket'        , socketFtry )
 	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
 // LOGIN
 	.controller( 'loginCtrl'            , loginCtrl )
 	.service   ( 'authenticationService', authenticationService )
+	.service   ( 'credentialsService'   , credentialsService )
 // MAIN
 	.controller( 'mainCtrl'    , mainCtrl )
 	.controller( 'productsCtrl', productsCtrl )
@@ -46,11 +51,10 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 // USERS
 	.controller( 'usersCtrl'   , usersCtrl )
 	.service   ( 'usersService', usersService )
-
 // DIRECTIVES
-	.directive ( 'navBar'      , navbarDirective ) // éste es 
+	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )
-	.directive ( 'sideMenu'    , sidemenuDirective ) // éste es 
-	.controller( 'sidemenuCtrl', sidemenuCtrl )
+	.directive ( 'sideMenu'    , sidemenuDirective )
+	.controller( 'sidemenuCtrl', sidemenuCtrl );
 
 	require( './common/directives/dgvProducts/dgvProducts.directive' );

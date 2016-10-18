@@ -4,35 +4,42 @@
 		<div class="navbar-toggler animate" ng-click="sibarOpen = sibarOpen ? false : true">
 			<span class="menu-icon"></span>
 		</div>
-<!-- ng-click="$parent.modes = $parent.modes != 'users' ? 'users' : 'main'" -->
+
 		<ul class="navbar-menu animate">
-			<li>
-				<a ng-class="{'notAllowed' : !credentials.admin}"
+			<li> <!-- CLIENTES -->
+				<a ng-class="{'notAllowed' : !credentials.userLogged.admin}"
 					href="/users" class="animate" ng-click="closeMenu()">
-					<span class="desc animate"> Usuarios </span>
+					<span class="desc animate"> Clientes </span>
 					<span class="glyphicon glyphicon-user"></span>
 				</a>
 			</li>
-			<li>
-				<a ng-class="{'notAllowed' : !credentials.admin}"
+			<li> <!-- PRODUCTOS -->
+				<a ng-class="{'notAllowed' : !credentials.userLogged.admin}"
 					href="/products" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Productos </span>
-					<span class="glyphicon glyphicon-list-alt"></span>
+					<span class="glyphicon glyphicon-qrcode"></span>
 				</a>
 			</li>
-			<li>
+			<li> <!-- ASIGNAR -->
+				<a ng-class="{'notAllowed' : !credentials.userLogged.admin}"
+					href="#" class="animate" ng-click="closeMenu()">
+					<span class="desc animate"> Asignar productos </span>
+					<span class="glyphicon glyphicon-tags"></span>
+				</a>
+			</li>
+			<li> <!-- CAMBIAR CONTRASEÑA -->
 				<a href="#" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Cambiar contraseña </span>
 					<span class="glyphicon glyphicon-lock"></span>
 				</a>
 			</li>
-			<li>
+			<li> <!-- INFO -->
 				<a href="#" class="animate" ng-click="closeMenu()">
-					<span class="desc animate">{{credentials.admin ? user.currentClient.name : user.supplier.name}}</span>
+					<span class="desc animate">{{credentials.userLogged.admin ? currentClient.name : credentials.supplier.name}}</span>
 					<span class="glyphicon glyphicon-info-sign"></span>
 				</a>
 			</li>
-			<li>
+			<li> <!-- REGRESAR -->
 				<a 	href="/main" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Regresar </span>
 					<span class="glyphicon glyphicon-arrow-left"></span>

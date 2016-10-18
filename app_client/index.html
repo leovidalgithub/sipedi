@@ -18,9 +18,7 @@
 
 	<!-- Angular Material style sheet -->
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-
 	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/tabs.css">
 	<base href="/">
 </head>
 <body ng-cloak>
@@ -30,6 +28,12 @@
 		<side-menu ng-show="credentials"></side-menu>
 		<div ng-class="{'marginTop' : credentials}" class="container" ng-view></div>
 	</main>
+
+	<div id="loadingAni" class="loadingModal" ng-show="loadingView">
+        <ul id="loading">
+			<li class="bar" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]"></li>
+        </ul>
+    </div>
 
 	<script src="lib/jquery/jquery-2.2.4.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
@@ -41,6 +45,6 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-
+	<script src="./socket.io/socket.io.js"></script>
 </body>
 </html>

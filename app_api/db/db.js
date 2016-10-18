@@ -20,3 +20,4 @@ mongoose.connection.on( 'disconnected', function() {
 
 //heroku config:set MONGO_URI=mongodb://<DBUSER>:<PASSWORD>@ds013486.mlab.com:13486/sipedi
 //heroku config:set NODE_ENV=production
+//heroku config:set EMAIL_PASS=Hcs635by

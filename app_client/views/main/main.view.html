@@ -1,47 +1,46 @@
 <div id="main">
 	<div class="mainContainer">
-
 		<div class="row controls">
 			<!-- LOGO -->
 			<div class="userInfo col-xs-6 col-md-3">
 				<div class="logo">
-					 <img ng-show="credentials.admin"
-						  data-ng-src="data:image/png;base64, {{ userData.currentClient.logo.data || sipediLogo }}" />
-					 <img ng-hide="credentials.admin"
-					 	  data-ng-src="data:image/png;base64, {{ userData.supplier.logo.data || sipediLogo }}" />
+					<img ng-show="credentials.userLogged.admin"
+						data-ng-src="{{ currentClient.logo || sipediLogo }}" /> <!-- "data:image/png;base64, {{ logo.data }} -->
+					<img ng-hide="credentials.userLogged.admin"
+						data-ng-src="{{ credentials.supplier.logo || sipediLogo }}" />
 				</div>
 			</div>
 			<!-- DEMAND BUTTON -->
 			<div class="demandButton col-xs-6 col-md-3 col-md-push-6">
 				<button ng-click="demandButton()" class="btn btn-block"
-					ng-class="{ 'btn-default': userData.currentClient.demandState == 0,
-								'btn-success': userData.currentClient.demandState == 1,
-								'btn-danger' : userData.currentClient.demandState == 2 }">
+					ng-class="{ 'btn-default': currentClient.demandState == 0,
+								'btn-success': currentClient.demandState == 1,
+								'btn-danger' : currentClient.demandState == 2 }">
 					<strong>
-						{{ userData.currentClient.demandState == 0 ? 'HACER PEDIDO' : userData.currentClient.demandState == 1 ? 'PEDIDO HECHO' : 'PEDIDO RECIBIDO' }}
+						{{ currentClient.demandState == 0 ? 'HACER PEDIDO' : currentClient.demandState == 1 ? 'PEDIDO HECHO' : 'PEDIDO RECIBIDO' }}
 					</strong><br>
-					<div ng-show="userData.currentClient.demandState > 0">
-						<span>{{ userData.currentClient.demandDate | amDateFormat:'dddd' }}</span><br>
-						<span>{{ userData.currentClient.demandDate | amDateFormat:'MM Do YYYY' }}</span><br>
-						<span>{{ userData.currentClient.demandDate | amDateFormat:'h:mm a' }}</span>
+					<div ng-show="currentClient.demandState > 0">
+						<span>{{ currentClient.demandDate | amDateFormat:'dddd' }}</span><br>
+						<span>{{ currentClient.demandDate | amDateFormat:'MM Do YYYY' }}</span><br>
+						<span>{{ currentClient.demandDate | amDateFormat:'h:mm a' }}</span>
 					</div>
 				</button>
 			</div>
+<!-- <button class="btn btn-success btn-md" ng-click="loadingViewON()">LOADING ON</button> -->
+<!-- <button class="btn btn-info btn-md" ng-click="loadingViewOFF()">LOADING OFF</button> -->
+<!-- <button class="btn btn-warning btn-md" ng-click="listConnected()">List Connected</button> -->
+<!-- <button class="btn btn-info btn-md" ng-click="sendBroadcast()">sendBroadcast</button> -->
 			<!-- CLIENTS SELECT -->
-			<div ng-show="credentials.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
+			<div ng-show="credentials.userLogged.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
 				<form class="form-group">
 					<label for="selectClients">Mis clientes</label>
-					<select class="form-control input-lg" id="selectClients" 
-							ng-model="userData.currentClient"
-							ng-options="user as user.name for user in users | orderBy : 'name' track by user._id"> <!-- filter: {'admin':false} -->
-					<!-- <option value="">Select Option</option> -->
+					<select class="form-control input-lg" id="selectClients"
+							ng-model="currentClient"
+							ng-options="client.name for client in clients | orderBy : 'name'"> <!-- track by client._id filter: {'admin':false} -->
 					</select>
 				</form>
 			</div>
 		</div> <!-- @row -->
-
-<button class="btn btn-danger btn-md" ng-click="fn()">DALE</button>
-<!-- <button class="btn btn-success btn-md" ng-click="fn3()">TEMPLATE</button> -->
 
 		<!-- SUCCESS ALERT -->
 		<div class="row">

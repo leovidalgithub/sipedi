@@ -13,9 +13,8 @@
 	  <ul class="nav navbar-nav navbar-right">
 	   <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
 		<img class="img-circle"
-		data-ng-src="data:image/png;base64, {{ credentials.logo.data || genericLogo }}"></a>
-		
-		<li><a class="rightText" href="#"><span></span>{{ credentials.name }}</a></li>
+		data-ng-src="{{ credentials.userLogged.logo || genericLogo }}"></a>
+		<li><a class="rightText" href="#"><span></span>{{ credentials.userLogged.name }}</a></li>
 		<li><a class="rightText" href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 	  </ul>
 	</div>

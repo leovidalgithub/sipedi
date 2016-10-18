@@ -7,19 +7,18 @@ function loginCtrlFn( $location, authenticationService, $rootScope, $timeout ) {
 
 	vm.loginButton = function() { // ---------------- login
 		authenticationService.login( vm.credentials )
-			.then( function( data ) {
-				//if login OK, saves token and set user credentials in $rootScope.credentials
+			.then( function( data ) { // login OK
 				authenticationService.saveToken( data.data.token );
 				console.log( 'LOGIN CORRECT' );
 				$location.path( 'main' );
 			})
-			.catch( function( err ) {
-				authenticationService.logout(); //if login fails, removes token
+			.catch( function( err ) { // login failed
+				authenticationService.logout();
 				console.log( 'LOGIN ERROR' );
 				vm.showError = true;
-				$timeout( function() { vm.showError = false }, 3000 );
-			})
-	}
+				$timeout( function() { vm.showError = false; }, 2000 );
+			});
+	};
 }
 
 loginCtrlFn.$inject = [ '$location', 'authenticationService', '$rootScope', '$timeout' ];

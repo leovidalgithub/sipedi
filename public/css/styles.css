@@ -1,14 +1,89 @@
+/*html, body { height: 100%; }*/
+#loadingAni.loadingModal.loadingModal {
+  background: #f4f4f4;
+  height: 100%;
+  opacity: .55;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999; }
+
+#loadingAni.loadingModal #loading {
+  list-style: none;
+  margin: 250px auto;
+  text-align: center;
+  width: 400px; }
+
+#loadingAni.loadingModal .bar {
+  height: 90px;
+  width: 8px;
+  border-radius: 3px;
+  background: black;
+  display: inline-block;
+  margin: 0 4px;
+  -webkit-animation: loader 1.1s infinite;
+          animation: loader 1.1s infinite; }
+
+#loadingAni.loadingModal .bar:nth-child(1) {
+  -webkit-animation-delay: .1s;
+          animation-delay: .1s; }
+
+#loadingAni.loadingModal .bar:nth-child(2) {
+  -webkit-animation-delay: .2s;
+          animation-delay: .2s; }
+
+#loadingAni.loadingModal .bar:nth-child(4) {
+  -webkit-animation-delay: .4s;
+          animation-delay: .4s; }
+
+#loadingAni.loadingModal .bar:nth-child(5) {
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s; }
+
+#loadingAni.loadingModal .bar:nth-child(6) {
+  -webkit-animation-delay: .6s;
+          animation-delay: .6s; }
+
+#loadingAni.loadingModal .bar:nth-child(7) {
+  -webkit-animation-delay: .7s;
+          animation-delay: .7s; }
+
+#loadingAni.loadingModal .bar:nth-child(8) {
+  -webkit-animation-delay: .8s;
+          animation-delay: .8s; }
+
+#loadingAni.loadingModal .bar:nth-child(9) {
+  -webkit-animation-delay: .9s;
+          animation-delay: .9s; }
+
+#loadingAni.loadingModal .bar:nth-child(10) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s; }
+
+@-webkit-keyframes loader {
+  50% {
+    height: 6px;
+    margin-top: 74px;
+    opacity: .1; } }
+
+@keyframes loader {
+  50% {
+    height: 6px;
+    margin-top: 74px;
+    opacity: .1; } }
+
 * {
   transition: all .7s; }
 
 body {
-  background-color: #EAEAEA;
+  background-color: #ffffff;
   color: white; }
 
 #mainIndex {
   background-color: #3c7a64; }
   #mainIndex.marginTop {
-    background-color: #EAEAEA; }
+    background-color: #ffffff; }
 
 #mainIndex .marginTop {
   margin-top: 80px; }
@@ -23,7 +98,7 @@ body {
   margin: 20px auto; }
   #login .logo p {
     font-family: monospace, "Courier New", Courier;
-    font-size: 17px;
+    font-size: 15px;
     padding: 0;
     margin: 0; }
     #login .logo p span {
@@ -137,7 +212,7 @@ body {
 
 @media screen and (max-width: 400px) {
   #login .logo p {
-    font-size: 10px; }
+    font-size: 8px; }
     #login .logo p span {
       font-size: 33px; } }
 
@@ -177,7 +252,7 @@ body {
   background-color: #333333;
   background-color: rgba(51, 51, 51, 0.8);
   border-width: 0px;
-  z-index: 1000; }
+  z-index: 500; }
 
 #sidebar .navbar-minimal > .navbar-toggler {
   position: relative;
@@ -305,6 +380,9 @@ body {
   pointer-events: none;
   opacity: 0.3; }
 
+#sidebar .navbar-minimal > .navbar-menu > li > a span {
+  font-size: 17px; }
+
 /********************** TOP CONTROLS */
 #main .controls {
   margin-bottom: 15px; }
@@ -322,13 +400,13 @@ body {
     text-align: center; }
     #main .controls .clientsSelect label {
       font-family: monospace;
-      font-size: 20px;
+      font-size: 18px;
       color: #333; }
     #main .controls .clientsSelect select {
       border-radius: 10px;
       color: #333;
       background-color: #E8E8E8;
-      font-size: 22px; }
+      font-size: 16px; }
   #main .controls .demandButton {
     height: 105px; }
     #main .controls .demandButton button {
@@ -511,17 +589,18 @@ body {
     #usersAdmin .logo img {
       max-width: 100%;
       max-height: 100%;
-      opacity: .8; }
+      opacity: .7; }
       #usersAdmin .logo img:hover {
         opacity: 1;
-        cursor: pointer; }
+        cursor: pointer;
+        box-shadow: 10px 10px 5px grey; }
 
 #usersAdmin .clientsSelect {
   height: 105px;
   line-height: 42px;
   text-align: center; }
   #usersAdmin .clientsSelect label {
-    font-size: 20px;
+    font-size: 18px;
     font-family: monospace;
     color: #333; }
   #usersAdmin .clientsSelect select {
@@ -529,4 +608,10 @@ body {
     font-family: monospace;
     color: #333;
     background-color: #E8E8E8;
-    font-size: 22px; }
+    font-size: 16px; }
+
+#usersAdmin .logoAdmin {
+  text-align: center; }
+
+#usersAdmin .logoAdminButtons {
+  margin-top: 15px; }

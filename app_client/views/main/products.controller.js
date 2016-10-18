@@ -3,13 +3,13 @@ function productsCtrl( $scope, mainService ) {
 	$scope.product = {};
 
 	$scope.$on( 'refreshProducts', function( event, clientId ) {
-		mainService.getProductsByClientID( clientId )
-			.then( function( data ) {
+			mainService.getProductsByClientID( clientId )
+				.then( function( data ) {
 					$scope.products = data.data;
-			})
-			.catch( function ( err ) {
-				$scope.$parent.showErrorAlert( 'Error al intentar leer la lista de productos.' );
-			})
+				})
+				.catch( function ( err ) {
+					$scope.$parent.showErrorAlert( 'Error al intentar leer la lista de productos.' );
+				});
 	});
 
 	$scope.productClicked = function( $event, product ) {
@@ -18,9 +18,9 @@ function productsCtrl( $scope, mainService ) {
 	};
 
 	function setProductOrder( product ) {
-		var currentUserId = $scope.$parent.userData.currentClient._id;
+		var currentUserId = $scope.$parent.currentClient._id;
 		mainService.setProductOrder( currentUserId, product )
-			.then( function( data ) { 
+			.then( function( data ) {
 				console.log( 'productOrder set correctly' );
 				$scope.$parent.showSuccessAlert( 'Información de producto guardada.' );
 			})
@@ -34,7 +34,7 @@ function productsCtrl( $scope, mainService ) {
 		$scope.product = product;
 		$event.stopPropagation(); // prevent from productClicked()
 		$( '#quantityModal' ).modal( 'show' ); // because of $event.stopPropagation()
-	}
+	};
 
 	$scope.$watch('product.quantity', function() {
 		if ( $scope.product.quantity > 100) $scope.product.quantity = 100;
@@ -49,4 +49,3 @@ function productsCtrl( $scope, mainService ) {
 
 productsCtrl.$inject = [ '$scope', 'mainService' ];
 module.exports = productsCtrl;
-

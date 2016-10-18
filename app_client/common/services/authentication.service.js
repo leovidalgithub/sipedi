@@ -1,32 +1,29 @@
-function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $location, $route ) {
+function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper, $location, $route, sharedData ) {
 
 		function saveToken( token ) {
 			$window.localStorage['mean-token'] = token;
 			console.log( 'Token saved' );
-			setCredentials( token );
 		}
 
-		function setCredentials( token ) { // get -> token & payload and set credentials 
-			var tokenPayload = jwtHelper.decodeToken( token );
-			$rootScope.credentials = tokenPayload._doc;
+		function getUserLogged() {
+			var token = getToken();
+			return jwtHelper.decodeToken( token )._doc;
 		}
 
 		function isLoggedIn() {
 			try {
 				var token = getToken();
-				var tokenPayload = jwtHelper.decodeToken( token );
 				if ( !jwtHelper.isTokenExpired( token ) ) { // token up-to-date
-					setCredentials( token );
 					return true;
 				}
 			} catch( e ) {
 			}
-			$rootScope.credentials = null;
+			logout();
 			return false;
 		}
 
 		function getToken() {
-			return $window.localStorage['mean-token']
+			return $window.localStorage['mean-token'];
 		}
 
 		function login( user ) {
@@ -38,27 +35,24 @@ function authenticationServiceFn ( $http, $window, $rootScope, jwtHelper, $locat
 		}
 
 		function logout() {
+			socket.disconnectMe();
 			$rootScope.credentials = null;
+			sharedData.removeAll();
 			$window.localStorage.removeItem( 'mean-token' );
 			$location.path( '/' );
-			console.log( 'logout bye...' )
+			console.log( 'logout bye...' );
 		}
-
-		// register = function( user ) {
-		// 	return $http.post('/login/register', user)
-		// }
 
 		return {
 			saveToken : saveToken,
-			setCredentials : setCredentials,
 			getToken : getToken,
+			getUserLogged : getUserLogged,
 			isLoggedIn : isLoggedIn,
-			// register : register,
 			login : login,
 			home : home,
 			logout : logout
-		}
+		};
 }
 
-authenticationServiceFn.$inject = [ '$http', '$window', '$rootScope', 'jwtHelper', '$location', '$route' ];
+authenticationServiceFn.$inject = [ '$http', 'socket', '$window', '$rootScope', 'jwtHelper', '$location', '$route', 'sharedData' ];
 module.exports = authenticationServiceFn;

@@ -1,7 +1,7 @@
 <div id="usersAdmin" ng-cloak>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title">Administrador de Usuarios</h3>
+			<h3 class="panel-title">Administrador de Clientes</h3>
 		</div>
 
 		<div class="panel-body">
@@ -13,8 +13,9 @@
 						<form class="form-group">
 							<label for="selectClients">Mis clientes</label>
 							<select class="form-control input-lg" id="selectClients" ng-model="currentClient"
-							ng-disabled="!userForm.$pristine" title="{{!userForm.$pristine ? 'Primero debe guardar o deshacer los cambios realizados.' : 'Seleccionar otro cliente.'}}" 
-							ng-options="user as user.name for user in users | orderBy : 'name'"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
+							ng-disabled="!userForm.$pristine || logoAdminOpened"
+							title="{{!userForm.$pristine || logoAdminOpened ? 'Primero debe guardar o deshacer los cambios realizados.' : 'Seleccionar otro cliente.'}}"
+							ng-options="user as user.name for user in clients | orderBy : 'name'"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
 							</select>
 						</form>
 					</div>
@@ -22,11 +23,35 @@
 				<!-- LOGO -->
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
 					<div class="logo">
-						 <img ng-show="credentials.admin"
-							  data-ng-src="data:image/png;base64, {{ currentClient.logo.data || sipediLogo }}" />
+						 <img ng-show="credentials.userLogged.admin" ng-click="openLogoAdmin()" title="Cambiar logo"
+							ng-src="{{ currentClient.logo || sipediLogo }}" />
 					</div>
 				</div>
 			</div> <!-- @row -->
+
+			<!-- LOGO ADMIN -->
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-7 col-md-offset-3 col-md-6">
+					<div class="collapse logoAdmin well">
+						<div>
+							<button type="button" class="close" ng-click="closeLogoAdmin()"><span aria-hidden="true">&times;</span></button>
+							<img ng-src="{{logoTempSRC}}" id="imgLogoAdmin" width="140" height="90">
+						</div>
+						<label class="btn btn-warning btn-file btn-sm logoAdminButtons">
+							<span class="glyphicon glyphicon-option-horizontal"></span> Seleccionar archivo
+							<input type="file" style="display: none;" id="imageInput" type="file" accept="image/*">
+						</label>
+
+						<button ng-click="setNewLogo()" type="button" class="btn btn-primary btn-sm logoAdminButtons">
+								<span class="glyphicon glyphicon-ok"></span> Aceptar
+						</button>
+						<button  type="button" class="btn btn-default btn-sm logoAdminButtons" ng-click="closeLogoAdmin()">
+								<span class="glyphicon glyphicon-log-out"></span> Cancelar
+						</button>
+					</div>
+				</div>
+			</div>
+
 
 			<!-- FORM -->
 			<div class="row">
@@ -98,8 +123,8 @@
 								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-book"></i>
 								</div>
-								<textarea ng-model="currentClient.notes" class="form-control" cols="30" rows="5" 
-										maxlength="80" name="notes" id="notes" placeholder="Notas varias"></textarea>
+								<textarea ng-model="currentClient.notes" class="form-control" cols="30" rows="5"
+										maxlength="400" name="notes" id="notes" placeholder="Notas varias"></textarea>
 							</div>
 						</div>
 
@@ -110,15 +135,50 @@
 
 		<div class="modal-footer">
 			<div class="row">
-				<div class="col-xs-6">
-					<button ng-click="saveChanges()" ng-disabled="userForm.$invalid || userForm.$pristine" class="btn btn-primary">GUARDAR</button>
-					<button ng-click="undoChanges()" ng-disabled="userForm.$pristine" class="btn btn-warning">DESHACER</button>
-<!-- {{userForm.name.$pristine}} -->
-<!-- invalid {{userForm.$invalid}} / pristine {{userForm.$pristine}} -->
+				<div class="col-sm-offset-3 col-sm-9">
+
+					<button ng-class="{'btn-primary': (!userForm.$invalid && !userForm.$pristine), 'btn-default': (userForm.$invalid || userForm.$pristine)}"
+							ng-click="saveChanges(false)" ng-disabled="userForm.$invalid || userForm.$pristine"
+							class="btn btn-md " title="Guardar los cambios pendientes"
+							id="saveButton" data-loading-text="Guardando..." autocomplete="off">
+							<span class="glyphicon glyphicon-save"></span> Guardar</button>
+
+					<button ng-class="{'btn-warning': !userForm.$pristine, 'btn-default': userForm.$pristine}"
+							ng-click="undoChanges()" ng-disabled="userForm.$pristine"
+							class="btn btn-md" title="Deshacer los cambios hechos">Deshacer cambios</button>
+
+					<button ng-class="{'btn-success': !userForm.$invalid, 'btn-default': userForm.$invalid }"
+							class="btn btn-ld" ng-disabled="userForm.$invalid" title="Genera una contraseña y la envía al cliente."
+							data-toggle="modal" data-target="#generatePassWarning">
+							<span class="glyphicon glyphicon-lock"></span> Generar contraseña
+					</button>
 				</div>
 			</div>
 		</div>
-
 	</div> <!-- @panel primary -->
+
+	<!-- GENERATE PASSWORD WARNING -->
+	<div class="modal fade" id="generatePassWarning" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="dialogo modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">ATENCIÓN</h3>
+				</div>
+				<div class="modal-body">
+					<p>Esta acción generará una contraseña nueva y la enviará al correo: <pre>{{currentClient.email}}</pre></p>
+				</div>
+				<div class="modal-footer">
+					<button ng-click="saveChanges(true)" data-dismiss="modal" type="button" class="btn btn-primary btn-sm">
+						<span class="glyphicon glyphicon-ok"></span> Aceptar
+					</button>
+					<button  type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+						<span class="glyphicon glyphicon-log-out"></span> Cancelar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>

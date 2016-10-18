@@ -23,11 +23,11 @@
 			quantity       = data.quantity;
 
 		var client = this.clients.find( function( el ) {
-			return el._id == clientID
+			return el._id == clientID;
 		});
 		client.productOrdered = productOrdered;
 		client.quantity = quantity;
-		return this.save()
+		return this.save();
 	};
 
 	productSchema.statics.setProducts = function( products ) {
@@ -37,19 +37,19 @@
 		products.forEach( function( product ) {
 			// UPDATE AND ADD
 			if ( product.action == 'added_modified' ) { //vm.collection.insert( product )
-				if ( product._id == '' ) product._id = mongoose.Types.ObjectId();
-				myPromises.push( vm.findByIdAndUpdate( product._id, { 
+				if ( product._id === '' ) product._id = mongoose.Types.ObjectId();
+				myPromises.push( vm.findByIdAndUpdate( product._id, {
 					$set: { 'category': product.category, 'product': product.product, 'stock': product.stock, 'supplier': product.supplier }},
 					{ upsert : true, setDefaultsOnInsert : true } ));
 			// REMOVE
 			} else if ( product.action == 'deleted' ) {
 				myPromises.push( vm.findByIdAndRemove( product._id ) );
-			};
+			}
 		});
 		return Promise.all( myPromises );
 	};
 
-module.exports = mongoose.model( 'Product', productSchema )
+module.exports = mongoose.model( 'Product', productSchema );
 
 	// productSchema.statics.setProductOrdered = function( data ){
 	// 	var productID         = data.productID,
