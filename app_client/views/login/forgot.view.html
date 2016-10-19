@@ -1,0 +1,65 @@
+<!-- FORGOT PASSWORD MODAL -->
+<div ng-controller="forgotCtrl" class="modal fade" id="forgotPassword" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- HEADER -->
+        <div class="dialogo modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enviar nueva contraseña</h4>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body">
+                <!-- COLLAPSE 1 -->
+                <div class="collapse" id="stage1">
+                    <div class="well alert alert-warning alert-dismissible" role="alert">
+                        <p>Debido al sistema de encriptación utilizado no es posible obtener la contraseña actual.
+                            Por esta razón se creará una nueva y se enviará al correo indicado.</p><hr>
+                        <!-- EMAIL INPUT -->
+                        <form novalidate name="forgotForm" id="forgotForm">
+                            <div class="form-group"	ng-class="{'has-error':forgotForm.email.$touched && forgotForm.email.$invalid}">
+                                <!-- <label for="email">Email</label> -->
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-envelope"></i>
+                                    </div>
+                                    <input id="emailInput" ng-model="forgotEmail" class="form-control input-md" type="email"
+                                            maxlength="50" required name="email" id="email" autofocus />
+                                    <span ng-if="forgotForm.email.$touched && forgotForm.email.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                </div>
+                                <span ng-if="forgotForm.email.$touched && forgotForm.email.$invalid" class="help-block">Debe proporcionar un email válido.</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- COLLAPSE 2 ERROR -->
+                <div class="collapse" id="stage2">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <h4>ERROR!</h4><hr>
+                        <p>{{errorMsg}}</p>
+                        <p>Inténtelo de nuevo</p>
+                    </div>
+                </div>
+                <!-- COLLAPSE 3 SUCCESS-->
+                <div class="collapse" id="stage3">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <h4>OK!</h4><hr>
+                        <p>La nueva contraseña fue enviada al correo indicado.</p>
+                    </div>
+                </div>
+            </div> <!-- body -->
+
+            <!-- FOOTER -->
+            <div class="modal-footer">
+                <button ng-class="{'btn-primary': !forgotForm.email.$invalid, 'btn-default': forgotForm.email.$invalid}"
+                        ng-show="stage1" ng-disabled="forgotForm.email.$invalid"
+                        ng-click="sendEmail()" type="button" class="btn btn-sm">
+                    <span class="glyphicon glyphicon-send"></span> Enviar
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-log-out"></span> {{stage1 ? 'Cancelar' : 'Salir'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

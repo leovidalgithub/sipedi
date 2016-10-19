@@ -18,12 +18,12 @@ function modifyProductsCtrl( $scope, $rootScope ) {
 
 	$scope.$parent.$parent.newProductClicked = function() {
 		function productReset() {
-			$scope.mode = 'addNew';
-			$scope.product._id = '';
-			$scope.product.stock = true;
-			$scope.product.product = '';
-			$scope.product.clients = [];
-			$scope.product.action = 'added_modified';
+			$scope.mode             = 'addNew';
+			$scope.product._id      = '';
+			$scope.product.stock    = true;
+			$scope.product.product  = '';
+			$scope.product.clients  = [];
+			$scope.product.action   = 'added_modified';
 			$scope.product.selected = false;
 			$scope.product.supplier = $rootScope.credentials.userLogged.supplier;
 		}

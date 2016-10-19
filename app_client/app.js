@@ -18,11 +18,13 @@ var angular               = require( 'angular' ),
 	usersService          = require( './common/services/users.service' ),
 // CONTROLLERS
 	loginCtrl             = require( './views/login/login.controller' ),
+	forgotCtrl            = require( './views/login/forgot.controller' ),
 	mainCtrl              = require( './views/main/main.controller' ),
 	productsCtrl          = require( './views/main/products.controller' ),
 	productsAdminCtrl     = require( './views/products/productsAdmin.controller' ),
 	modifyProductsCtrl    = require( './views/products/modifyProducts.controller' ),
 	usersCtrl             = require( './views/users/users.controller' ),
+	passwordCtrl          = require( './views/password/password.controller' ),
 
 	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
 	navbarCtrl            = require( './common/directives/navbar/navbar.controller' );
@@ -38,6 +40,7 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
 // LOGIN
 	.controller( 'loginCtrl'            , loginCtrl )
+	.controller( 'forgotCtrl'           , forgotCtrl )
 	.service   ( 'authenticationService', authenticationService )
 	.service   ( 'credentialsService'   , credentialsService )
 // MAIN
@@ -51,6 +54,8 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 // USERS
 	.controller( 'usersCtrl'   , usersCtrl )
 	.service   ( 'usersService', usersService )
+// PASSWORD
+	.controller( 'passwordCtrl', passwordCtrl )
 // DIRECTIVES
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )

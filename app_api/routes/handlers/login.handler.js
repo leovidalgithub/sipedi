@@ -1,5 +1,6 @@
-var User = require('../../db/models/users');
-var verifyToken = require('../../services/verifyToken.js');
+var User        = require('../../db/models/users'),
+	verifyToken = require('../../services/verifyToken.js'),
+	apiUsers    = require( './api.users.handler' );
 
 module.exports.login = function( req, res ) {
 	console.log( 'API authentication.js login function' );
@@ -12,7 +13,7 @@ module.exports.login = function( req, res ) {
 	User.findOne({ email: req.body.email }, function ( err, user ) {
 		if ( err ) {
 			console.log( 'authentication.login findOne err' );
-			res.status( 403).send( 'user error' );
+			res.status( 403 ).send( 'user error' );
 			return;
 		}
 		if ( !user ) { // user not found
@@ -35,6 +36,36 @@ module.exports.login = function( req, res ) {
 					  });
 		});
 	});
+};
+
+module.exports.forgotPassword = function( req, res ) {
+	var email = req.params.email;
+	User.findOne( { 'email' : email }, function( err, userFound ) {
+		if ( err ) {
+			console.log('err');
+			res.status(401).send( 'forgotPassword error.' );
+			return;
+		}
+	 	if ( !userFound ) {
+			console.log('not found');
+			res.status(402).send( 'User not found.' );
+			return;
+		}
+		console.log('tudo bem');
+		req.body.user = userFound;
+		req.body.generatePassword = true;
+		return apiUsers.setUser( req, res );
+ 	});
+
+// res.end();
+	// User.getClientInfo( clientId )
+	// 	.then( function( client ) {
+	// 		var token = client.generateJwt( client );
+	// 		return res.json( token );
+	// 	})
+	// 	.catch( function( err ) {
+	// 		return res.status( 403 ).res.send( 'Error getting client/token' );
+	// 	});
 };
 
 // module.exports.getClientToken = function( req, res ) {

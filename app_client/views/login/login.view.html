@@ -45,9 +45,15 @@
 			</div>
 		</form>
 
-		<a href="#" class="forgot-password">
+		<!-- FORGOT PASSWORD -->
+		<a href="#" class="forgot-password" title="Enviar mi contraseña a mi correo."
+			data-toggle="modal" data-target="#forgotPassword">
 			¿Olvidó su contraseña?
 		</a>
+	</div><!-- @card-container -->
 
-	</div><!-- /card-container -->
+	<!-- FORGOT PASSWORD MODAL****************************************************************************-->
+	<div ng-include="'views/login/forgot.view.html'"></div>
+	<!-- ****************************************************************************************-->
+
 </div><!-- /container -->

@@ -56,14 +56,19 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			$location.path( '/' );
 		}
 
+		function forgotPassword( email ) {
+			return $http.get( '/login/forgot/' + email );
+		}
+
 		return {
-			getToken      : getToken,
-			getUserLogged : getUserLogged,
-			isLoggedIn    : isLoggedIn,
-			login         : login,
-			getLoginData  : getLoginData,
-			home          : home,
-			logout        : logout
+			getToken       : getToken,
+			getUserLogged  : getUserLogged,
+			isLoggedIn     : isLoggedIn,
+			login          : login,
+			getLoginData   : getLoginData,
+			home           : home,
+			logout         : logout,
+			forgotPassword : forgotPassword
 		};
 }
 

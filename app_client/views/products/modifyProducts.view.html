@@ -1,8 +1,8 @@
 <!-- data-keyboard="false" data-backdrop="static" -->
-<div ng-controller="modifyProductsCtrl" class="modal fade" id="modifyProductModal" role="dialog"> 
+<div ng-controller="modifyProductsCtrl" class="modal fade" id="modifyProductModal" role="dialog">
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
-			
+
 			<div class="modal-header">
 				<button type="button"
 				 class="close"><span aria-hidden="true" data-dismiss="modal">&times;</span></button>
@@ -45,12 +45,12 @@
 								<input type="checkbox" ng-model="product.stock">
 							</div>
 
-							<input ng-show="mode == 'addNew'" 
+							<input ng-show="mode == 'addNew'"
 								ng-keyup="$event.keyCode == 13 && product.product.length && product.category && addNewProduct()"
 								ng-model="product.product" class="form-control input-lg" type="text"
 								value="{{ product.product }}" maxlength="50" ng-required="true" name="productName" id="productName" />
 
-							<input ng-show="mode == 'modifyOne'" 
+							<input ng-show="mode == 'modifyOne'"
 								ng-keyup="$event.keyCode == 13 && product.product.length && product.category && modiProductOK()"
 								ng-model="product.product" class="form-control input-lg" type="text"
 								value="{{ product.product }}" maxlength="50" ng-required="true" name="productName" id="productName" />
@@ -72,7 +72,7 @@
 									($parent.productsSelected > 0 && !product.category)}"
 						ng-disabled="($parent.productsSelected == 0 && !product.product.length) ||
 									($parent.productsSelected > 0 && !product.category)"
-						ng-click="modiProductOK()" type="button" class="btn btn-lg" data-dismiss="modal">
+						ng-click="modiProductOK()" type="button" class="btn btn-md" data-dismiss="modal">
 						<span class="glyphicon glyphicon-ok"></span> Aceptar
 				</button>
 
@@ -80,9 +80,7 @@
 				<button ng-show="mode == 'addNew'"
 						ng-class="{'btn-success': (product.product.length) && (product.category),
 									'btn-default': (!product.product.length) || (!product.category)}"
-
 						ng-disabled="(!product.product.length) || (!product.category)"
-
 						ng-click="addNewProduct()" type="button" class="btn btn-md">
 						<span class="glyphicon glyphicon-plus"></span> Agregar
 				</button>
@@ -96,4 +94,3 @@
 		</div>
 	</div>
 </div>
-

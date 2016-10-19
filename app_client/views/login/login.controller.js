@@ -22,7 +22,14 @@ function loginCtrlFn( $location, authenticationService, $rootScope, $timeout ) {
 				}, 2000 );
 			});
 	};
+
 }
 
 loginCtrlFn.$inject = [ '$location', 'authenticationService', '$rootScope', '$timeout' ];
 module.exports = loginCtrlFn;
+
+
+// $scope.openCategoriesAdmin = function () {
+// 	$( '#login #stage1' ).collapse( 'show' );
+// };
+// $scope.closeCategoriesAdmin = function () { $( '#login #stage1' ).collapse( 'hide' ); };

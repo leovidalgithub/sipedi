@@ -27,6 +27,10 @@ function config ( $routeProvider, $locationProvider ) {
 			templateUrl : 'views/users/users.view.html',
 			controller  : 'usersCtrl'
 		})
+		.when( '/password', {
+			templateUrl : 'views/password/password.view.html',
+			controller  : 'passwordCtrl'
+		})
 		.otherwise( { redirectTo: '/' } );
 
 		$locationProvider.html5Mode(true);
