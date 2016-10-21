@@ -587,6 +587,11 @@ body {
 #productsAdmin .modal-footer div {
   text-align: center; }
 
+#productsAdmin .divSelectAllButtons {
+  text-align: right;
+  margin-top: 5px;
+  border: solid 1px #6f80ee; }
+
 #usersAdmin {
   color: #333; }
   #usersAdmin .logo {

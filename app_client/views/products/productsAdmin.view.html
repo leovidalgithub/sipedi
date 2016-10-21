@@ -98,6 +98,20 @@
 				</div>
 			</div><br>
 
+			<!-- SELECT ALL BUTTONS -->
+			<div class="row">
+				<div class="divSelectAllButtons col-sm-offset-1 col-sm-10">
+					<button ng-class="{'btn-success' : showPass}"
+							class="btn btn-danger btn-sm" ng-click="passwordMaskToggle()"
+							title="{{showPass ? 'Ocultar' : 'Mostrar'}} contraseña">
+							<i ng-class="{'glyphicon-eye-open' : showPass, 'glyphicon-eye-close' : !showPass}"
+							   class="glyphicon"></i>
+					</button>
+					<button class="btn btn-prymary btn-sm" type="button" name="button">X</button>
+				</div>
+			</div>
+
+
 			<!-- PRODUCTS DATAGRIDVIEW -->
 			<div class="row">
 				<dgw-products products="products" selectedcategory="{{selectedCategory}}" userfilter="{{userFilter}}"

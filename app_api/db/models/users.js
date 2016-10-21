@@ -55,15 +55,17 @@ userSchema.methods.validPassword = function( password ) {
 };
 
 userSchema.methods.generateJwt = function( user ) {
-	return jwt.sign( user, config.secret, { // create a token
+	return jwt.sign( user, config.pass.secret, { // create a token
 		expiresIn: 9600 // 3600 expires in 1 hour
 	});
 };
 
 userSchema.statics.setUser = function( user ) {
-	console.log(user.salt);
-
 	return this.findByIdAndUpdate( user._id, user, { upsert : false });
+};
+
+userSchema.statics.getSupplierName = function( user ) {
+	return this.findOne( { 'supplier' : user.supplier, 'admin' : true }, { 'name' : 1,'_id' : 0 } );
 };
 
 module.exports = mongoose.model( 'User', userSchema );

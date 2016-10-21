@@ -8,13 +8,14 @@ var express       = require( 'express' ),
 apiRouter.use (                         apiMiddleware.middlewareToken );
 
 //PRODUCTS
-apiRouter.post( '/products/',           apiProducts.getProducts );
-apiRouter.put ( '/products/',           apiProducts.setProducts );
-apiRouter.post( '/products/setOrder/',  apiProducts.setProductOrder );
+apiRouter.post( '/products/',          apiProducts.getProducts );
+apiRouter.put ( '/products/',          apiProducts.setProducts );
+apiRouter.post( '/products/setOrder/', apiProducts.setProductOrder );
 
 //USERS
 apiRouter.post( '/users/',              apiUsers.getUsersBySupplier );
 apiRouter.put ( '/users/',              apiUsers.setUser );
+apiRouter.put ( '/users/password/',           apiUsers.setNewPassword );
 apiRouter.post( '/user/setUserDemand/', apiUsers.setUserDemand );
 
 module.exports = apiRouter;

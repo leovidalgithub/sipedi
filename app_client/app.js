@@ -16,6 +16,7 @@ var angular               = require( 'angular' ),
 	mainService           = require( './common/services/main.service' ),
 	productsService       = require( './common/services/products.service' ),
 	usersService          = require( './common/services/users.service' ),
+	passwordService       = require( './common/services/password.service' ),
 // CONTROLLERS
 	loginCtrl             = require( './views/login/login.controller' ),
 	forgotCtrl            = require( './views/login/forgot.controller' ),
@@ -55,7 +56,8 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.controller( 'usersCtrl'   , usersCtrl )
 	.service   ( 'usersService', usersService )
 // PASSWORD
-	.controller( 'passwordCtrl', passwordCtrl )
+	.controller( 'passwordCtrl'   , passwordCtrl )
+	.service   ( 'passwordService', passwordService )
 // DIRECTIVES
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )

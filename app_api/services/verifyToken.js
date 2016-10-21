@@ -1,6 +1,6 @@
-var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+var jwt    = require( 'jsonwebtoken' ),
+	config = require( '../config/config' );
 
 module.exports = function( token, callback ) {
-	return jwt.verify( token, config.secret, callback ) // verifies secret and checks exp
-}
+	return jwt.verify( token, config.pass.secret, callback ); // verifies secret and checks exp
+};

@@ -11,6 +11,7 @@ angular.module( 'sipediApp')
 				editone          : '&',
 				disablefilter    : '='
 			},
+			transclude: false,
 			templateUrl: 'common/directives/dgvProducts/dgvProducts.template.html',
 			controller : function( $scope ) {
 			},

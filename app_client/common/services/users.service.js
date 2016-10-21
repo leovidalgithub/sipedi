@@ -14,20 +14,20 @@ function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 		};
 
 		setUser = function( user, generatePassword ) {
-			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.supplier.name;
-			var defered  = $q.defer();
-			var promise  = defered.promise;
+			var token   = authenticationService.getToken(),
+				defered = $q.defer(),
+				promise = defered.promise;
 			$http.put( '/api/users/', {
 				token            : token,
 				user             : user,
-				generatePassword : generatePassword,
-				supplier         : supplier
+				generatePassword : generatePassword
 			})
 			.then( function ( data ) {
+				console.log('user service OK');
 				defered.resolve( data );
 			})
 			.catch( function ( err ) {
+				console.log('user service ERR');
 				if ( err.status == 403 ) authenticationService.logout();
 				defered.reject( err );
 			});

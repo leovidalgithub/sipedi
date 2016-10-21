@@ -1,7 +1,7 @@
-var	connect          = require( '../../db/db' ).connection,
-	User             = require( '../../db/models/users' ),
-	sendEmailService = require( '../../services/sendemail.service' ),
-	sipediSocket     = require( '../../../sockets' );
+var	connect      = require( '../../db/db' ).connection,
+	User         = require( '../../db/models/users' ),
+	generatePass = require( '../../services/generatepassword.service' ),
+	sipediSocket = require( '../../../sockets' );
 
 // POST /api/clients/ --> returns all supplier users
 module.exports.getUsersBySupplier = function( req, res ) {
@@ -30,52 +30,59 @@ module.exports.setUserDemand = function( req, res ) {
 		});
 };
 
-// PUT /api/users/ --> [ generate password / send email ] / set users into DB
+// PUT /api/users/ --> set user & [ generate password / send email ]
 module.exports.setUser = function( req, res ) {
-	var user = req.body.user;
+	var user         = req.body.user,
+	generatePassword = req.body.generatePassword;
 
-	generatePassWord()
-		.then( updateUser )
-		.then( function ( data ) {
-			res.statusCode = 200;
-			return res.json( user );
+	var promises = [];
+	promises.push( User.setUser( user ) );
+	if ( generatePassword ) promises.push( generatePass.generatePassword( user ) );
+
+	Promise.all( promises )
+		.then( function( data ) {
+			return res.json( data );
 		})
-		.catch( function ( err ) {
-			res.statusCode = 503;
-			return res.json( err );
+		.catch( function( err ) {
+			return res.status( 401 ).res.send( 'Error setting user' );
 		});
+};
 
-	function updateUser() {
-		console.log(user.name);
-		return User.setUser( user );
-	}
-	function generatePassWord() {
-		if ( req.body.generatePassword ) {
-			var newPass = Math.random().toString( 36 ).slice( -6 );
-			var data = {
-				user     : user,
-				supplier : req.body.supplier,
-				newPass  : newPass,
-			};
-			return promiseFindUser()
-				.then ( promiseSetNewPass )
-				.then ( promiseSendEmail );
-		} else {
-			return Promise.resolve();
-		}
-		function promiseFindUser() {
-			console.log('findUser');
-			return User.findById( user._id );
-		}
-		function promiseSetNewPass( userFound ) {
-			console.log('setPass');
-			userFound.setPassword( newPass );
-			user.hash = userFound.hash;
-			user.salt = userFound.salt;
-		}
-		function promiseSendEmail() {
-			return sendEmailService.sendMail( data );
-		}
-	}
+// PUT /api/user/password/ --> set new user password (user change pass)
+module.exports.setNewPassword = function( req, res ) {
+	var userID       = req.body.userID,
+		passwordData = req.body.passwordData;
 
+		User.findById( userID )
+			.then( verifyCurrentPassword )
+			.then( setPassword )
+			.then( function( userFound ) {
+				userFound.save();
+			})
+			.then( function( data ) {
+				console.log('api OK');
+				res.status( 200 ).send( 'setNewPassword Ok.' );
+			})
+			.catch( function( err ) {
+				console.log('api ERR');
+				console.log(err);
+				if ( err === 402 ) {
+					res.status( 402 ).send( 'currentPass wrong.' );
+				} else {
+					res.status( 401 ).send( 'setNewPassword error.' );
+				}
+			});
+
+			function verifyCurrentPassword( userFound ) {
+				if ( userFound.validPassword( passwordData.current ) ) {
+					return Promise.resolve( userFound );
+				} else {
+					return Promise.reject( 402 );
+				}
+			}
+
+			function setPassword ( userFound ) {
+				userFound.setPassword( passwordData.new );
+				return Promise.resolve( userFound );
+			}
 };
