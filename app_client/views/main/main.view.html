@@ -26,7 +26,7 @@
 					</div>
 				</button>
 			</div>
-<!-- <button class="btn btn-success btn-md" ng-click="loadingViewON()">LOADING ON</button> -->
+<!-- <button class="btn btn-success btn-md" ng-click="pepe()">sharedData</button> -->
 <!-- <button class="btn btn-info btn-md" ng-click="loadingViewOFF()">LOADING OFF</button> -->
 <!-- <button class="btn btn-warning btn-md" ng-click="listConnected()">List Connected</button> -->
 <!-- <button class="btn btn-info btn-md" ng-click="sendBroadcast()">sendBroadcast</button> -->
@@ -42,33 +42,8 @@
 			</div>
 		</div> <!-- @row -->
 
-		<!-- SUCCESS ALERT -->
-		<div class="row">
-			<div class="col-sm-offset-3 col-sm-7">
-				<div class="collapse successAlert closeAlert">
-					<div style="text-align: center; font-size: 17px;" class="alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
-						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						Guardado correctamente!<br>
-						{{ alertMsg.success }}
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- ERROR ALERT -->
-		<div class="row">
-			<div class="col-sm-offset-1 col-sm-10">
-				<div class="collapse errorAlert closeAlert">
-					<div style="text-align: center; font-size: 17px;" class="alert alert-danger alert-dismissible" role="alert">
-					<button type="button" class="close" ng-click="closesAlert()"><span aria-hidden="true">&times;</span></button>
-						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						Hubo un problema al accesar la base de datos.<br>
-						{{ alertMsg.error }}
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- ALERT MESSAGES -->
+		<alert-message code="codeAlert"></alert-message>
 
 		<!-- PRODUCTS TABS***************************************************************************-->
 		<div ng-include="'views/main/products.view.html'"></div>

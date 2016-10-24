@@ -26,7 +26,7 @@
 	<main ng-class="{'marginTop' : credentials}" id="mainIndex">
 		<nav-bar ng-show="credentials"></nav-bar>
 		<side-menu ng-show="credentials"></side-menu>
-		<div ng-class="{'marginTop' : credentials}" class="container" ng-view></div>
+		<div ng-class="{'marginTop' : credentials}" class="container ng-view" autoscroll="true"></div>
 	</main>
 
 	<div id="loadingAni" class="loadingModal" ng-show="loadingView">

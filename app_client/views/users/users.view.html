@@ -23,7 +23,7 @@
 				<!-- LOGO -->
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
 					<div class="logo">
-						 <img ng-show="credentials.userLogged.admin" ng-click="openLogoAdmin()" title="Cambiar logo"
+						 <img class="mainImg" ng-show="credentials.userLogged.admin" ng-click="openLogoAdmin()" title="Cambiar logo"
 							ng-src="{{ currentClient.logo || sipediLogo }}" />
 					</div>
 				</div>
@@ -33,9 +33,10 @@
 			<div class="row">
 				<div class="col-sm-offset-3 col-sm-7 col-md-offset-3 col-md-6">
 					<div class="collapse logoAdmin well">
-						<div>
+						<div class="logo">
 							<button type="button" class="close" ng-click="closeLogoAdmin()"><span aria-hidden="true">&times;</span></button>
-							<img ng-src="{{logoTempSRC}}" id="imgLogoAdmin" width="140" height="90">
+							<img ng-src="{{logoTempSRC || sipediLogo}}" id="imgLogoAdmin">
+							<!-- width="140" height="90" -->
 						</div>
 						<label class="btn btn-warning btn-file btn-sm logoAdminButtons">
 							<span class="glyphicon glyphicon-option-horizontal"></span> Seleccionar archivo
@@ -52,6 +53,8 @@
 				</div>
 			</div>
 
+			<!-- ALERT MESSAGES -->
+			<alert-message code="codeAlert"></alert-message>
 
 			<!-- FORM -->
 			<div class="row">

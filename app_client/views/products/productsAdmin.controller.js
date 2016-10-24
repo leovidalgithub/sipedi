@@ -11,6 +11,33 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		}
 	})();
 
+	(function selectAll() { // SELECT ALL
+		$scope.$watch( 'disablefilter + selectedCategory', deselectAll );
+		$scope.deselectAll = function() { deselectAll();};
+		$scope.selectAll = function() {
+			angular.forEach( $scope.products, function( product ) {
+				if ( $scope.disablefilter ) {
+					selectProducts( product );
+				} else {
+					if ( product.category === $scope.selectedCategory ) {
+						selectProducts( product );
+					}
+				}
+			});
+			function selectProducts( product ) {
+				if ( product.product.toLowerCase().indexOf( $scope.userFilter.toLowerCase() ) !== -1 &&
+					 product.action !== 'deleted' ) {
+				product.selected = true;
+				}
+			}
+		};
+		function deselectAll(){
+			angular.forEach( $scope.products, function( product ) {
+				product.selected = false;
+			});
+		}
+	})();
+
 	function getAllProducts() {
 		productsService.getAllProductsBySupplier()
 				.then( function( data ) {
@@ -52,11 +79,11 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 		});
 		productsService.setProducts( productsToSend )
 			.then( function( data ) {
-					console.log(' products correctly updated' );
+					$scope.codeAlert = '+30'; // products updated ok
 					getAllProducts(); // in order to set action & selected null
 			})
 			.catch( function ( err ) {
-					console.log(' error updating products' );
+				$scope.codeAlert = '-30'; // products updated error
 			})
 			.finally( function() {
 				$( '#productsAdmin #saveButton' ).button( 'reset' );

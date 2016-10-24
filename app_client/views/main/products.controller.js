@@ -8,7 +8,7 @@ function productsCtrl( $scope, mainService ) {
 					$scope.products = data.data;
 				})
 				.catch( function ( err ) {
-					$scope.$parent.showErrorAlert( 'Error al intentar leer la lista de productos.' );
+					$scope.$parent.$parent.codeAlert = '-11'; // get client products error
 				});
 	});
 
@@ -21,12 +21,10 @@ function productsCtrl( $scope, mainService ) {
 		var currentUserId = $scope.$parent.currentClient._id;
 		mainService.setProductOrder( currentUserId, product )
 			.then( function( data ) {
-				console.log( 'productOrder set correctly' );
-				$scope.$parent.showSuccessAlert( 'Información de producto guardada.' );
+				// $scope.$parent.$parent.codeAlert = '+11'; // productOrder set ok
 			})
 			.catch( function( err ) {
-				console.log( 'ERROR setting productOrder' );
-				$scope.$parent.showErrorAlert( 'Información de producto NO guardada.' );
+				$scope.$parent.$parent.codeAlert = '-12'; // productOrder set error
 			});
 	}
 
@@ -36,9 +34,9 @@ function productsCtrl( $scope, mainService ) {
 		$( '#quantityModal' ).modal( 'show' ); // because of $event.stopPropagation()
 	};
 
-	$scope.$watch('product.quantity', function() {
-		if ( $scope.product.quantity > 100) $scope.product.quantity = 100;
-		if ( $scope.product.quantity < 0) $scope.product.quantity = 0;
+	$scope.$watch( 'product.quantity', function() {
+		if ( $scope.product.quantity > 100 ) $scope.product.quantity = 100;
+		if ( $scope.product.quantity < 0 ) $scope.product.quantity = 0;
 	});
 
 	$( '#quantityModal' ).on( 'hide.bs.modal', function ( $event ) { // hidden.bs.modal fires after modal closes

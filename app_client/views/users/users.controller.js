@@ -1,7 +1,7 @@
-function usersCtrl( $scope, usersService, sharedData, $timeout ) {
+function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $rootScope ) {
 
 	(function Init() {
-		$scope.sipediLogo = sharedData.getData( 'sipediLogo' );
+		$scope.sipediLogo = constData.getData( 'sipediLogo' );
 		if ( sharedData.getData( 'clientsTemp' ) ) {
 			var usersState       = sharedData.getData( 'clientsTemp' );
 			$scope.clients       = usersState.users;
@@ -31,12 +31,12 @@ function usersCtrl( $scope, usersService, sharedData, $timeout ) {
 		$( '#usersAdmin #saveButton' ).button( 'loading' );
 		usersService.setUser( $scope.currentClient, generatePassword )
 			.then( function( userUpdated ) {
-				console.log( 'Datos del cliente actualizados correctamente.' );
+				$scope.codeAlert = '+20'; // updating client info ok
 				$scope.userForm.$setPristine();
 				$scope.userForm.$setUntouched(); // $scope.userForm.$setValidity(name, null);
 			})
 			.catch( function ( err ) {
-				console.log( 'Error guardando los datos del cliente.' );
+				$scope.codeAlert = '-20'; // updating client info error
 			})
 			.finally( function() {
 				$( '#usersAdmin #saveButton' ).button( 'reset' );
@@ -92,5 +92,5 @@ function usersCtrl( $scope, usersService, sharedData, $timeout ) {
 		};
 	})();
 }
-usersCtrl.$inject = [ '$scope', 'usersService', 'sharedData', '$timeout' ];
+usersCtrl.$inject = [ '$scope', 'usersService', '$timeout', 'sharedData', 'constData', '$rootScope' ];
 module.exports = usersCtrl;

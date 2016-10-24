@@ -1,6 +1,6 @@
 angular.module( 'sipediApp')
 
-	.directive('dgwProducts', function () {
+	.directive( 'dgwProducts', function () {
 		return {
 			restrict: 'E',
 			scope: {

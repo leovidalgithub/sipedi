@@ -9,6 +9,7 @@ var angular               = require( 'angular' ),
 	categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
 // FACTORIES
 	shareDataFtry         = require( './common/factories/shareData.factory' ),
+	constDataFtry         = require( './common/factories/constData.factory' ),
 	socketFtry            = require( './common/factories/socket.factory' ),
 // SERVICES
 	authenticationService = require( './common/services/authentication.service' ),
@@ -27,16 +28,18 @@ var angular               = require( 'angular' ),
 	usersCtrl             = require( './views/users/users.controller' ),
 	passwordCtrl          = require( './views/password/password.controller' ),
 
+// DIRECTIVES
 	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
-	navbarCtrl            = require( './common/directives/navbar/navbar.controller' );
-
+	navbarCtrl            = require( './common/directives/navbar/navbar.controller' ),
 	sidemenuDirective     = require( './common/directives/sidemenu/sidemenu.directive' ),
 	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' ),
+	alertMsgDirective     = require( './common/directives/alertMessage/alertMsg.directive' );
 
 angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial' ] )
 	.run       ( initialConfig )
 	.config    ( configRoutes )
 	.factory   ( 'sharedData'    , shareDataFtry )
+	.factory   ( 'constData'     , constDataFtry )
 	.factory   ( 'socket'        , socketFtry )
 	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
 // LOGIN
@@ -62,6 +65,6 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )
 	.directive ( 'sideMenu'    , sidemenuDirective )
-	.controller( 'sidemenuCtrl', sidemenuCtrl );
-
-	require( './common/directives/dgvProducts/dgvProducts.directive' );
+	.controller( 'sidemenuCtrl', sidemenuCtrl )
+	.directive ( 'alertMessage', alertMsgDirective );
+	require    ( './common/directives/dgvProducts/dgvProducts.directive' );

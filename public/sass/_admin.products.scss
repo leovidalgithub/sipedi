@@ -54,11 +54,25 @@
 	text-align: center;
 }
 
-#productsAdmin .divSelectAllButtons {
-	text-align: right;
-	margin-top: 5px;
-	border: solid 1px rgb(111, 128, 238);
+#productsAdmin #middleControls {
+	margin-bottom: 8px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
 
+#productsAdmin .divSelectAllButtons {
+	button:first-of-type {
+		margin-right: 5px;
+	}
+	button {
+	    background: #666;
+		color: white;
+		&:hover {
+			background: #333;
+		}
+	}
 }
 
 

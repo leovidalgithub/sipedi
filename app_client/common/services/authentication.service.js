@@ -45,6 +45,11 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 		}
 
 		function home() {
+			$location.path( 'main' );
+			// $route.reload();
+		}
+
+		function refresh() {
 			$route.reload();
 		}
 
@@ -67,6 +72,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			login          : login,
 			getLoginData   : getLoginData,
 			home           : home,
+			refresh        : refresh,
 			logout         : logout,
 			forgotPassword : forgotPassword
 		};

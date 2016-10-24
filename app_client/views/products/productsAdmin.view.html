@@ -47,7 +47,7 @@
 							<div class="input-group-addon">
 								<i class="glyphicon glyphicon-search"></i>
 							</div>
-							<input ng-model="userFilter" id="userFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
+							<input ng-init="userFilter=''" ng-model="userFilter" id="userFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
 						</div>
 					</div>
 				</div>
@@ -89,28 +89,27 @@
 				</div>
 			</div>
 
-			<!-- ADD NEW PRODUCT BUTTON -->
 			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<button ng-click="newProductClicked()" ng-disabled="(!categories.length)"
-							class="btn-info btn btn-md" title="Crear un producto nuevo">
-							<span class="glyphicon glyphicon-plus"></span> Nuevo producto</button>
-				</div>
-			</div><br>
+				<div id="middleControls" class="col-sm-offset-1 col-sm-10">
+					<!-- ADD NEW PRODUCT BUTTON -->
+					<div>
+						<button ng-click="newProductClicked()" ng-disabled="(!categories.length)"
+								class="btn-info btn btn-md" title="Crear un producto nuevo">
+								<span class="glyphicon glyphicon-plus"></span> Nuevo producto</button>
+					</div>
 
-			<!-- SELECT ALL BUTTONS -->
-			<div class="row">
-				<div class="divSelectAllButtons col-sm-offset-1 col-sm-10">
-					<button ng-class="{'btn-success' : showPass}"
-							class="btn btn-danger btn-sm" ng-click="passwordMaskToggle()"
-							title="{{showPass ? 'Ocultar' : 'Mostrar'}} contraseña">
-							<i ng-class="{'glyphicon-eye-open' : showPass, 'glyphicon-eye-close' : !showPass}"
-							   class="glyphicon"></i>
-					</button>
-					<button class="btn btn-prymary btn-sm" type="button" name="button">X</button>
+				<!-- SELECT ALL BUTTONS -->
+					<div class="divSelectAllButtons">
+						<button class="btn btn-md" type="button" title="Seleccionar todo" ng-click="selectAll()">
+								<i class="glyphicon glyphicon-ok-sign"></i></button>
+						<button class="btn btn-md" type="button" title="Deseleccionar todo" ng-click="deselectAll()">
+								<i class="glyphicon glyphicon-remove-sign"></i></button>
+					</div>
 				</div>
 			</div>
 
+			<!-- ALERT MESSAGES -->
+			<alert-message code="codeAlert"></alert-message>
 
 			<!-- PRODUCTS DATAGRIDVIEW -->
 			<div class="row">
