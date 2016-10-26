@@ -7,6 +7,7 @@ var angular               = require( 'angular' ),
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
 	categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
+
 // FACTORIES
 	shareDataFtry         = require( './common/factories/shareData.factory' ),
 	constDataFtry         = require( './common/factories/constData.factory' ),
@@ -27,6 +28,7 @@ var angular               = require( 'angular' ),
 	modifyProductsCtrl    = require( './views/products/modifyProducts.controller' ),
 	usersCtrl             = require( './views/users/users.controller' ),
 	passwordCtrl          = require( './views/password/password.controller' ),
+	assignCtrl            = require( './views/assign/assign.controller' ),
 
 // DIRECTIVES
 	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
@@ -61,6 +63,9 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 // PASSWORD
 	.controller( 'passwordCtrl'   , passwordCtrl )
 	.service   ( 'passwordService', passwordService )
+// ASSIGN
+	.controller( 'assignCtrl' , assignCtrl )
+	// .service   ( 'passwordService', passwordService )
 // DIRECTIVES
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )

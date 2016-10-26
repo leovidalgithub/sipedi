@@ -1,4 +1,5 @@
 <div ng-controller="productsCtrl" ng-cloak>
+
 <!--PRODUCTS TABS-->
 	<div class="tabsdemoDynamicTabs">
 		<md-content class="md-padding">
@@ -11,9 +12,8 @@
 					ng-repeat="( key, produ ) in products | uniqueCategory : cate.category | orderBy : 'product' track by produ._id"
 					ng-class="{'outOfStock':!produ.stock, 'productOrdered':produ.productOrdered}"
 					class="product">
-						<div ng-bind="produ.product"></div>
-						<!-- <div>{{ produ.product }}</div> -->
-						<button type="button" class="btn btn-info btn-md quantity" ng-click="quantityClicked($event, produ)"> 
+						<div ng-bind="produ.product"></div><!-- <div>{{ produ.product }}</div> -->
+						<button type="button" class="btn btn-info btn-md quantity" ng-click="quantityClicked($event, produ)">
 							{{ produ.quantity }}
 						</button>
 
@@ -21,6 +21,18 @@
 				</md-tab>
 			</md-tabs>
 		</md-content>
+	</div>
+
+	<!-- NO PRODUCTS ALERT -->
+	<div ng-hide="products.length" class="row">
+		<div class="col-xs-offset-1 col-xs-10 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+			<div class="noProductsAlert">
+				<div style="text-align: center; font-size: 16px;" class="alert alert-warning alert-dismissible" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					No hay productos para mostrar.
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- QUANTITY CHANGE MODAL -->

@@ -8,20 +8,27 @@ function productsServiceFn ( $http, authenticationService, $rootScope ) {
 				token       : token,
 				allProducts : true
 			})
-			.then( prepareProductsData )
+			// .then( resetProductStatus )
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
 			});
-			function prepareProductsData( data ) {
-				angular.forEach( data.data, function( product ) {
-					product.action = '';
-					product.selected = false;
-				});
-				return data;
-			}
+		};
+
+		resetProductStatus = function( products ){
+			products = products.filter( function( product ) { // remove items with action='deleted'
+				return product.action !== 'deleted';
+			});
+			angular.forEach( products, function( product ) { // reset .action & .selected
+				product.action   = '';
+				product.selected = false;
+			});
+			return products;
 		};
 
 		setProducts = function( products ) {
+			products = products.filter( function( product ) { // to send just products modified, added or deleted
+				return ( product.action !== '' );
+			});
 			var token    = authenticationService.getToken();
 				supplier = $rootScope.credentials.userLogged.supplier;
 			return $http.put( '/api/products/', {
@@ -36,7 +43,8 @@ function productsServiceFn ( $http, authenticationService, $rootScope ) {
 
 		return {
 					getAllProductsBySupplier : getAllProductsBySupplier,
-					setProducts : setProducts
+					setProducts              : setProducts,
+					resetProductStatus       : resetProductStatus
 		};
 
 }

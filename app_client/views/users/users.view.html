@@ -8,7 +8,7 @@
 
 			<div class="row">
 				<!-- CLIENTS SELECT -->
-				<div class="col-lg-7 col-lg-offset-2 col-md-8 col-md-offset-1 col-sm-9 col-xs-7">
+				<div class="col-xs-7 col-sm-offset-1 col-sm-8 col-md-offset-1 col-md-8 col-lg-offset-2 col-lg-7">
 					<div class="clientsSelect">
 						<form class="form-group">
 							<label for="selectClients">Mis clientes</label>
@@ -138,20 +138,20 @@
 
 		<div class="modal-footer">
 			<div class="row">
-				<div class="col-sm-offset-3 col-sm-9">
+				<div class="footerButtons col-sm-offset-3 col-sm-9">
 
 					<button ng-class="{'btn-primary': (!userForm.$invalid && !userForm.$pristine), 'btn-default': (userForm.$invalid || userForm.$pristine)}"
 							ng-click="saveChanges(false)" ng-disabled="userForm.$invalid || userForm.$pristine"
-							class="btn btn-md " title="Guardar los cambios pendientes"
+							class="btn btn-md" title="Guardar los cambios pendientes"
 							id="saveButton" data-loading-text="Guardando..." autocomplete="off">
 							<span class="glyphicon glyphicon-save"></span> Guardar</button>
 
-					<button ng-class="{'btn-warning': !userForm.$pristine, 'btn-default': userForm.$pristine}"
+					<button ng-class="{'btn-default': !userForm.$pristine, 'btn-default': userForm.$pristine}"
 							ng-click="undoChanges()" ng-disabled="userForm.$pristine"
 							class="btn btn-md" title="Deshacer los cambios hechos">Deshacer cambios</button>
 
 					<button ng-class="{'btn-success': !userForm.$invalid, 'btn-default': userForm.$invalid }"
-							class="btn btn-ld" ng-disabled="userForm.$invalid" title="Genera una contraseña y la envía al cliente."
+							class="btn btn-md" ng-disabled="userForm.$invalid" title="Genera una contraseña y la envía al cliente."
 							data-toggle="modal" data-target="#generatePassWarning">
 							<span class="glyphicon glyphicon-lock"></span> Generar contraseña
 					</button>
@@ -170,7 +170,7 @@
 					<h3 class="modal-title">ATENCIÓN</h3>
 				</div>
 				<div class="modal-body">
-					<p>Esta acción generará una contraseña nueva y la enviará al correo: <pre>{{currentClient.email}}</pre></p>
+					<p>Se generará una contraseña nueva y se enviará información de acceso al correo: <pre>{{currentClient.email}}</pre></p>
 				</div>
 				<div class="modal-footer">
 					<button ng-click="saveChanges(true)" data-dismiss="modal" type="button" class="btn btn-primary btn-sm">

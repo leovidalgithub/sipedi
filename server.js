@@ -24,6 +24,7 @@ app.use( '/main'    , function( req, res ) { res.redirect( '/#/main' ); });
 app.use( '/products', function( req, res ) { res.redirect( '/#/main' ); });
 app.use( '/users'   , function( req, res ) { res.redirect( '/#/main' ); });
 app.use( '/password', function( req, res ) { res.redirect( '/#/main' ); });
+app.use( '/assign'  , function( req, res ) { res.redirect( '/#/main' ); });
 
 app.use( '/login' , loginRouter );
 app.use( '/api'   , apiRouter );

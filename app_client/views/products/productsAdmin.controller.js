@@ -74,13 +74,11 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 
 	$scope.saveChanges = function() {
 		$( '#productsAdmin #saveButton' ).button( 'loading' );
-		var productsToSend = $scope.products.filter( function( product ) {
-			return ( product.action !== '' );
-		});
-		productsService.setProducts( productsToSend )
+		productsService.setProducts( $scope.products )
 			.then( function( data ) {
 					$scope.codeAlert = '+30'; // products updated ok
-					getAllProducts(); // in order to set action & selected null
+					$scope.products = productsService.resetProductStatus( $scope.products ); // remove deleted items and reset .action/.selected to null
+					fillCategories();
 			})
 			.catch( function ( err ) {
 				$scope.codeAlert = '-30'; // products updated error

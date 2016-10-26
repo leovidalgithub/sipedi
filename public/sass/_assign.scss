@@ -1,0 +1,82 @@
+#assignProducts {
+	color: $normalFontColor;
+	.logo {
+		height: $logoHeight;
+		text-align: center;
+		line-height: $logoHeight / 1.15;
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
+}
+
+#assignProducts .clientsSelect {
+	height: $controlsHeight;
+	line-height: $controlsHeight / 2.5;
+	text-align: center;
+	label {
+		font-size   : $titlesFontSize;
+		font-family : $titlesFont;
+		color       : $normalFontColor;
+	}
+	select {
+		border-radius    : $selectBorderRadius;
+		font-family      : $selectsFont;
+		color            : $normalFontColor;
+		background-color : $selectsBackGround;
+		font-size        : $selectsFontSize;
+	}
+}
+#assignProducts .listBoxes select {
+	background-color: #444;
+	width:310px;
+	height: 200px;
+	padding: 5px;
+}
+#assignProducts .listBoxes select option {
+	font-family: $listBoxFont;
+	color: #bbb;
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+
+#assignProducts .listBoxes .listBox {
+	text-align: center;
+	font-family: $titlesFont;
+	font-size: $titlesFontSize;
+	background-color: #eee;
+	border-radius: 10px;
+	margin: 10px 0;
+}
+
+#assignProducts .listBoxes .assignButtons {
+	height: 250px;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	button:nth-of-type(1) {
+		margin-bottom: 40px;
+	}
+}
+
+#assignProducts .footerButtons button {
+	margin-bottom: 9px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) { #assignProducts .listBoxes select { width:260px; } }
+@media screen and (max-width: 390px) { #assignProducts .listBoxes select { width:240px; } }
+@media screen and (max-width: 767px) {
+	#assignProducts .listBoxes .assignButtons {
+		height: auto;
+		flex-flow: row nowrap;
+		button:nth-of-type(1) {
+			margin: 0;
+			margin-right: 40px;
+		}
+	}
+	#assignProducts .listBoxes .listBox {
+		margin: 10px 10px;
+	}
+}

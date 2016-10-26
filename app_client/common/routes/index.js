@@ -31,6 +31,10 @@ function config ( $routeProvider, $locationProvider ) {
 			templateUrl : 'views/password/password.view.html',
 			controller  : 'passwordCtrl'
 		})
+		.when( '/assign', {
+			templateUrl : 'views/assign/assign.view.html',
+			controller  : 'assignCtrl'
+		})
 		.otherwise( { redirectTo: '/' } );
 
 		$locationProvider.html5Mode(true);

@@ -1,17 +1,17 @@
 	function uniqueCategory() {
 		return function( collection, keyname ) {
 			var arr = collection.filter(function( el ) {
-				return el.category === keyname
-			})
-		return arr
-		}
+				return el.category === keyname;
+			});
+		return arr;
+	};
 	}
 
 module.exports = uniqueCategory;
 
 // function uniqueCategory() {
 // 	return function( collection, keyname ) {
-// 		var output = [], 
+// 		var output = [],
 // 			keys   = [];
 // 		angular.forEach( collection, function( item ) {
 // 			var key = item[keyname];
@@ -24,5 +24,3 @@ module.exports = uniqueCategory;
 // 		}
 // }
 // module.exports = uniqueCategory;
-
-

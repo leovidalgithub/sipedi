@@ -38,7 +38,7 @@ function forgotCtrlFn( $scope, authenticationService, $timeout ) {
                 $( '#login #stage1' ).collapse( 'show' );
                 $scope.stage1 = true;
                 $( '#emailInput' ).focus();
-            }, 3000 );
+            }, 4500 );
 
         }
 

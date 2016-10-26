@@ -16,6 +16,9 @@ module.exports = function () {
     // PRODUCTS
     DATA[ 'alertMessage+30' ] = 'Información de productos actualizada.';
     DATA[ 'alertMessage-30' ] = 'Error al actualizar la información de productos.';
+    // ASSIGN
+    DATA[ 'alertMessage+40' ] = 'Asignación de productos realizada.';
+    DATA[ 'alertMessage-40' ] = 'Error en la Asignación de productos.';
     // PASSWORD
     DATA[ 'alertMessage+60' ] = 'Contraseña cambiada exitosamente!';
     DATA[ 'alertMessage-60' ] = 'La contraseña actual no es correcta.';

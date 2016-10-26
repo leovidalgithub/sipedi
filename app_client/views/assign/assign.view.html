@@ -1,0 +1,126 @@
+<div id="assignProducts" ng-cloak>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Asignar Productos</h3>
+		</div>
+		<div class="panel-body">
+
+            <div class="row">
+                <!-- CLIENTS SELECT -->
+                <div class="col-xs-7 col-sm-offset-1 col-sm-7 col-md-offset-2 col-md-6 col-lg-offset-2 col-lg-5">
+                    <div class="clientsSelect">
+                        <form class="form-group">
+                            <label for="selectClients">Mis clientes</label>
+                            <select class="form-control input-lg" id="selectClients" ng-model="currentClient"
+                            ng-disabled=""
+                            title="{{!userForm.$pristine || logoAdminOpened ? 'Primero debe guardar o deshacer los cambios realizados.' : 'Seleccionar otro cliente.'}}"
+                            ng-options="user as user.name for user in clients | orderBy : 'name'"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <!-- LOGO -->
+                <!-- <div class="col-xs-5 col-sm-3"> -->
+				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+                    <div class="logo">
+                        <img ng-show="credentials.userLogged.admin" title="{{currentClient.name}}"
+                            ng-src="{{ currentClient.logo || sipediLogo }}" />
+                    </div>
+                </div>
+            </div> <!-- @row -->
+
+            <div class="row">
+                <!-- CATEGORY FILTER -->
+				<div class="col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-1 col-lg-offset-2 col-lg-4">
+					<div class="form-group">
+						<label for="categories">Filtrar por categoría</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<button ng-init="disablefilter = false" ng-class="{'btn-success' : !disablefilter}"
+										class="btn btn-sm" ng-click="disablefilter = !disablefilter"
+										title="{{disablefilter ? 'Activar' : 'Desactivar'}} filtro">
+										<i class="glyphicon glyphicon-folder-open"></i>
+								</button>
+							</div>
+							<select class="form-control input-lg"
+							ng-model="selectedCategory" ng-disabled="disablefilter"
+							ng-options="cate for cate in categories | orderBy : ASC track by cate">
+							</select>
+
+						</div>
+					</div>
+				</div>
+				 <!-- TEXT FILTER INPUT -->
+				<div class="col-xs-12 col-sm-5 col-lg-4">
+					<div class="form-group">
+						<label for="userFilter">Filtrar por texto</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-search"></i>
+							</div>
+							<input ng-model="textFilter" id="userFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ALERT MESSAGES -->
+			<alert-message code="codeAlert"></alert-message>
+
+            <!-- LIST BOXES -->
+            <div class="row listBoxes">
+                <div class="col-xs-12 col-sm-offset-0 col-sm-5 col-lg-offset-1 col-lg-4">
+					<div class="listBox">
+						<p>{{credentials.userLogged.name}}</p>
+                        <select id="supplierProducts" ng-init="listBox={}" ng-model="listBox.supplier" multiple size="10"
+                            	ng-options="product as product.product for product in products | filter: userFilter(true) | filter: {category:selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
+                                ng-dblclick="assign(listBox.supplier, true)">
+                        </select> <!-- ng-options does not support 'title', ng-repeat does but not handle objects -->
+                	</div>
+				</div>
+				<div class="assignButtons col-xs-12 col-sm-2">
+					<button class="btn btn-primary btn-lg" ng-click="assign(listBox.supplier, true)"
+							title="Asignar productos al cliente">
+							<i ng-show="!verticalMode" class="glyphicon glyphicon-chevron-right"></i>
+							<i ng-show="verticalMode" class="glyphicon glyphicon-chevron-down"></i>
+							 {{listBox.supplier.length || 0}}
+					</button>
+					<button class="btn btn-primary btn-lg" ng-click="assign(listBox.client, false)"
+							title="Quitar productos del cliente">
+							{{listBox.client.length || 0}}
+							<i ng-show="!verticalMode" class="glyphicon glyphicon-chevron-left"></i>
+							<i ng-show="verticalMode" class="glyphicon glyphicon-chevron-up"></i>
+					</button>
+				</div>
+
+                <div class="col-xs-12 col-sm-5 col-lg-4">
+					<div class="listBox">
+							<p>{{currentClient.name}}</p>
+                            <select id="clientProducts" ng-model="listBox.client" multiple size="10"
+								ng-options="product as product.product for product in products | filter: userFilter(false) | filter: {category:selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
+                                ng-dblclick="assign(listBox.client, false)">
+                            </select>
+                	</div>
+            	</div>
+            </div>
+
+		</div> <!-- @panel body -->
+
+		<div class="modal-footer">
+			<div class="row">
+				<div class="footerButtons col-sm-offset-3 col-sm-9">
+					<button ng-class="{'btn-primary': modified, 'btn-default': !modified}"
+							ng-click="saveChanges()" ng-disabled="!modified"
+							class="btn btn-md" title="Guardar los cambios pendientes"
+							id="saveButton" data-loading-text="Guardando..." autocomplete="off">
+							<span class="glyphicon glyphicon-save"></span> Guardar</button>
+
+					<button ng-class="{'btn-default': modified, 'btn-default': !modified}"
+							ng-click="undoChanges()" ng-disabled="!modified"
+							class="btn btn-md" title="Deshacer los cambios hechos">Deshacer cambios</button>
+				</div>
+			</div>
+		</div>
+	</div> <!-- @panel primary -->
+
+</div>

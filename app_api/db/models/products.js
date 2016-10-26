@@ -32,14 +32,13 @@
 
 	productSchema.statics.setProducts = function( products ) {
 		myPromises = [],
-		vm = this;
-
+		vm         = this;
 		products.forEach( function( product ) {
 			// UPDATE AND ADD
 			if ( product.action == 'added_modified' ) { //vm.collection.insert( product )
 				if ( product._id === '' ) product._id = mongoose.Types.ObjectId();
 				myPromises.push( vm.findByIdAndUpdate( product._id, {
-					$set: { 'category': product.category, 'product': product.product, 'stock': product.stock, 'supplier': product.supplier }},
+					$set: { 'category': product.category, 'product': product.product, 'stock': product.stock, 'supplier': product.supplier, 'clients': product.clients }},
 					{ upsert : true, setDefaultsOnInsert : true } ));
 			// REMOVE
 			} else if ( product.action == 'deleted' ) {
