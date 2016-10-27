@@ -1,3 +1,9 @@
+.categories-selec, #productsAdmin #categoriesSelect, #assignProducts #categoriesSelect {
+  cursor: pointer; }
+  .categories-selec.filterDisabled, #productsAdmin .filterDisabled#categoriesSelect, #assignProducts .filterDisabled#categoriesSelect {
+    text-decoration: line-through;
+    cursor: not-allowed; }
+
 /*html, body { height: 100%; }*/
 #loadingAni.loadingModal.loadingModal {
   background: #f4f4f4;
@@ -77,19 +83,17 @@
   transition: all .7s; }
 
 body {
-  background-color: #ffffff;
-  color: white; }
+  background-color: #fcfcfc;
+  color: #333; }
 
 #mainIndex {
-  background-color: #3c7a64; }
-  #mainIndex.marginTop {
-    background-color: #ffffff; }
-
-#mainIndex .marginTop {
-  margin-top: 80px; }
+  height: 100%; }
+  #mainIndex.backGroundColor {
+    background-image: linear-gradient(#6891a2, #0c6121); }
+  #mainIndex .marginTop {
+    margin-top: 70px; }
 
 #login {
-  background-image: linear-gradient(#6891a2, #0c6121);
   color: #333; }
 
 /* LOGO*************************************/
@@ -127,7 +131,7 @@ body {
   margin: 0 auto 25px;
   margin-top: 50px;
   /* shadows and rounded borders */
-  border-radius: 2px;
+  border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); }
 
 #login .profile-img-card {

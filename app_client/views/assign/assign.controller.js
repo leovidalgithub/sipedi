@@ -86,6 +86,7 @@ function assignCtrlFn( $scope, sharedData, constData, productsService, $window )
 			})
 			.finally( function() {
 				$( '#assignProducts #saveButton' ).button( 'reset' );
+                $scope.modified = false;
 			});
 	};
 

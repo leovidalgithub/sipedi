@@ -3,16 +3,15 @@
 
 body {
 	background-color: $backgroundColor;
-	color: white;
+	color: $normalFontColor;
 }
 
 #mainIndex {
-	background-color: #3c7a64;
-	&.marginTop {
-		background-color: $backgroundColor;
+	height: 100%;
+	&.backGroundColor {
+		background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+	}
+	.marginTop {
+		margin-top: 70px;
 	}
 }
-#mainIndex .marginTop {
-	margin-top: 80px;
-}
-

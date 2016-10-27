@@ -35,6 +35,10 @@ function config ( $routeProvider, $locationProvider ) {
 			templateUrl : 'views/assign/assign.view.html',
 			controller  : 'assignCtrl'
 		})
+		.when( '/reports', {
+			templateUrl : 'views/reports/reports.view.html',
+			controller  : 'reportsCtrl'
+		})
 		.otherwise( { redirectTo: '/' } );
 
 		$locationProvider.html5Mode(true);

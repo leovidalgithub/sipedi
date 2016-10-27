@@ -34,6 +34,7 @@
 	height: 200px;
 	padding: 5px;
 }
+
 #assignProducts .listBoxes select option {
 	font-family: $listBoxFont;
 	color: #bbb;
@@ -63,6 +64,10 @@
 
 #assignProducts .footerButtons button {
 	margin-bottom: 9px;
+}
+
+#assignProducts #categoriesSelect {
+	@extend .categories-selec;
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) { #assignProducts .listBoxes select { width:260px; } }

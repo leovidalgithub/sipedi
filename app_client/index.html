@@ -23,7 +23,7 @@
 </head>
 <body ng-cloak>
 
-	<main ng-class="{'marginTop' : credentials}" id="mainIndex">
+	<main id="mainIndex" ng-class="{'backGroundColor' : !credentials}" >
 		<nav-bar ng-show="credentials"></nav-bar>
 		<side-menu ng-show="credentials"></side-menu>
 		<div ng-class="{'marginTop' : credentials}" class="container ng-view" autoscroll="true"></div>

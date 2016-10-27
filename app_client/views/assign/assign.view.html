@@ -20,7 +20,6 @@
                     </div>
                 </div>
                 <!-- LOGO -->
-                <!-- <div class="col-xs-5 col-sm-3"> -->
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
                     <div class="logo">
                         <img ng-show="credentials.userLogged.admin" title="{{currentClient.name}}"
@@ -33,7 +32,7 @@
                 <!-- CATEGORY FILTER -->
 				<div class="col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-1 col-lg-offset-2 col-lg-4">
 					<div class="form-group">
-						<label for="categories">Filtrar por categoría</label>
+						<label for="categoriesSelect">Filtrar por categoría</label>
 						<div class="input-group">
 							<div class="input-group-addon">
 								<button ng-init="disablefilter = false" ng-class="{'btn-success' : !disablefilter}"
@@ -42,23 +41,23 @@
 										<i class="glyphicon glyphicon-folder-open"></i>
 								</button>
 							</div>
-							<select class="form-control input-lg"
-							ng-model="selectedCategory" ng-disabled="disablefilter"
-							ng-options="cate for cate in categories | orderBy : ASC track by cate">
+							<select class="form-control input-lg" ng-class="{'filterDisabled' : disablefilter}"
+							ng-model="selectedCategory" ng-disabled="disablefilter" id="categoriesSelect"
+							ng-options="cate for cate in categories | orderBy : ASC track by cate"
+							title="{{disablefilter ? 'Filtro desactivado' : ''}}">
 							</select>
-
 						</div>
 					</div>
 				</div>
 				 <!-- TEXT FILTER INPUT -->
 				<div class="col-xs-12 col-sm-5 col-lg-4">
 					<div class="form-group">
-						<label for="userFilter">Filtrar por texto</label>
+						<label for="userTextFilter">Filtrar por texto</label>
 						<div class="input-group">
 							<div class="input-group-addon">
 								<i class="glyphicon glyphicon-search"></i>
 							</div>
-							<input ng-model="textFilter" id="userFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
+							<input ng-model="textFilter" id="userTextFilter" class="form-control input-lg" type="text" placeholder="Texto a filtrar">
 						</div>
 					</div>
 				</div>
@@ -73,7 +72,7 @@
 					<div class="listBox">
 						<p>{{credentials.userLogged.name}}</p>
                         <select id="supplierProducts" ng-init="listBox={}" ng-model="listBox.supplier" multiple size="10"
-                            	ng-options="product as product.product for product in products | filter: userFilter(true) | filter: {category:selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
+                            	ng-options="product as product.product for product in products | filter: userFilter(true) | filter : (!disablefilter || '') && {category : selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
                                 ng-dblclick="assign(listBox.supplier, true)">
                         </select> <!-- ng-options does not support 'title', ng-repeat does but not handle objects -->
                 	</div>
@@ -97,7 +96,7 @@
 					<div class="listBox">
 							<p>{{currentClient.name}}</p>
                             <select id="clientProducts" ng-model="listBox.client" multiple size="10"
-								ng-options="product as product.product for product in products | filter: userFilter(false) | filter: {category:selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
+								ng-options="product as product.product for product in products | filter: userFilter(false) | filter : (!disablefilter || '') && {category : selectedCategory} | filter : {product : textFilter} |  orderBy : ASC track by product._id"
                                 ng-dblclick="assign(listBox.client, false)">
                             </select>
                 	</div>

@@ -29,7 +29,7 @@ var angular               = require( 'angular' ),
 	usersCtrl             = require( './views/users/users.controller' ),
 	passwordCtrl          = require( './views/password/password.controller' ),
 	assignCtrl            = require( './views/assign/assign.controller' ),
-
+	reportsCtrl           = require( './views/reports/reports.controller' ),
 // DIRECTIVES
 	navbarDirective       = require( './common/directives/navbar/navbar.directive' ),
 	navbarCtrl            = require( './common/directives/navbar/navbar.controller' ),
@@ -65,7 +65,8 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 	.service   ( 'passwordService', passwordService )
 // ASSIGN
 	.controller( 'assignCtrl' , assignCtrl )
-	// .service   ( 'passwordService', passwordService )
+// REPORTS
+	.controller( 'reportsCtrl' , reportsCtrl )
 // DIRECTIVES
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )

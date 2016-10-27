@@ -29,7 +29,7 @@
 			</li>
 			<li> <!-- INFORMES -->
 				<a ng-class="{'notAllowed' : !credentials.userLogged.admin}"
-					href="#" class="animate" ng-click="closeMenu()">
+					href="/reports" class="animate" ng-click="closeMenu()">
 					<span class="desc animate"> Informes</span>
 					<span class="glyphicon glyphicon-print"></span>
 				</a>
@@ -41,8 +41,10 @@
 				</a>
 			</li>
 			<li> <!-- INFO -->
-				<a href="#" class="animate" ng-click="closeMenu()">
+				<a href="#" class="animate" ng-click="closeMenu()" data-toggle="modal" data-target="#infoModal">
 					<span class="desc animate">{{credentials.userLogged.admin ? currentClient.name : credentials.supplier.name}}</span>
+					<!-- <span class="desc animate">{{showInfo.name}}</span> -->
+
 					<span class="glyphicon glyphicon-info-sign"></span>
 				</a>
 			</li>
@@ -54,4 +56,31 @@
 			</li>
 		</ul>
 	</nav>
+
+	<!-- INFO MODAL -->
+	<div class="modal fade" id="infoModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="dialogo modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{credentials.userLogged.admin ? currentClient.name : credentials.supplier.name}}</h4>
+				</div>
+				<div class="modal-body">
+					<p>{{credentials.userLogged.admin ? currentClient.contact : credentials.supplier.contact}}<p>
+					<p>{{credentials.userLogged.admin ? currentClient.email : credentials.supplier.email}}<p>
+					<p>{{credentials.userLogged.admin ? currentClient.phones : credentials.supplier.phones}}<p>
+					<p>{{credentials.userLogged.admin ? currentClient.address : credentials.supplier.address}}<p>
+				</div>
+				<div class="modal-footer">
+					<button  type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+						<span class="glyphicon glyphicon-log-out"></span> Salir
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 </div>

@@ -1,5 +1,5 @@
 #login {
-	background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+	// background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 	color: $normalFontColor;
 }
 
@@ -41,9 +41,9 @@
 	margin: 0 auto 25px;
 	margin-top: 50px;
 	/* shadows and rounded borders */
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
