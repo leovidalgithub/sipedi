@@ -5,6 +5,7 @@ function run ( $location, $root, authenticationService ) {
 				$location.path( '/' );
 		}
 	}
+
 	$root.$on( '$routeChangeStart', function( e, curr, prev ) {
 		$root.loadingView = true;
 	    // if (curr.$$route && curr.$$route.resolve) {}

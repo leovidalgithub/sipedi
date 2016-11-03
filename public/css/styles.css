@@ -749,3 +749,46 @@ body {
       margin-right: 40px; }
   #assignProducts .listBoxes .listBox {
     margin: 10px 10px; } }
+
+#reports #reportBody {
+  overflow-x: auto;
+  white-space: nowrap;
+  height: 500px; }
+  #reports #reportBody .report {
+    font-family: monospace;
+    padding: 0 15px;
+    width: 100%;
+    font-size: 17px; }
+    #reports #reportBody .report p {
+      margin: 0 auto; }
+    #reports #reportBody .report .category {
+      font-weight: bold;
+      font-size: 19px; }
+    #reports #reportBody .report .product {
+      margin-left: 15px; }
+
+#reports #reportBody .title {
+  text-align: center; }
+
+#reports #reportBody h3 {
+  margin: 0; }
+
+#reports #reportBody .clientsLength span {
+  font-size: 18px;
+  font-weight: bold; }
+
+#reports .panel-body {
+  padding-bottom: 0; }
+
+#reports .footerButtons {
+  text-align: center; }
+  #reports .footerButtons button {
+    margin-right: 6px;
+    margin-bottom: 8px; }
+
+#alertMessage span {
+  font-size: 16px; }
+
+@media screen and (max-width: 471px) {
+  #alertMessage span {
+    font-size: 13px; } }

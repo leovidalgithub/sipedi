@@ -1,4 +1,4 @@
-function loginCtrlFn( $location, authenticationService, $rootScope, $timeout ) {
+function loginCtrlFn( authenticationService, $rootScope ) {
 	$rootScope.credentials = null;
 	vm = this;
 	vm.loginData = {};
@@ -15,17 +15,13 @@ function loginCtrlFn( $location, authenticationService, $rootScope, $timeout ) {
 		authenticationService.login( vm.loginData )
 			.catch( function( err ) { // login failed
 				authenticationService.logout();
-				var $errorMsg = $( '#login .errorAlert' );
-				$errorMsg.collapse( 'show' );
-				$timeout( function() {
-					$errorMsg.collapse( 'hide' );
-				}, 2000 );
+				vm.codeAlert = '-70'; // password or email wrong
 			});
 	};
 
 }
 
-loginCtrlFn.$inject = [ '$location', 'authenticationService', '$rootScope', '$timeout' ];
+loginCtrlFn.$inject = [ 'authenticationService', '$rootScope' ];
 module.exports = loginCtrlFn;
 
 

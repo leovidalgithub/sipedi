@@ -1,17 +1,23 @@
-function productsServiceFn ( $http, authenticationService, $rootScope ) {
+function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 
 		getAllProductsBySupplier = function() {
 			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.userLogged.supplier;
-			return $http.post( '/api/products/', {
+			var supplier = $rootScope.credentials.userLogged.supplier,
+				defered = $q.defer(),
+				promise = defered.promise;
+			$http.post( '/api/products/', {
 				supplier    : supplier,
 				token       : token,
 				allProducts : true
 			})
-			// .then( resetProductStatus )
+			.then( function( data ) {
+				defered.resolve( data );
+			})
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
+				defered.reject( err );
 			});
+			return promise;
 		};
 
 		resetProductStatus = function( products ){
@@ -49,5 +55,5 @@ function productsServiceFn ( $http, authenticationService, $rootScope ) {
 
 }
 
-productsServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
+productsServiceFn.$inject = [ '$q', '$http', 'authenticationService', '$rootScope' ];
 module.exports = productsServiceFn;

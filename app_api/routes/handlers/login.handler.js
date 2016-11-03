@@ -80,7 +80,7 @@ module.exports.forgotPassword = function( req, res ) {
 // 		.then( function( newUserSaved ) {
 // 			var token = newUserSaved.generateJwt( newUserSaved );
 // 			// http://stackoverflow.com/questions/38085582/express-4-chaining-res-json-with-promise-then-does-not-work
-// 			// res.status( 200 ).res.json( { 'token'   : token } )
+// 			// res.status( 200 ).json( { 'token'   : token } )
 // 			// return res.json.bind({ 'token'   : token })
 // 			return res.json( { 'token'   : token } );
 // 		})

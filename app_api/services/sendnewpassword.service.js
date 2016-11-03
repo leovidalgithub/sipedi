@@ -24,16 +24,16 @@ module.exports.sendMail = function( user, newPass ) {
 	var transporter = nodemailer.createTransport( smtpConfig );
 
 	function setMailOptions( supplierName ) {
-			return mailOptions = {
+			var mailOptions = {
 					from : '"SiPEDi 👥" <info@sipedi.net>',
 					// sender : 'info@sipedi.net',
-					to : user.email, // 'leo@leovidal.es, leoamiguo@yahoo.com',
+					to : user.email,
 					// cc :
 					bcc : 'webmaster@sipedi.net',
 					subject : 'SiPEDi acceso ✔',
-					// text : '🐴 ' + supplier + '\n\nhttp://sipedi.herokuapp.com\n\nlogin : ' + user.email + '\n\npass: ' + newPass,
 					html : '<h3>🐴 ' + supplierName.name + '</h3><hr>http://sipedi.herokuapp.com<br><br>login : ' + user.email + '<br><br>pass : ' + newPass,
 				};
+			return mailOptions;
 	}
 
 	function sendMailFn( mailOptions ) {

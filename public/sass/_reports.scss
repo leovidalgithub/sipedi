@@ -1,0 +1,47 @@
+#reports #reportBody {
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 500px;
+    .report {
+        font-family: monospace;
+        padding: 0 15px;
+        width: 100%;
+        font-size: 17px;
+        p {
+            margin: 0 auto;
+        }
+        .category {
+            font-weight: bold;
+            font-size: 19px;
+        }
+        .product {
+            margin-left: 15px;
+        }
+    }
+}
+
+#reports #reportBody {
+    .title {
+        text-align: center;
+    }
+    h3 {
+        margin: 0;
+    }
+    .clientsLength span {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+#reports {
+    .panel-body {
+        padding-bottom: 0;
+    }
+    .footerButtons {
+        text-align: center;
+        button {
+            margin-right: 6px;
+            margin-bottom: 8px;
+        }
+    }
+}

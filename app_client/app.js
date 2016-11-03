@@ -2,6 +2,7 @@ var angular               = require( 'angular' ),
 	ngRoute               = require( 'angular-route' ),
 	angularJwt            = require( 'angular-jwt' ),
 	angularMoment         = require( 'angular-moment' ),
+	angularSanitize       = require( 'angular-sanitize' ),
 	angularUnique         = require( '../public/lib/angular/angular-unique' ), // first category filter ('ui.filters')
 
 	initialConfig         = require( './common/config' ),
@@ -19,6 +20,7 @@ var angular               = require( 'angular' ),
 	productsService       = require( './common/services/products.service' ),
 	usersService          = require( './common/services/users.service' ),
 	passwordService       = require( './common/services/password.service' ),
+	reportsdService       = require( './common/services/reports.service' ),
 // CONTROLLERS
 	loginCtrl             = require( './views/login/login.controller' ),
 	forgotCtrl            = require( './views/login/forgot.controller' ),
@@ -37,7 +39,7 @@ var angular               = require( 'angular' ),
 	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' ),
 	alertMsgDirective     = require( './common/directives/alertMessage/alertMsg.directive' );
 
-angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial' ] )
+angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial', 'ngSanitize' ] )
 	.run       ( initialConfig )
 	.config    ( configRoutes )
 	.factory   ( 'sharedData'    , shareDataFtry )
@@ -66,7 +68,8 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters',
 // ASSIGN
 	.controller( 'assignCtrl' , assignCtrl )
 // REPORTS
-	.controller( 'reportsCtrl' , reportsCtrl )
+	.controller( 'reportsCtrl'    , reportsCtrl )
+	.service   ( 'reportsdService', reportsdService )
 // DIRECTIVES
 	.directive ( 'navBar'      , navbarDirective )
 	.controller( 'navbarCtrl'  , navbarCtrl )

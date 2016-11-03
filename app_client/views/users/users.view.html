@@ -141,17 +141,17 @@
 				<div class="footerButtons col-sm-offset-3 col-sm-9">
 
 					<button ng-class="{'btn-primary': (!userForm.$invalid && !userForm.$pristine), 'btn-default': (userForm.$invalid || userForm.$pristine)}"
-							ng-click="saveChanges(false)" ng-disabled="userForm.$invalid || userForm.$pristine"
+							ng-click="saveChanges(false)" ng-disabled="userForm.$invalid || userForm.$pristine || !clients.length"
 							class="btn btn-md" title="Guardar los cambios pendientes"
 							id="saveButton" data-loading-text="Guardando..." autocomplete="off">
 							<span class="glyphicon glyphicon-save"></span> Guardar</button>
 
 					<button ng-class="{'btn-default': !userForm.$pristine, 'btn-default': userForm.$pristine}"
-							ng-click="undoChanges()" ng-disabled="userForm.$pristine"
+							ng-click="undoChanges()" ng-disabled="userForm.$pristine || !clients.length"
 							class="btn btn-md" title="Deshacer los cambios hechos">Deshacer cambios</button>
 
 					<button ng-class="{'btn-success': !userForm.$invalid, 'btn-default': userForm.$invalid }"
-							class="btn btn-md" ng-disabled="userForm.$invalid" title="Genera una contraseña y la envía al cliente."
+							class="btn btn-md" ng-disabled="userForm.$invalid || !clients.length" title="Genera una contraseña y la envía al cliente."
 							data-toggle="modal" data-target="#generatePassWarning">
 							<span class="glyphicon glyphicon-lock"></span> Generar contraseña
 					</button>
@@ -160,7 +160,7 @@
 		</div>
 	</div> <!-- @panel primary -->
 
-	<!-- GENERATE PASSWORD WARNING -->
+	<!-- GENERATE PASSWORD WARNING MODAL -->
 	<div class="modal fade" id="generatePassWarning" role="dialog">
 		<div class="modal-dialog modal-sm">
 			<!-- Modal content-->

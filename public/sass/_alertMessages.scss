@@ -1,0 +1,5 @@
+#alertMessage span {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 471px) { #alertMessage span { font-size: 13px; } }

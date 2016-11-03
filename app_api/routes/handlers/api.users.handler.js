@@ -26,7 +26,7 @@ module.exports.setUserDemand = function( req, res ) {
 			return res.json( data );
 		})
 		.catch( function( err ) {
-			return res.status( 503 ).res.send( 'Error setting userDemand' );
+			return res.status( 503 ).send( 'Error setting userDemand' );
 		});
 };
 
@@ -44,7 +44,7 @@ module.exports.setUser = function( req, res ) {
 			return res.json( data );
 		})
 		.catch( function( err ) {
-			return res.status( 401 ).res.send( 'Error setting user' );
+			return res.status( 401 ).send( 'Error setting user' );
 		});
 };
 

@@ -13,7 +13,7 @@ module.exports.getProducts = function( req, res ) {
 			return res.json( products );
 		})
 		.catch( function( err ) {
-			return res.status( 503 ).res.send( 'Error getting products' );
+			return res.status( 503 ).send( 'Error getting products' );
 		});
 };
 
@@ -31,7 +31,7 @@ module.exports.setProductOrder = function( req, res ) {
 			})
 			.catch( function( err ) {
 				console.log(err);
-				return res.status( 503 ).res.send( 'Error setting productOrder' );
+				return res.status( 503 ).send( 'Error setting productOrder' );
 			});
 	});
 };
@@ -45,6 +45,6 @@ module.exports.setProducts = function( req, res ) {
 			return res.json( data );
 		})
 		.catch( function ( err ) {
-			return res.status( 503 ).res.send( 'Error setting products' );
+			return res.status( 503 ).send( 'Error setting products' );
 		});
 };

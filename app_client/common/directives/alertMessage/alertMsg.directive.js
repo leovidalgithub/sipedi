@@ -6,10 +6,11 @@ function alertMsgFn ( constData ) {
         },
         transclude: false,
         templateUrl: 'common/directives/alertMessage/alertMsg.template.html',
-        controller : function( $scope, $timeout ) {
+        controller : function( $scope, $timeout, $window ) {
             var $alertSome = $( '#alertMessage .msgAlert' );
             $scope.$watch( 'code', function( value ) {
                 if ( value !== '' ) {
+                    $scope.horizontalMode = ( $window.innerWidth >= 400 ) ? true : false;
                     $scope.alertMessage = constData.getData( 'alertMessage' + $scope.code.toString() );
                     $alertSome.collapse( 'show' );
                     $timeout( function() {
@@ -19,7 +20,7 @@ function alertMsgFn ( constData ) {
                 }
             });
         },
-        link : function( scope, elem, attrs, $timeout ) {
+        link : function( scope, elem, attrs ) {
             scope.code = '';
         }
     };

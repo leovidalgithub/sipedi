@@ -8,9 +8,12 @@ function credentialsServiceFn ( $q, usersService, $rootScope, authenticationServ
                 usersService.getUsersBySupplier( true ) // just get supplier data
                     .then( function ( data ) {
                         $rootScope.credentials.supplier = data.data[0];
-                        socket.socketConnet();
                         deferred.resolve( '' );
-                    });
+                    })
+                    .catch( function( err ) {
+                        deferred.resolve( '' ); // if error, let continue anyway
+                    })
+                    .finally( socket.socketConnet() );
                return deferred.promise;
            }
         }

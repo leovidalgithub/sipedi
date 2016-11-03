@@ -7,13 +7,8 @@
 		<img id="profile-img" class="profile-img-card" src="img/sipedi_logo.png" />
 		<form ng-submit="ctrl.loginButton()">
 
-			<!-- ERROR ALERT -->
-			<div class="collapse errorAlert">
-				<div style="text-align: center; font-size: 16px;" class="alert alert-danger alert-dismissible" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-					Email o contraseña inválida
-				</div>
-			</div>
+			<!-- ALERT MESSAGES -->
+			<alert-message code="ctrl.codeAlert"></alert-message>
 
 			<div class="form-group">
 				<div class="input-group">
@@ -29,7 +24,7 @@
 					<div class="input-group-addon">
 						<i class="glyphicon glyphicon-lock"></i>
 					</div>
-					<input type="password" ng-model="ctrl.loginData.password" class="form-control" placeholder="Contraseña" required>
+					<input type="password" ng-model="ctrl.loginData.password" class="form-control" placeholder="Contraseña" required autocomplete="off">
 				</div>
 			</div>
 

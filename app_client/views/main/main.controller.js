@@ -1,10 +1,9 @@
-function mainController ( $scope, $rootScope, mainService, usersService, $timeout, sharedData, constData ) {
+function mainController ( $location, $scope, $rootScope, mainService, usersService, $timeout, sharedData, constData ) {
 
 	(function Init() {
 		$scope.sipediLogo = constData.getData( 'sipediLogo' );
 		$scope.alertMsg   = {};
 		getClients();
-		// getClients( function() {});
 	})();
 
 	function getClients() {
@@ -21,9 +20,10 @@ function mainController ( $scope, $rootScope, mainService, usersService, $timeou
 					}
 					$scope.currentClient = $scope.clients[ selectedIndex ];
 					// if ( typeof( callback ) === 'function' ) callback();
+					// $location.path( '/reports' );
 			})
 			.catch( function( err ) {
-				console.log('MAIN CONTROLLER getClients ERROR');
+				$scope.codeAlert = '-100'; // reading db Error
 			});
 	}
 
@@ -70,7 +70,7 @@ function mainController ( $scope, $rootScope, mainService, usersService, $timeou
 	};
 }
 
-mainController.$inject = [ '$scope', '$rootScope', 'mainService', 'usersService', '$timeout', 'sharedData', 'constData' ];
+mainController.$inject = [ '$location', '$scope', '$rootScope', 'mainService', 'usersService', '$timeout', 'sharedData', 'constData' ];
 module.exports = mainController;
 
 // var stop = $interval(function() {}, 4000, 555);

@@ -8,7 +8,7 @@ function productsCtrl( $scope, mainService ) {
 					$scope.products = data.data;
 				})
 				.catch( function ( err ) {
-					$scope.$parent.$parent.codeAlert = '-11'; // get client products error
+					$scope.$parent.$parent.codeAlert = '-100'; // reading db Error
 				});
 	});
 

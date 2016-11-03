@@ -5,11 +5,19 @@ module.exports = function () {
 
 // ALERT MESSAGES
     // MAIN
+    DATA[ 'alertMessage-100' ] = 'Error al intentar leer la base de datos.';
+
+
     DATA[ 'alertMessage+10' ] = 'Información de pedido enviada.';
     DATA[ 'alertMessage+11' ] = 'Información de producto guardada.';
     DATA[ 'alertMessage-10' ] = 'Error al intentar guardar el estado del Pedido.';
-    DATA[ 'alertMessage-11' ] = 'Error al intentar leer la lista de productos.';
+
+    // DATA[ 'alertMessage-11' ] = 'Error al intentar leer la lista de productos.';
+
     DATA[ 'alertMessage-12' ] = 'Información de producto NO guardada.';
+
+
+
     // USERS
     DATA[ 'alertMessage+20' ] = 'Información de cliente actualizada.';
     DATA[ 'alertMessage-20' ] = 'Error al actualizar la información de cliente.';
@@ -19,11 +27,25 @@ module.exports = function () {
     // ASSIGN
     DATA[ 'alertMessage+40' ] = 'Asignación de productos realizada.';
     DATA[ 'alertMessage-40' ] = 'Error en la Asignación de productos.';
+    // REPORTS
+    DATA[ 'alertMessage-50' ] = 'Error al intentar leer los datos necesarios.';
+    DATA[ 'alertMessage+51' ] = 'Informe enviado correctamente.';
+    DATA[ 'alertMessage-51' ] = 'Error enviando el informe por correo.';
+    DATA[ 'alertMessage+52' ] = 'Estado Pedido Recibido guardado correctamente.';
+    DATA[ 'alertMessage-52' ] = 'Error guardando Estado Pedido Recibido.';
+
+
+
+
+
+
     // PASSWORD
     DATA[ 'alertMessage+60' ] = 'Contraseña cambiada exitosamente!';
     DATA[ 'alertMessage-60' ] = 'La contraseña actual no es correcta.';
     DATA[ 'alertMessage-61' ] = 'Hubo un problema cambiando la contraseña.';
     DATA[ 'alertMessage-62' ] = 'Las contraseñas no coinciden.';
+    // LOGIN
+    DATA[ 'alertMessage-70' ] = 'Email o contraseña inválida.';
 
 	return {
         getData : function ( key ) {

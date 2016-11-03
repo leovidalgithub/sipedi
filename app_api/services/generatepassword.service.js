@@ -1,5 +1,5 @@
 var User             = require( '../db/models/users' ),
-    sendEmailService = require( './sendemail.service' );
+    sendEmailService = require( './sendnewpassword.service' );
 
 module.exports.generatePassword = function( user ) {
 	var newPass = Math.random().toString( 36 ).slice( -6 );
