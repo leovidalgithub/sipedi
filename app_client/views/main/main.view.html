@@ -5,9 +5,9 @@
 			<div class="userInfo col-xs-6 col-md-3">
 				<div class="logo">
 					<img ng-show="credentials.userLogged.admin"
-						data-ng-src="{{ currentClient.logo || sipediLogo }}" /> <!-- "data:image/png;base64, {{ logo.data }} -->
+						data-ng-src="{{ currentClient.logo || genericLogo }}" /> <!-- "data:image/png;base64, {{ logo.data }} -->
 					<img ng-hide="credentials.userLogged.admin"
-						data-ng-src="{{ credentials.supplier.logo || sipediLogo }}" />
+						data-ng-src="{{ credentials.supplier.logo || genericLogo }}" />
 				</div>
 			</div>
 			<!-- DEMAND BUTTON -->

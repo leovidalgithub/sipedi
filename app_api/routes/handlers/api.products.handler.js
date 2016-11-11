@@ -1,6 +1,6 @@
 var	verifyToken  = require( '../../services/verifyToken.js' ),
 	Product      = require( '../../db/models/products' ),
-	sipediSocket = require( '../../../sockets' );
+	sipediSocket = require( '../../services/socket.service' );
 
 // POST /api/products/ --> returns all-client-products or all-supplier-products
 module.exports.getProducts = function( req, res ) {
@@ -30,7 +30,6 @@ module.exports.setProductOrder = function( req, res ) {
 				return res.json( data );
 			})
 			.catch( function( err ) {
-				console.log(err);
 				return res.status( 503 ).send( 'Error setting productOrder' );
 			});
 	});

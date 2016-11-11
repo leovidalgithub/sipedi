@@ -2,15 +2,20 @@ function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
 		getUsersBySupplier = function( justSupplier ) { // get just supplier or clients
 			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.userLogged.supplier;
-			return $http.post( '/api/users/', {
+			var supplier = $rootScope.credentials.userLogged.supplier,
+				defered = $q.defer(),
+				promise = defered.promise;
+			$http.post( '/api/users/', {
 				token        : token,
 				supplier     : supplier,
 				justSupplier : justSupplier
 			})
+			.then( defered.resolve )
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
+				defered.reject( err );
 			});
+			return promise;
 		};
 
 		setUser = function( user, generatePassword ) {
@@ -22,12 +27,8 @@ function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 				user             : user,
 				generatePassword : generatePassword
 			})
-			.then( function ( data ) {
-				console.log('user service OK');
-				defered.resolve( data );
-			})
+			.then( defered.resolve )
 			.catch( function ( err ) {
-				console.log('user service ERR');
 				if ( err.status == 403 ) authenticationService.logout();
 				defered.reject( err );
 			});

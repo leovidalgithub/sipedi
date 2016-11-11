@@ -1,18 +1,19 @@
 function forgotCtrlFn( $scope, authenticationService, $timeout ) {
 
 		$scope.sendEmail = function() {
-            $scope.stage1 = false;
+			$scope.sendButtonText = ' Enviando...';
 			authenticationService.forgotPassword( $scope.forgotEmail )
 				.then( function( data ) {
                     success();
 				})
 				.catch( function( err ) {
-					if ( err.status === 401 ) $scope.errorMsg = 'Se produjo un error en el proceso.';
+					if ( err.status === 401 ) $scope.errorMsg = 'Error al intentar enviar el correo.';
                     if ( err.status === 402 ) $scope.errorMsg = 'El correo introducido no consta en nuestra base de datos.';
                     failure();
 				})
                 .finally( function() {
                     $( '#login #stage1' ).collapse( 'hide' );
+					$scope.sendButtonText = ' Enviar';
                     $scope.stage1 = false;
                 });
 		};
@@ -38,10 +39,13 @@ function forgotCtrlFn( $scope, authenticationService, $timeout ) {
                 $( '#login #stage1' ).collapse( 'show' );
                 $scope.stage1 = true;
                 $( '#emailInput' ).focus();
-            }, 4500 );
+            }, 5000 );
 
         }
 
+		$scope.closeForgotModal = function() {
+			$( '#forgotPassword' ).modal( 'hide' );
+		};
 }
 
 forgotCtrlFn.$inject = [ '$scope', 'authenticationService', '$timeout' ];

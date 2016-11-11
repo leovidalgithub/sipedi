@@ -39,8 +39,7 @@ function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersServic
                 $scope.reportText += '<div class="report">';
                 $scope.reportText += '<p>****************************************************</p>';
                 $scope.reportText += '<h3>' + client.name + '</h3>';
-                $scope.reportText += '<code>' + moment( client.demandDate ).format( 'dddd MM Do YYYY / h:mm a' ) + '</code>';
-                $scope.reportText += '<p>----------------------------------------------------</p>';
+                $scope.reportText += '<code>' + moment( client.demandDate ).format( 'dddd MM Do YYYY h:mm a' ) + ' /';
                 fillProducts( client._id );
             });
         }
@@ -50,7 +49,7 @@ function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersServic
                 categories = [];
             angular.forEach( $scope.data.products, function( product ) {
                 angular.forEach( product.clients, function( client ) {
-                    if ( ( client._id === clientID ) && ( client.productOrdered === true ) ) {
+                    if ( ( client._id === clientID ) && ( client.productOrdered === true ) && ( product.stock === true ) ) {
                         products.push( { category : product.category, product : product.product, quantity : client.quantity } );
                         if ( categories.indexOf( product.category ) === -1 ) categories.push( product.category );
                     }
@@ -60,6 +59,7 @@ function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersServic
             printOut( products, categories );
         }
         function printOut( products, categories ) {
+            $scope.reportText += ' Productos = ' + products.length + '</code>';
             angular.forEach( categories, function( category ) {
                 $scope.reportText += '<p class="category"># ' + category + '</p>';
                 $scope.reportText += '<ul>';

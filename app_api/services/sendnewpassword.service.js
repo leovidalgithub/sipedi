@@ -10,11 +10,11 @@ if ( process.env.NODE_ENV === 'production' ) {
 
 module.exports.sendMail = function( user, newPass ) {
 	var smtpConfig = {
-			host: 'smtp.sipedi.net', //host: 'smtp.gmail.com',port: 465,secure: true,
+			host: 'smtp.gmail.com',
 			port: 465,
 			secure: true, // use SSL
 			auth: {
-			user: 'webmaster@sipedi.net',
+			user: 'sipediapp@gmail.com',
 			pass: emailPass
 			},
 			tls: {
@@ -31,7 +31,8 @@ module.exports.sendMail = function( user, newPass ) {
 					// cc :
 					bcc : 'webmaster@sipedi.net',
 					subject : 'SiPEDi acceso ✔',
-					html : '<h3>🐴 ' + supplierName.name + '</h3><hr>http://sipedi.herokuapp.com<br><br>login : ' + user.email + '<br><br>pass : ' + newPass,
+					html : '<h3> ' + supplierName.name + '</h3><hr><h4><a href="http://sipedi.net">SiPEDi Web App</a><br><br>login : ' +
+					 user.email + '<br><br>pass : ' + newPass + '</h4><hr><a href="mailto:info@sipedi.net?Subject=ID=' + user._id + '" target="_top">Enviar correo</a>',
 				};
 			return mailOptions;
 	}

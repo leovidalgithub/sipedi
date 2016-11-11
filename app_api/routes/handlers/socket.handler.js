@@ -1,4 +1,4 @@
-var socketService = require( '../../../sockets' );
+var socketService = require( '../../services/socket.service' );
 
 module.exports.disconnet = function( req, res ) {
     var _id = req.params._id;

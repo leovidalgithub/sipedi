@@ -16,7 +16,7 @@ function alertMsgFn ( constData ) {
                     $timeout( function() {
                         $scope.code = '';
                         $alertSome.collapse( 'hide' );
-                    }, $scope.code < 0 ? 5000 : 3000 );
+                    }, $scope.code < 0 ? 8000 : 3000 );
                 }
             });
         },

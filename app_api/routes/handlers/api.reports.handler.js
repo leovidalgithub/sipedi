@@ -2,7 +2,7 @@ var nodemailer   = require( 'nodemailer' ),
 	config       = require( '../../config/config' ),
 	sendPDF      = require( '../../services/sendpdf.service' ),
 	User         = require( '../../db/models/users' ),
-	sipediSocket = require( '../../../sockets' );
+	sipediSocket = require( '../../services/socket.service' );
 
     if ( process.env.NODE_ENV === 'production' ) {
     	emailPass =  process.env.EMAIL_PASS;

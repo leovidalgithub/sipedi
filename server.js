@@ -8,7 +8,7 @@ var express      = require( 'express' ),
 	loginRouter  = require( './app_api/routes/login.router' ),
 	apiRouter    = require( './app_api/routes/api.router' );
 	socketRouter = require( './app_api/routes/socket.router' );
-                   require( './sockets' ).initConnect( io );
+                   require( './app_api/services/socket.service' ).initConnect( io );
 
 app.set( 'port', process.env.PORT || 8080 );
 

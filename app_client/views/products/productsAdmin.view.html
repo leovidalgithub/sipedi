@@ -129,8 +129,8 @@
 
 						<button ng-class="{'btn-primary': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges" title="Guardar los cambios pendientes"
-								ng-click="saveChanges()" id="saveButton" data-loading-text="Guardando..." autocomplete="off">
-								<span class="glyphicon glyphicon-save"></span> Guardar</button>
+								ng-click="saveChanges()" ng-init="saveButtonText=' Guardar'">
+								<span class="glyphicon glyphicon-save"></span>{{ saveButtonText }}</button>
 
 						<button ng-class="{'btn-default': pendingChanges, 'btn-default': !pendingChanges }"
 								class="btn btn-md" ng-disabled="!pendingChanges"

@@ -2,7 +2,7 @@
 <div ng-controller="forgotCtrl" class="modal fade" id="forgotPassword" role="dialog">
     <div class="modal-dialog modal-sm">
         <!-- HEADER -->
-        <div class="dialogo modal-content">
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Enviar nueva contraseña</h4>
@@ -13,7 +13,7 @@
                 <!-- COLLAPSE 1 -->
                 <div class="collapse" id="stage1">
                     <div class="well alert alert-warning alert-dismissible" role="alert">
-                        <p>Indique su correo para enviarle una nueva contraseña.</p><hr>
+                        <p>Indique su correo para enviarle una nueva contraseña.</p><br>
                         <!-- EMAIL INPUT -->
                         <form novalidate name="forgotForm" id="forgotForm">
                             <div class="form-group"	ng-class="{'has-error':forgotForm.email.$touched && forgotForm.email.$invalid}">
@@ -23,7 +23,8 @@
                                         <i class="glyphicon glyphicon-envelope"></i>
                                     </div>
                                     <input id="emailInput" ng-model="forgotEmail" class="form-control input-md" type="email"
-                                            maxlength="50" required name="email" id="email" autofocus />
+                                            maxlength="50" required name="email" id="email" autofocus
+                                            ng-keyup="$event.keyCode == 13 && !forgotForm.email.$invalid && sendEmail()"/>
                                     <span ng-if="forgotForm.email.$touched && forgotForm.email.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
                                 </div>
                                 <span ng-if="forgotForm.email.$touched && forgotForm.email.$invalid" class="help-block">Debe proporcionar un email válido.</span>
@@ -34,17 +35,17 @@
                 <!-- COLLAPSE 2 ERROR -->
                 <div class="collapse" id="stage2">
                     <div class="alert alert-danger alert-dismissible" role="alert">
-                        <h4>Error!</h4><hr>
-                        <p>{{errorMsg}}</p>
-                        <p>Inténtelo de nuevo</p>
+                        <h4>Error!</h4>
+                        <p>{{errorMsg}}<br>
+                        Inténtelo de nuevo.</p>
                     </div>
                 </div>
                 <!-- COLLAPSE 3 SUCCESS-->
                 <div class="collapse" id="stage3">
                     <div class="alert alert-success alert-dismissible" role="alert">
-                        <h4>Ok!</h4><hr>
-                        <p>Nueva contraseña enviada.</p>
-                        <p>Si no recibe el correo recuerde revisar la bandeja de spam.</p>
+                        <h4>Ok!</h4>
+                        <p>Nueva contraseña enviada.<br>
+                        Si no recibe el correo recuerde revisar la bandeja de spam.</p>
                     </div>
                 </div>
             </div> <!-- body -->
@@ -52,11 +53,12 @@
             <!-- FOOTER -->
             <div class="modal-footer">
                 <button ng-class="{'btn-primary': !forgotForm.email.$invalid, 'btn-default': forgotForm.email.$invalid}"
-                        ng-show="stage1" ng-disabled="forgotForm.email.$invalid"
-                        ng-click="sendEmail()" type="button" class="btn btn-sm">
-                    <span class="glyphicon glyphicon-send"></span> Enviar
+                        ng-disabled="forgotForm.email.$invalid" ng-init="sendButtonText=' Enviar'"
+                        ng-show="stage1" ng-click="sendEmail()" type="button" class="btn btn-sm">
+                    <span class="glyphicon glyphicon-send"></span>{{ sendButtonText }}
                 </button>
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+
+                <button type="button" class="btn btn-default btn-sm" ng-click="closeForgotModal()">
                     <span class="glyphicon glyphicon-log-out"></span> {{stage1 ? 'Cancelar' : 'Salir'}}
                 </button>
             </div>

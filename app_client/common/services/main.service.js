@@ -1,4 +1,4 @@
-function mainServiceFn ( $http, authenticationService, $rootScope ) {
+function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function( id ) {
 			var token    = authenticationService.getToken();
@@ -16,10 +16,12 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 		};
 
 		setProductOrder = function( clientID, product ) {
-			var token = authenticationService.getToken();
-			var admin = $rootScope.credentials.userLogged.admin;
-			var supplierID = $rootScope.credentials.supplier._id;
-			return $http.post( '/api/products/setOrder/', {
+			var token      = authenticationService.getToken(),
+				admin      = $rootScope.credentials.userLogged.admin,
+				supplierID = $rootScope.credentials.supplier._id,
+				defered    = $q.defer(),
+				promise    = defered.promise;
+			$http.post( '/api/products/setOrder/', {
 								token          : token,
 								clientID       : clientID,
 								supplierID     : supplierID,
@@ -27,17 +29,25 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 								productID      : product._id,
 								productOrdered : product.productOrdered,
 								quantity       : product.quantity } )
+				.then( defered.resolve )
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
+					defered.reject( err );
 				});
+			return promise;
 		};
 
 		setUserDemand = function( data ) {
 			data.token = authenticationService.getToken();
-			return $http.post( '/api/user/setUserDemand/', data )
+			var defered = $q.defer(),
+				promise = defered.promise;
+			$http.post( '/api/user/setUserDemand/', data )
+				.then( defered.resolve )
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
+					defered.reject( err );
 				});
+			return promise;
 		};
 
 		function prepareProductsData( clientID, data ) {
@@ -59,5 +69,5 @@ function mainServiceFn ( $http, authenticationService, $rootScope ) {
 		};
 }
 
-mainServiceFn.$inject = [ '$http', 'authenticationService', '$rootScope' ];
+mainServiceFn.$inject = [ '$http', '$q', 'authenticationService', '$rootScope' ];
 module.exports = mainServiceFn;

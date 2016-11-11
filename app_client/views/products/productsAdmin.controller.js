@@ -73,7 +73,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 	}, true );
 
 	$scope.saveChanges = function() {
-		$( '#productsAdmin #saveButton' ).button( 'loading' );
+		$scope.saveButtonText = ' Guardando...';
 		productsService.setProducts( $scope.products )
 			.then( function( data ) {
 					$scope.codeAlert = '+30'; // products updated ok
@@ -84,7 +84,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 				$scope.codeAlert = '-30'; // products updated error
 			})
 			.finally( function() {
-				$( '#productsAdmin #saveButton' ).button( 'reset' );
+				$scope.saveButtonText = ' Guardar';
 			});
 	};
 

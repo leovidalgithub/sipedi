@@ -42,12 +42,10 @@ module.exports.forgotPassword = function( req, res ) {
 	var email = req.params.email;
 	User.findOne( { 'email' : email }, function( err, userFound ) {
 		if ( err ) {
-			console.log( 'forgotPassword db error' );
 			res.status( 401 ).send( 'forgotPassword error.' );
 			return;
 		}
 	 	if ( !userFound ) {
-			console.log( 'user not found' );
 			res.status( 402 ).send( 'User not found.' );
 			return;
 		}

@@ -3,16 +3,14 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 		getAllProductsBySupplier = function() {
 			var token    = authenticationService.getToken();
 			var supplier = $rootScope.credentials.userLogged.supplier,
-				defered = $q.defer(),
-				promise = defered.promise;
+				defered  = $q.defer(),
+				promise  = defered.promise;
 			$http.post( '/api/products/', {
 				supplier    : supplier,
 				token       : token,
 				allProducts : true
 			})
-			.then( function( data ) {
-				defered.resolve( data );
-			})
+			.then( defered.resolve )
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
 				defered.reject( err );
@@ -35,16 +33,21 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 			products = products.filter( function( product ) { // to send just products modified, added or deleted
 				return ( product.action !== '' );
 			});
-			var token    = authenticationService.getToken();
-				supplier = $rootScope.credentials.userLogged.supplier;
-			return $http.put( '/api/products/', {
+			var token    = authenticationService.getToken(),
+				supplier = $rootScope.credentials.userLogged.supplier,
+				defered  = $q.defer(),
+				promise  = defered.promise;
+			$http.put( '/api/products/', {
 				token    : token,
 				supplier : supplier,
 				products : products
 			})
+			.then( defered.resolve )
 			.catch( function ( err ) {
 				if ( err.status == 403 ) authenticationService.logout();
+				defered.reject( err );
 			});
+			return promise;
 		};
 
 		return {

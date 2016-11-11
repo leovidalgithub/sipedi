@@ -8,7 +8,7 @@ function productsCtrl( $scope, mainService ) {
 					$scope.products = data.data;
 				})
 				.catch( function ( err ) {
-					$scope.$parent.$parent.codeAlert = '-100'; // reading db Error
+					$scope.$parent.$parent.codeAlert = '-10'; // reading db Error
 				});
 	});
 
@@ -20,9 +20,6 @@ function productsCtrl( $scope, mainService ) {
 	function setProductOrder( product ) {
 		var currentUserId = $scope.$parent.currentClient._id;
 		mainService.setProductOrder( currentUserId, product )
-			.then( function( data ) {
-				// $scope.$parent.$parent.codeAlert = '+11'; // productOrder set ok
-			})
 			.catch( function( err ) {
 				$scope.$parent.$parent.codeAlert = '-12'; // productOrder set error
 			});

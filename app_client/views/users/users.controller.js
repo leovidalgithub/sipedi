@@ -1,7 +1,7 @@
 function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $rootScope ) {
 
 	(function Init() {
-		$scope.sipediLogo = constData.getData( 'sipediLogo' );
+		$scope.genericLogo = constData.getData( 'genericLogo' );
 		if ( sharedData.getData( 'clientsTemp' ) ) {
 			var usersState       = sharedData.getData( 'clientsTemp' );
 			$scope.clients       = usersState.users;
@@ -28,18 +28,23 @@ function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $root
 	};
 
 	$scope.saveChanges = function( generatePassword ) {
-		$( '#usersAdmin #saveButton' ).button( 'loading' );
+		if ( generatePassword) {
+			$scope.generatePassButtonText = ' Generando...';
+		} else {
+			$scope.saveButtonText = ' Guardando...';
+		}
 		usersService.setUser( $scope.currentClient, generatePassword )
 			.then( function( userUpdated ) {
-				$scope.codeAlert = '+20'; // updating client info ok
+				$scope.codeAlert = generatePassword ? '+21' : '+20'; // updating client info ok
 				$scope.userForm.$setPristine();
 				$scope.userForm.$setUntouched(); // $scope.userForm.$setValidity(name, null);
 			})
 			.catch( function ( err ) {
-				$scope.codeAlert = '-20'; // updating client info error
+				$scope.codeAlert = generatePassword ? '-21' : '-20'; // updating client info ok
 			})
 			.finally( function() {
-				$( '#usersAdmin #saveButton' ).button( 'reset' );
+				$scope.saveButtonText = 'Guardar';
+				$scope.generatePassButtonText = ' Generar contraseña';
 			});
 	};
 

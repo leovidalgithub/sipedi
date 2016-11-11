@@ -13,7 +13,6 @@
 			&:hover {
 				opacity: 1;
 				cursor: pointer;
-				// border: .5px dotted grey;
 				box-shadow: 10px 10px 5px grey;
 			}
 		}
@@ -40,16 +39,24 @@
 
 #usersAdmin .logoAdmin {
 	text-align: center;
-}
-#usersAdmin .logoAdminButtons {
-	margin-top: 15px;
+	padding: 8px;
+	margin: 7px auto 15px auto;
+	border-radius: 5px;
+	box-shadow: 8px 8px 4px #404040;
+	background-image: linear-gradient(#f0f0f0, #737373);
+	div {
+		margin: 7px auto;
+	}
+	.logoAdminButtons {
+		margin-right: 7px;
+
+	}
+	#selectLogoButton {
+		background-color: #4e4c4c;
+		color: white;
+	}
 }
 
 #usersAdmin .footerButtons button {
 	margin-bottom: 9px;
 }
-
-
-
-// hacer los media para "Mis clientes" -> $titlesFontSize -10;
-// y select  -> $selectsFontSize -10;

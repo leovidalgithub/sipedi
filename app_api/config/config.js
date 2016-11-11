@@ -4,7 +4,7 @@ module.exports = {
 	},
 
 	// smtpConfig : {
-	// 	host: 'smtp.sipedi.net', //host: 'smtp.gmail.com',port: 465,secure: true,
+	// 	host: 'smtp.sipedi.net',
 	// 	port: 465,
 	// 	secure: true, // use SSL
 	// 	auth: {

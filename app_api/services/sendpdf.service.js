@@ -10,9 +10,9 @@ if ( process.env.NODE_ENV === 'production' ) {
 module.exports.sendPDFmail = function( pdf, reportName, email ) {
     var pdfName = reportName + '.pdf';
     var smtpConfig = {
-			host: 'smtp.gmail.com', //host: 'smtp.gmail.com',port: 465,secure: true,
+			host: 'smtp.gmail.com',
 			port: 465,
-			secure: true, // use SSL
+			secure: true,
 			auth: {
 			user: 'sipediapp@gmail.com',
 			pass: emailPass
@@ -29,8 +29,7 @@ module.exports.sendPDFmail = function( pdf, reportName, email ) {
 			// cc :
 			bcc : 'webmaster@sipedi.net',
 			subject : 'SiPEDi acceso ✔',
-			// text : '🐴 ' + supplier + '\n\nhttp://sipedi.herokuapp.com\n\nlogin : ' + user.email + '\n\npass: ' + newPass,
-			html : '<h3>🐴 </h3><hr>http://sipedi.herokuapp.com<br><br>login : ' + email + '<br><br>pass : ',
+			html : '<h3>Informe de Pedidos Pendientes</h3><hr>',
             attachments: [
 				{   // data uri as an attachment
 					filename: pdfName,
@@ -39,14 +38,12 @@ module.exports.sendPDFmail = function( pdf, reportName, email ) {
 				}
             ]
 		};
-console.log(email);
+
         return new Promise( function ( resolve, reject ) {
             transporter.sendMail( mailOptions, function( err, info ) {
                 if( err ) {
-                    console.log(err);
                     reject( err );
                 } else {
-                    console.log(info);
                     resolve( info );
                 }
             });

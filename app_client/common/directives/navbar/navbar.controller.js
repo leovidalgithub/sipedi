@@ -1,6 +1,6 @@
 function navbarCtrl( $scope, constData, authenticationService ) {
 
-	$scope.sipediLogo = constData.getData( 'sipediLogo' );
+	$scope.genericLogo = constData.getData( 'genericLogo' );
 
 	$scope.home = function() {
 		authenticationService.home();

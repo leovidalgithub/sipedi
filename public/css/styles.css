@@ -220,12 +220,10 @@ body {
     #login .logo p span {
       font-size: 33px; } }
 
-#login #forgotPassword .dialogo {
-  background-color: #eeeeee; }
-
 #login #forgotPassword .alert {
-  text-align: center;
-  font-size: 14px; }
+  text-align: justify;
+  font-size: 14px;
+  padding: 15px; }
 
 #navbar {
   opacity: .95;
@@ -651,10 +649,19 @@ body {
     font-size: 16px; }
 
 #usersAdmin .logoAdmin {
-  text-align: center; }
-
-#usersAdmin .logoAdminButtons {
-  margin-top: 15px; }
+  text-align: center;
+  padding: 8px;
+  margin: 7px auto 15px auto;
+  border-radius: 5px;
+  box-shadow: 8px 8px 4px #404040;
+  background-image: linear-gradient(#f0f0f0, #737373); }
+  #usersAdmin .logoAdmin div {
+    margin: 7px auto; }
+  #usersAdmin .logoAdmin .logoAdminButtons {
+    margin-right: 7px; }
+  #usersAdmin .logoAdmin #selectLogoButton {
+    background-color: #4e4c4c;
+    color: white; }
 
 #usersAdmin .footerButtons button {
   margin-bottom: 9px; }

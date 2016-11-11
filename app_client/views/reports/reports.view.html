@@ -6,7 +6,6 @@
 		<div class="panel-body">
 
             <div class="row">
-                <!-- <div class="footerButtons col-sm-offset-2 col-sm-10"> -->
                 <div class="footerButtons col-xs-12">
                     <button ng-click="generateReport()" ng-disabled="taskRunning"
                             class="btn btn-primary btn-md" title="Generar informe."
@@ -28,8 +27,8 @@
 
                     <button ng-class="{'btn-danger':data.clients.length, 'btn-default':!data.clients.length}" id="setDemandButton"
                             class="btn btn-md" title="Marcar todos como 'Pedido Recibido'." ng-disabled="(!data.clients.length) || (taskRunning)"
-							data-toggle="modal" data-target="#setDemandWarning" data-loading-text="Guardando..." autocomplete="off">
-                            <span class="glyphicon glyphicon-print"></span> Marcar todos</button>
+							data-toggle="modal" data-target="#setDemandWarning" data-loading-text=" Marcando..." autocomplete="off">
+                            <span class="glyphicon glyphicon-thumbs-up"></span> Marcar todos</button>
                 </div>
             </div>
 		</div> <!-- @panel body -->
@@ -39,14 +38,14 @@
             <!-- ALERT MESSAGES -->
             <alert-message code="codeAlert"></alert-message>
 
-			<!-- CATEGORIES ADMIN -->
+			<!-- SEND PDF EMAIL -->
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-8">
 					<div class="collapse emailReportSend">
 						<div style="text-align: center; font-size: 17px;" class="alert alert-info alert-dismissible" role="alert">
 							<button type="button" class="close" ng-click="closeEmailInput()"><span aria-hidden="true">&times;</span></button>
 
-							<!-- TEXT CATEGORY INPUT -->
+							<!-- SEND EMAIL INPUT -->
 							<div class="row">
 								<div class="col-sm-10 col-sm-offset-1">
 									<form novalidate name="emailForm" id="emailForm">
@@ -97,7 +96,7 @@
 					<h3 class="modal-title">ATENCIÓN</h3>
 				</div>
 				<div class="modal-body">
-					<p>Se cambiará el estado de pedido a 'Recibido' a los siguientes clientes:</p>
+					<p>Se cambiará el estado a 'Pedido Recibido' a los siguientes clientes:</p>
 					<ul>
 						<li ng-repeat="(key, client) in data.clients">{{client.name}}</li>
 					</ul>

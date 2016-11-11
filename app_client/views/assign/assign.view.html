@@ -23,7 +23,7 @@
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
                     <div class="logo">
                         <img ng-show="credentials.userLogged.admin" title="{{currentClient.name}}"
-                            ng-src="{{ currentClient.logo || sipediLogo }}" />
+                            ng-src="{{ currentClient.logo || genericLogo }}" />
                     </div>
                 </div>
             </div> <!-- @row -->
@@ -109,11 +109,9 @@
 			<div class="row">
 				<div class="footerButtons col-sm-offset-3 col-sm-9">
 					<button ng-class="{'btn-primary': modified, 'btn-default': !modified}"
-							ng-click="saveChanges()" ng-disabled="!modified"
-							class="btn btn-md" title="Guardar los cambios pendientes"
-							id="saveButton" data-loading-text="Guardando..." autocomplete="off">
-							<span class="glyphicon glyphicon-save"></span> Guardar</button>
-
+							ng-click="saveChanges()" ng-disabled="!modified" ng-init="saveButtonText=' Guardar'"
+							class="btn btn-md" title="Guardar los cambios pendientes">
+							<span class="glyphicon glyphicon-save"></span>{{ saveButtonText }}</button>
 					<button ng-class="{'btn-default': modified, 'btn-default': !modified}"
 							ng-click="undoChanges()" ng-disabled="!modified"
 							class="btn btn-md" title="Deshacer los cambios hechos">Deshacer cambios</button>

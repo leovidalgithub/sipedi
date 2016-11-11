@@ -1,7 +1,7 @@
 var	connect      = require( '../../db/db' ).connection,
 	User         = require( '../../db/models/users' ),
 	generatePass = require( '../../services/generatepassword.service' ),
-	sipediSocket = require( '../../../sockets' );
+	sipediSocket = require( '../../services/socket.service' );
 
 // POST /api/clients/ --> returns all supplier users
 module.exports.getUsersBySupplier = function( req, res ) {
@@ -10,8 +10,9 @@ module.exports.getUsersBySupplier = function( req, res ) {
 	connect.collection('users').find( { 'supplier' : supplier, 'admin' : justSupplier }, {} ).sort( { name: 1 } ).toArray( function( err, users ) {
 		if ( err ) {
 			res.status( 503 ).send( 'Error getting users by supplier' );
+		} else {
+			res.json( users );
 		}
-		if ( users ) res.json( users );
 	});
 };
 
@@ -44,7 +45,7 @@ module.exports.setUser = function( req, res ) {
 			return res.json( data );
 		})
 		.catch( function( err ) {
-			return res.status( 401 ).send( 'Error setting user' );
+			return res.status( 503 ).send( 'Error setting user' );
 		});
 };
 
@@ -60,12 +61,9 @@ module.exports.setNewPassword = function( req, res ) {
 				userFound.save();
 			})
 			.then( function( data ) {
-				console.log('api OK');
 				res.status( 200 ).send( 'setNewPassword Ok.' );
 			})
 			.catch( function( err ) {
-				console.log('api ERR');
-				console.log(err);
 				if ( err === 402 ) {
 					res.status( 402 ).send( 'currentPass wrong.' );
 				} else {
@@ -80,7 +78,6 @@ module.exports.setNewPassword = function( req, res ) {
 					return Promise.reject( 402 );
 				}
 			}
-
 			function setPassword ( userFound ) {
 				userFound.setPassword( passwordData.new );
 				return Promise.resolve( userFound );

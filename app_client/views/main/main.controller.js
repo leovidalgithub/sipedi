@@ -1,7 +1,7 @@
 function mainController ( $location, $scope, $rootScope, mainService, usersService, $timeout, sharedData, constData ) {
 
 	(function Init() {
-		$scope.sipediLogo = constData.getData( 'sipediLogo' );
+		$scope.genericLogo = constData.getData( 'genericLogo' );
 		$scope.alertMsg   = {};
 		getClients();
 	})();
@@ -23,7 +23,7 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 					// $location.path( '/reports' );
 			})
 			.catch( function( err ) {
-				$scope.codeAlert = '-100'; // reading db Error
+				$scope.codeAlert = '-10'; // reading db Error
 			});
 	}
 
@@ -62,10 +62,10 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 					 };
 		mainService.setUserDemand( data )
 			.then( function( data ) {
-				$scope.codeAlert = '+10'; // demand state updated ok
+				$scope.codeAlert = '+11'; // demand state updated ok
 			})
 			.catch( function ( data ) {
-				$scope.codeAlert = '-10'; // demand state updated error
+				$scope.codeAlert = '-11'; // demand state updated error
 			});
 	};
 }

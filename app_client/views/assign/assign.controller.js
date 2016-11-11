@@ -1,6 +1,6 @@
 function assignCtrlFn( $scope, sharedData, constData, productsService, $window ) {
     (function Init() {
-        $scope.sipediLogo = constData.getData( 'sipediLogo' );
+        $scope.genericLogo = constData.getData( 'genericLogo' );
         getUsers();
         setVerticalMode();
         if ( sharedData.getData( 'assignProductos' ) ) {
@@ -75,18 +75,18 @@ function assignCtrlFn( $scope, sharedData, constData, productsService, $window )
     };
 
     $scope.saveChanges = function() {
-		$( '#assignProducts #saveButton' ).button( 'loading' );
+        $scope.saveButtonText = ' Guardando...';
 		productsService.setProducts( $scope.products )
 			.then( function( data ) {
 					$scope.codeAlert = '+40'; // assign products updated ok
                     $scope.products = productsService.resetProductStatus( $scope.products ); // reset .action & .selected to null
+                    $scope.modified = false;
 			})
 			.catch( function ( err ) {
 				$scope.codeAlert = '-40'; // assign products updated error
 			})
 			.finally( function() {
-				$( '#assignProducts #saveButton' ).button( 'reset' );
-                $scope.modified = false;
+                $scope.saveButtonText = ' Guardar';
 			});
 	};
 
@@ -111,7 +111,6 @@ function assignCtrlFn( $scope, sharedData, constData, productsService, $window )
     function setVerticalMode() {
         $scope.verticalMode = ( $window.innerWidth >= 768 ) ? false : true;
     }
-
 
 }
 assignCtrlFn.$inject = [ '$scope', 'sharedData', 'constData', 'productsService', '$window' ];
