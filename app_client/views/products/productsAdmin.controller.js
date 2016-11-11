@@ -133,6 +133,7 @@ function productsAdminCtrl( $scope, productsService, sharedData ) {
 			$scope.closeCategoriesAdmin();
 		};
 		$scope.removeCategory = function() {
+			$scope.closeCategoriesAdmin();
 			angular.forEach( $scope.products, function( element ) {
 				if ( element.category == $scope.selectedCategory ) {
 					element.action = 'deleted';

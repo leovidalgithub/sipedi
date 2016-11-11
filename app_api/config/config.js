@@ -18,3 +18,6 @@ module.exports = {
 };
 
 // 'database': 'mongodb://<DBUSER>:<PASSWORD>@ds013486.mlab.com:13486/sipedi
+//heroku config:set MONGO_URI=mongodb://<DBUSER>:<PASSWORD>@ds013486.mlab.com:13486/sipedi
+//heroku config:set NODE_ENV=production
+// heroku config:set EMAIL_PASS=Kcvq3VvrkaN9fW3DJ6
