@@ -26,10 +26,7 @@
 					</div>
 				</button>
 			</div>
-<!-- <button class="btn btn-success btn-md" ng-click="pepe()">sharedData</button> -->
-<!-- <button class="btn btn-info btn-md" ng-click="loadingViewOFF()">LOADING OFF</button> -->
-<!-- <button class="btn btn-warning btn-md" ng-click="listConnected()">List Connected</button> -->
-<!-- <button class="btn btn-info btn-md" ng-click="sendBroadcast()">sendBroadcast</button> -->
+
 			<!-- CLIENTS SELECT -->
 			<div ng-show="credentials.userLogged.admin" class="clientsSelect col-xs-12 col-md-6 col-md-pull-3">
 				<form class="form-group">
@@ -46,7 +43,7 @@
 		<alert-message code="codeAlert"></alert-message>
 
 		<!-- PRODUCTS TABS***************************************************************************-->
-		<div ng-include="'views/main/products.view.html'"></div>
+		<div ng-include="'views/main/products.view.html'" onload="childLoaded = true"></div>
 		<!-- ****************************************************************************************-->
 
 	</div>

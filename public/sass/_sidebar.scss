@@ -8,26 +8,26 @@
 
   #sidebar .navbar-fixed-left {
     position: fixed;
-    top: 60px;
+    top: 54px;
     left: 5px;
     border-radius: 5px;
   }
 
   #sidebar .navbar-minimal {
-    width: 60px;
-    min-height: 60px;
+    width: 50px;
+    min-height: 50px;
     max-height: 100%;
     background-color: rgb(51, 51, 51);
     background-color: rgba(51, 51, 51, 0.8);
     border-width: 0px;
-    z-index: 500;
+    z-index: 50;
   }
 
   #sidebar .navbar-minimal > .navbar-toggler {
     position: relative;
-    min-height: 60px;
+    min-height: 50px;
     border-bottom: 1px solid rgb(81, 81, 81);
-    z-index: 100;
+    z-index: 50;
     cursor: pointer;
   }
 
@@ -67,7 +67,7 @@
     list-style: none;
     z-index: 50;
     background-color: rgb(51, 51, 51);
-    background-color: rgba(51, 51, 51, 0.8);
+    background-color: rgba(51, 51, 51, 0.95);
   }
   #sidebar .navbar-minimal > .navbar-menu > li {
     margin: 0px;
@@ -137,7 +137,7 @@
       padding: 10px 13px;
       border-width: 0px !important;
       background-color: rgb(51, 51, 51);
-      background-color: rgba(51, 51, 51, 0.8);
+      background-color: rgba(51, 51, 51, 0.95);
       opacity: 0;
     }
     #sidebar .navbar-minimal > .navbar-menu > li > a > .desc:after {
@@ -152,7 +152,7 @@
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
       border-right: 10px solid rgb(51, 51, 51);
-      border-right-color: rgba(51, 51, 51, 0.8);
+      border-right-color: rgba(51, 51, 51, 0.95);
     }
     #sidebar .navbar-minimal > .navbar-menu > li > a:hover > .desc {
       left: 60px;

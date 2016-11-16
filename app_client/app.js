@@ -3,11 +3,11 @@ var angular               = require( 'angular' ),
 	angularJwt            = require( 'angular-jwt' ),
 	angularMoment         = require( 'angular-moment' ),
 	angularSanitize       = require( 'angular-sanitize' ),
-	angularUnique         = require( '../public/lib/angular/angular-unique' ), // first category filter ('ui.filters')
+	// angularUnique         = require( '../public/lib/angular/angular-unique' ), // first category filter ('ui.filters')
 
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
-	categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
+	// categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
 
 // FACTORIES
 	shareDataFtry         = require( './common/factories/shareData.factory' ),
@@ -39,13 +39,13 @@ var angular               = require( 'angular' ),
 	sidemenuCtrl          = require( './common/directives/sidemenu/sidemenu.controller' ),
 	alertMsgDirective     = require( './common/directives/alertMessage/alertMsg.directive' );
 
-angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ui.filters', 'ngMaterial', 'ngSanitize' ] )
+angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ngMaterial', 'ngSanitize' ] ) //'ui.filters'
 	.run       ( initialConfig )
 	.config    ( configRoutes )
 	.factory   ( 'sharedData'    , shareDataFtry )
 	.factory   ( 'constData'     , constDataFtry )
 	.factory   ( 'socket'        , socketFtry )
-	.filter    ( 'uniqueCategory', categoryFilter ) // filter for unique category
+	// .filter    ( 'uniqueCategory', categoryFilter ) // my filter NOT IN USE
 // LOGIN
 	.controller( 'loginCtrl'            , loginCtrl )
 	.controller( 'forgotCtrl'           , forgotCtrl )

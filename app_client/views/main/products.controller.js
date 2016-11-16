@@ -3,14 +3,25 @@ function productsCtrl( $scope, mainService ) {
 	$scope.product = {};
 
 	$scope.$on( 'refreshProducts', function( event, clientId ) {
+		// console.log(' refreshProducts calling mainService');
 			mainService.getProductsByClientID( clientId )
 				.then( function( data ) {
 					$scope.products = data.data;
+					fillCategories();
 				})
 				.catch( function ( err ) {
 					$scope.$parent.$parent.codeAlert = '-10'; // reading db Error
 				});
 	});
+
+	function fillCategories() {
+        $scope.categories = [];
+        $scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
+        function onlyUnique( value, index, self ) { // extract unique categories
+            return self.indexOf( value ) === index;
+        }
+        $scope.categories = $scope.categories.filter( onlyUnique );
+    }
 
 	$scope.productClicked = function( $event, product ) {
 		product.productOrdered = product.productOrdered ? false : true;

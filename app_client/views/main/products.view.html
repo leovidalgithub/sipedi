@@ -3,20 +3,16 @@
 <!--PRODUCTS TABS-->
 	<div class="tabsdemoDynamicTabs">
 		<md-content class="md-padding">
-			<md-tabs md-dynamic-height md-selected="" md-border-bottom md-autoselect>
-				<md-tab ng-repeat="cate in products | unique:'category' | orderBy : 'category' track by cate._id"
-								ng-disabled="cate.disabled"
-								label="{{ cate.category }}">
-
+			<md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+				<md-tab ng-repeat="cate in categories | orderBy : cate" label="{{ cate }}">
 					<div ng-click="productClicked($event, produ)"
-					ng-repeat="( key, produ ) in products | uniqueCategory : cate.category | orderBy : 'product' track by produ._id"
+					ng-repeat="( key, produ ) in products | filter : cate | orderBy : 'produ.product' track by produ._id"
 					ng-class="{'outOfStock':!produ.stock, 'productOrdered':produ.productOrdered}"
 					class="product">
-						<div ng-bind="produ.product"></div><!-- <div>{{ produ.product }}</div> -->
+						<div ng-bind="produ.product"></div>
 						<button type="button" class="btn btn-info btn-md quantity" ng-click="quantityClicked($event, produ)">
 							{{ produ.quantity }}
 						</button>
-
 					</div>
 				</md-tab>
 			</md-tabs>
@@ -56,3 +52,27 @@
 	</div>
 
 </div>
+
+
+
+
+<!-- PRODUCTS TABS
+	<div class="tabsdemoDynamicTabs">
+		<md-content class="md-padding">
+			<md-tabs md-dynamic-height md-selected="" md-border-bottom md-autoselect>
+				<md-tab ng-repeat="cate in products | unique:'category' | orderBy : 'category' track by cate._id"
+								ng-disabled="cate.disabled"
+								label="{{ cate.category }}">
+					<div ng-click="productClicked($event, produ)"
+					ng-repeat="( key, produ ) in products | uniqueCategory : cate.category | orderBy : 'product' track by produ._id"
+					ng-class="{'outOfStock':!produ.stock, 'productOrdered':produ.productOrdered}"
+					class="product">
+						<div ng-bind="produ.product"></div>
+						<button type="button" class="btn btn-info btn-md quantity" ng-click="quantityClicked($event, produ)">
+							{{ produ.quantity }}
+						</button>
+					</div>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+	</div> -->

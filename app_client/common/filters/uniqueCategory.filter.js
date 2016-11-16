@@ -1,13 +1,12 @@
-	function uniqueCategory() {
-		return function( collection, keyname ) {
-			var arr = collection.filter(function( el ) {
-				return el.category === keyname;
-			});
-		return arr;
-	};
-	}
-
-module.exports = uniqueCategory;
+// 	function uniqueCategory() {
+// 		return function( collection, keyname ) {
+// 			var arr = collection.filter( function( el ) {
+// 				return el.category === keyname;
+// 			});
+// 		return arr;
+// 	};
+// 	}
+// module.exports = uniqueCategory;
 
 // function uniqueCategory() {
 // 	return function( collection, keyname ) {
@@ -19,8 +18,8 @@ module.exports = uniqueCategory;
 // 				keys.push( key );
 // 				output.push( item );
 // 			}
-// 		})
+// 		});
 // 		return output;
-// 		}
+// 	};
 // }
 // module.exports = uniqueCategory;

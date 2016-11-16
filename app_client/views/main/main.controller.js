@@ -1,9 +1,17 @@
-function mainController ( $location, $scope, $rootScope, mainService, usersService, $timeout, sharedData, constData ) {
+function mainController ( $location, $scope, $rootScope, mainService, usersService, $interval, sharedData, constData ) {
 
+	var promiseInterval;
 	(function Init() {
 		$scope.genericLogo = constData.getData( 'genericLogo' );
-		$scope.alertMsg   = {};
-		getClients();
+		$scope.$watch( 'childLoaded', function( newValue, oldValue ) { // wait until child products controller load
+			if( newValue ) {
+				getClients();
+				promiseInterval = $interval( function() { // polling
+					getClients();
+					$scope.$broadcast( 'refreshProducts', $scope.currentClient._id ); // to products controller
+				}, 300000 ); // 300000 , 555 times
+			}
+		});
 	})();
 
 	function getClients() {
@@ -20,7 +28,6 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 					}
 					$scope.currentClient = $scope.clients[ selectedIndex ];
 					// if ( typeof( callback ) === 'function' ) callback();
-					// $location.path( '/reports' );
 			})
 			.catch( function( err ) {
 				$scope.codeAlert = '-10'; // reading db Error
@@ -30,8 +37,8 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 	$scope.$watch( 'currentClient', function( newValue, oldValue ) {
 		if ( newValue !== oldValue ) {
 			if ( $scope.currentClient !== null && $scope.currentClient !== 'undefined' ) {
-					$rootScope.$broadcast( 'clientChanged',   $scope.currentClient );     // to sideMenu directive
-					$scope.$broadcast( 'refreshProducts', $scope.currentClient._id ); // to products controller
+					$rootScope.$broadcast( 'clientChanged'  , $scope.currentClient );     // to sideMenu directive
+					$scope.$broadcast(     'refreshProducts', $scope.currentClient._id ); // to products controller
 			}
 		}
 	});
@@ -68,9 +75,12 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 				$scope.codeAlert = '-11'; // demand state updated error
 			});
 	};
+
+	$scope.$on( '$destroy', function() { // scope destroy
+		$interval.cancel( promiseInterval ); // canceling polling on exit controller
+	});
+
 }
 
-mainController.$inject = [ '$location', '$scope', '$rootScope', 'mainService', 'usersService', '$timeout', 'sharedData', 'constData' ];
+mainController.$inject = [ '$location', '$scope', '$rootScope', 'mainService', 'usersService', '$interval', 'sharedData', 'constData' ];
 module.exports = mainController;
-
-// var stop = $interval(function() {}, 4000, 555);
