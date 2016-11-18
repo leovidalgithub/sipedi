@@ -56,7 +56,7 @@ userSchema.methods.validPassword = function( password ) {
 
 userSchema.methods.generateJwt = function( user ) {
 	return jwt.sign( user, config.pass.secret, { // create a token
-		expiresIn: 9600 // 3600 expires in 1 hour
+		// expiresIn: 9600 // 3600 expires in 1 hour
 	});
 };
 

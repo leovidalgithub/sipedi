@@ -22,6 +22,7 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 						selectedIndex = $scope.clients.indexOf( $scope.currentClient );
 					}
 					$scope.clients = data.data;
+					sendDemandQuantities();
 					sharedData.setData( 'clientsMaster', $scope.clients );
 					if ( !$rootScope.credentials.userLogged.admin ) { // client logged
 						selectedIndex = $scope.clients.map( function( user ) { return user._id; }).indexOf( $rootScope.credentials.userLogged._id );
@@ -74,12 +75,16 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 			.catch( function ( data ) {
 				$scope.codeAlert = '-11'; // demand state updated error
 			});
+		sendDemandQuantities();
 	};
 
 	$scope.$on( '$destroy', function() { // scope destroy
 		$interval.cancel( promiseInterval ); // canceling polling on exit controller
 	});
 
+	function sendDemandQuantities() { // to send to navbar directive
+		$rootScope.$broadcast( 'demandQuantities', $scope.clients ); // to navbar directive controller
+	}
 }
 
 mainController.$inject = [ '$location', '$scope', '$rootScope', 'mainService', 'usersService', '$interval', 'sharedData', 'constData' ];

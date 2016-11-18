@@ -232,22 +232,27 @@ body {
 #navbar {
   opacity: .97;
   z-index: 100; }
-
-#navbar .logo {
-  margin-left: 5px !important;
-  font-family: "Days One", sans-serif;
-  font-size: 20px; }
-
-#navbar img {
-  max-width: 100px;
-  margin-top: -7px;
-  width: 35px;
-  height: 35px; }
-
-#navbar .rightText {
-  font-size: 17px;
-  margin-right: 10px;
-  padding-left: 0; }
+  #navbar .logo {
+    margin-left: 5px !important;
+    font-family: "Days One", sans-serif;
+    font-size: 20px; }
+  #navbar img {
+    max-width: 100px;
+    margin-top: -7px;
+    width: 35px;
+    height: 35px; }
+  #navbar .rightText {
+    font-size: 17px;
+    margin-right: 10px;
+    padding-left: 0; }
+  #navbar .navbar-header {
+    line-height: 48px; }
+  #navbar .demandLabel {
+    border-radius: 10px;
+    margin-left: 12px;
+    cursor: default;
+    font-size: 17px;
+    font-weight: bold; }
 
 #sidebar .animate {
   transition: all 0.7s ease-in-out; }

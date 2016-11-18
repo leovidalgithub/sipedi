@@ -7,7 +7,7 @@ function sidemenuCtrl( $scope, $timeout ) {
 	$scope.closeMenu = function() {
 		$timeout( function() {
 			$scope.sibarOpen = false;
-		}, 2000 );
+		}, 1500 );
 	};
 
 }

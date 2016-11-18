@@ -131,8 +131,17 @@ function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersServic
             .finally( function() {
                 $( '#reports #setDemandButton' ).button( 'reset' );
                 $scope.taskRunning = false;
+                sendDemandQuantities();
             });
     };
+
+    function sendDemandQuantities() { // to send to navbar directive
+        usersService.getUsersBySupplier( false )
+            .then( function( data ) {
+                var clients = data.data;
+                $rootScope.$broadcast( 'demandQuantities', clients ); // to navbar directive controller
+            });
+    }
 
     function getPDFJsObt() {
         var doc = new jsPDF( 'p','mm','a4' );

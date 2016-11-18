@@ -83,3 +83,6 @@ module.exports.setNewPassword = function( req, res ) {
 				return Promise.resolve( userFound );
 			}
 };
+
+// var mongoose = require( 'mongoose' );
+// console.log( mongoose.Types.ObjectId() );

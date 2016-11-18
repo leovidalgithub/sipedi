@@ -7,6 +7,13 @@
 		<span class="icon-bar"></span>
 	  </button>
 	  <a class="logo navbar-brand" ng-click="home()" href="#">SiPEDi &copy</a>
+
+      <button ng-show="credentials.userLogged.admin" class="demandLabel btn btn-sm" title="Pedidos Pendientes"
+                ng-class="{'btn-success': demandAsk, 'btn-default': !demandAsk}">{{ demandAsk }}</button>
+
+      <button ng-show="credentials.userLogged.admin" class="demandLabel btn btn-sm" title="Pedidos Recibidos"
+                ng-class="{'btn-danger': demandReceived, 'btn-default': !demandReceived}">{{ demandReceived }}</button>
+
 	</div>
 	<div class="collapse navbar-collapse" id="myNavbar">
 

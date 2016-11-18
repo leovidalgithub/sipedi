@@ -35,6 +35,7 @@ function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $root
 		}
 		usersService.setUser( $scope.currentClient, generatePassword )
 			.then( function( userUpdated ) {
+				sharedData.setData( 'clientsMaster', $scope.clients );
 				$scope.codeAlert = generatePassword ? '+21' : '+20'; // updating client info ok
 				$scope.userForm.$setPristine();
 				$scope.userForm.$setUntouched(); // $scope.userForm.$setValidity(name, null);
