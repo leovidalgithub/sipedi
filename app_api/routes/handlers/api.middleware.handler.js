@@ -2,7 +2,8 @@ var	verifyToken = require( '../../services/verifyToken.js' );
 
 // MIDDLEWARE VERIFY TOKEN / ALL API ROUTES
 module.exports.middlewareToken = function ( req, res, next ) {
-	var token = req.query.token || req.body.token || req.params.token || req.headers['x-access-token'];
+	var token = req.query.token || req.body.token || req.params.token || req.headers['x-auth-token'];
+
 	if ( token ) { //	decode token
 			verifyToken( token, function( err, decoded ) {
 			if ( err ) {

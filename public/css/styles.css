@@ -246,13 +246,18 @@ body {
     margin-right: 10px;
     padding-left: 0; }
   #navbar .navbar-header {
-    line-height: 48px; }
+    line-height: 48px;
+    width: 250px; }
   #navbar .demandLabel {
     border-radius: 10px;
     margin-left: 12px;
     cursor: default;
     font-size: 17px;
     font-weight: bold; }
+
+@media screen and (max-width: 767px) {
+  #navbar .navbar-header {
+    width: auto; } }
 
 #sidebar .animate {
   transition: all 0.7s ease-in-out; }

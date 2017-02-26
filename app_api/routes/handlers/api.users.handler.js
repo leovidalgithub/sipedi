@@ -3,10 +3,11 @@ var	connect      = require( '../../db/db' ).connection,
 	generatePass = require( '../../services/generatepassword.service' ),
 	sipediSocket = require( '../../services/socket.service' );
 
-// POST /api/clients/ --> returns all supplier users
+// GET /api/getUsersBySupplier/:supplier --> returns all users of a supplier
 module.exports.getUsersBySupplier = function( req, res ) {
-	var supplier     = req.body.supplier;
-	var justSupplier = req.body.justSupplier;
+	var supplier     = req.params.supplier;
+	var justSupplier = req.query.justSupplier;
+	justSupplier = justSupplier === 'true' ? true : false; // it comes as string and boolean is needed
 	connect.collection('users').find( { 'supplier' : supplier, 'admin' : justSupplier }, {} ).sort( { name: 1 } ).toArray( function( err, users ) {
 		if ( err ) {
 			res.status( 503 ).send( 'Error getting users by supplier' );

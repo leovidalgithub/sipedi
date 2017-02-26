@@ -5,16 +5,14 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 			var supplier = $rootScope.credentials.userLogged.supplier,
 				defered  = $q.defer(),
 				promise  = defered.promise;
-			$http.post( '/api/products/', {
-				supplier    : supplier,
-				token       : token,
-				allProducts : true
-			})
-			.then( defered.resolve )
-			.catch( function ( err ) {
-				if ( err.status == 403 ) authenticationService.logout();
-				defered.reject( err );
-			});
+			$http.defaults.headers.common['x-auth-token'] = token;
+
+			$http.get( '/api/products/noID?supplier=' + supplier + '&allProducts=true' )
+				.then( defered.resolve )
+				.catch( function ( err ) {
+					if ( err.status == 403 ) authenticationService.logout();
+					defered.reject( err );
+				});
 			return promise;
 		};
 
@@ -30,6 +28,7 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 		};
 
 		setProducts = function( products ) {
+			console.log('setProducts');
 			products = products.filter( function( product ) { // to send just products modified, added or deleted
 				return ( product.action !== '' );
 			});
@@ -37,8 +36,9 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 				supplier = $rootScope.credentials.userLogged.supplier,
 				defered  = $q.defer(),
 				promise  = defered.promise;
+			$http.defaults.headers.common['x-auth-token'] = token;
+
 			$http.put( '/api/products/', {
-				token    : token,
 				supplier : supplier,
 				products : products
 			})

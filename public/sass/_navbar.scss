@@ -19,6 +19,8 @@
 	}
 	.navbar-header {
 		line-height: 48px;
+		width: 250px;
+
 	}
 	.demandLabel {
 		border-radius: 10px;
@@ -28,3 +30,5 @@
 		font-weight: bold;
 	}
 }
+
+@media screen and (max-width: 767px) { #navbar .navbar-header { width: auto; } }

@@ -1,15 +1,12 @@
 function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
-		getProductsByClientID = function( id ) {
-			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.userLogged.supplier;
-			return $http.post( '/api/products/', {
-				clientID    : id,
-				supplier    : supplier,
-				token       : token,
-				allProducts : false
-			})
-				.then( prepareProductsData.bind( null, id ) )
+		getProductsByClientID = function( clientID ) {
+			var token    = authenticationService.getToken(),
+				supplier = $rootScope.credentials.userLogged.supplier;
+			$http.defaults.headers.common['x-auth-token'] = token;
+
+			return $http.get( '/api/products/' + clientID + '?supplier=' + supplier + '&allProducts=false' )
+				.then( prepareProductsData.bind( null, clientID ) )
 				.catch( function ( err ) {
 					if ( err.status == 403 ) authenticationService.logout();
 			});
@@ -21,8 +18,9 @@ function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 				supplierID = $rootScope.credentials.supplier._id,
 				defered    = $q.defer(),
 				promise    = defered.promise;
+			$http.defaults.headers.common['x-auth-token'] = token;
+
 			$http.post( '/api/products/setOrder/', {
-								token          : token,
 								clientID       : clientID,
 								supplierID     : supplierID,
 								admin          : admin,
@@ -38,9 +36,11 @@ function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 		};
 
 		setUserDemand = function( data ) {
-			data.token = authenticationService.getToken();
-			var defered = $q.defer(),
+			var token = authenticationService.getToken(),
+				defered = $q.defer(),
 				promise = defered.promise;
+			$http.defaults.headers.common['x-auth-token'] = token;
+
 			$http.post( '/api/user/setUserDemand/', data )
 				.then( defered.resolve )
 				.catch( function ( err ) {

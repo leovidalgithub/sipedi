@@ -1,20 +1,18 @@
 function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
-		getUsersBySupplier = function( justSupplier ) { // get just supplier or clients
-			var token    = authenticationService.getToken();
-			var supplier = $rootScope.credentials.userLogged.supplier,
-				defered = $q.defer(),
-				promise = defered.promise;
-			$http.post( '/api/users/', {
-				token        : token,
-				supplier     : supplier,
-				justSupplier : justSupplier
-			})
-			.then( defered.resolve )
-			.catch( function ( err ) {
-				if ( err.status == 403 ) authenticationService.logout();
-				defered.reject( err );
-			});
+			getUsersBySupplier = function( justSupplier ) { // get just supplier or clients
+			var token    = authenticationService.getToken(),
+				supplier = $rootScope.credentials.userLogged.supplier,
+				defered  = $q.defer(),
+				promise  = defered.promise;
+			$http.defaults.headers.common['x-auth-token'] = token;
+			
+			$http.get( '/api/users/' + supplier + '?justSupplier=' + justSupplier )
+				.then( defered.resolve )
+				.catch( function ( err ) {
+					if ( err.status == 403 ) authenticationService.logout();
+					defered.reject( err );
+				});
 			return promise;
 		};
 
@@ -22,8 +20,9 @@ function usersServiceFn ( $http, $q, authenticationService, $rootScope ) {
 			var token   = authenticationService.getToken(),
 				defered = $q.defer(),
 				promise = defered.promise;
+			$http.defaults.headers.common['x-auth-token'] = token;
+
 			$http.put( '/api/users/', {
-				token            : token,
 				user             : user,
 				generatePassword : generatePassword
 			})
