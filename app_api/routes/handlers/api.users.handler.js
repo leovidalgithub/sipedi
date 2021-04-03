@@ -1,18 +1,20 @@
-var	connect      = require( '../../db/db' ).connection,
-	User         = require( '../../db/models/users' ),
-	generatePass = require( '../../services/generatepassword.service' ),
-	sipediSocket = require( '../../services/socket.service' );
+const db = require( '../../db/db' );
+const User         = require( '../../db/models/users' );
+const generatePass = require( '../../services/generatepassword.service' );
+const sipediSocket = require( '../../services/socket.service' );
 
 // GET /api/getUsersBySupplier/:supplier --> returns all users of a supplier
-module.exports.getUsersBySupplier = function( req, res ) {
-	var supplier     = req.params.supplier;
-	var justSupplier = req.query.justSupplier;
+module.exports.getUsersBySupplier = function(req, res) {
+	const supplier = req.params.supplier;
+	let justSupplier = req.query.justSupplier;
 	justSupplier = justSupplier === 'true' ? true : false; // it comes as string and boolean is needed
-	connect.collection('users').find( { 'supplier' : supplier, 'admin' : justSupplier }, {} ).sort( { name: 1 } ).toArray( function( err, users ) {
-		if ( err ) {
-			res.status( 503 ).send( 'Error getting users by supplier' );
+	db.collection('users').find( { 'supplier' : supplier, 'admin' : justSupplier }, {} ).sort( { name: 1 } ).toArray( function( err, users ) {
+
+		if (err) {
+			res.status(503).send( 'Error getting users by supplier' );
 		} else {
-			res.json( users );
+			console.log('users',users);
+			res.json(users);
 		}
 	});
 };

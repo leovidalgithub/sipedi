@@ -1,8 +1,8 @@
-var mongoose     = require( 'mongoose' ),
-	Schema       = mongoose.Schema,
-	crypto       = require( 'crypto' ),
-	jwt          = require( 'jsonwebtoken' ),
-	config       = require( '../../config/config' );
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 var userSchema = new Schema( {
 	email        : { type : String,  required: true }, // unique: true,
@@ -44,18 +44,18 @@ userSchema.statics.setUserDemand = function( userInfo ) {
 	return this.findByIdAndUpdate( clientId, { demandState : demandState, demandDate : demandDate } );
 };
 
-userSchema.methods.setPassword = function( password ){
-	this.salt = crypto.randomBytes( 16 ).toString( 'hex' );
-	this.hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
+userSchema.methods.setPassword = function(password){
+	this.salt = crypto.randomBytes(16).toString('hex');
+	this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };
 
-userSchema.methods.validPassword = function( password ) {
-	var hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64 ).toString( 'hex' );
+userSchema.methods.validPassword = function(password) {
+	const hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64, 'sha512' ).toString( 'hex' );
 	return this.hash === hash;
 };
 
-userSchema.methods.generateJwt = function( user ) {
-	return jwt.sign( user, config.pass.secret, { // create a token
+userSchema.methods.generateJwt = function(user) {
+	return jwt.sign(JSON.stringify(user), config.pass.secret, { // create a token
 		// expiresIn: 9600 // 3600 expires in 1 hour
 	});
 };

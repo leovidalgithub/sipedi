@@ -1,9 +1,8 @@
 module.exports = {
 	pass : {
-		'secret'   : 'ilovescotchyscotch'
-	},
-
-
+		'secret'   : 'ilovescotchyscotch',
+		'database' : 'mongodb+srv://sipedi_user:b8mjs7F8jpuymL5j@sipedi.dpvlm.mongodb.net/sipedi?retryWrites=true&w=majority'
+	}
 
 	// smtpConfig : {
 	// 	host: 'smtp.sipedi.net',

@@ -1,19 +1,20 @@
-var User         = require('../../db/models/users'),
-	verifyToken  = require('../../services/verifyToken.js'),
-	generatePass = require( '../../services/generatepassword.service' );
+const User = require('../../db/models/users');
+const verifyToken  = require('../../services/verifyToken.js');
+const generatePass = require( '../../services/generatepassword.service' );
 
-module.exports.login = function( req, res ) {
-	console.log( 'API authentication.js login function' );
+module.exports.login = function(req, res) {
+	console.log('API authentication.js login function');
+	console.log(req.body);
 
-	if( !req.body.email || !req.body.password ) {
+	if(!req.body.email || !req.body.password ) {
 		res.status( 400 ).send( 'All fields required' );
 		return;
 	}
 
-	User.findOne({ email: req.body.email }, function ( err, user ) {
-		if ( err ) {
-			console.log( 'authentication.login findOne err' );
-			res.status( 403 ).send( 'user error' );
+	User.findOne({ email: req.body.email }, function (err, user) {
+		if (err) {
+			console.log('authentication.login findOne err');
+			res.status( 403 ).send('user error');
 			return;
 		}
 		if ( !user ) { // user not found
@@ -21,19 +22,21 @@ module.exports.login = function( req, res ) {
 			res.status( 403 ).json( 'User not found' );
 			return;
 		}
-		if ( !user.validPassword( req.body.password ) ) { // password wrong
+
+		// user.setPassword(req.body.password);
+		if (!user.validPassword(req.body.password)) { // wrong password
 			console.log( 'authentication.login : password wrong' );
 			res.status( 403 ).json( 'Password is wrong' );
 			return;
 		}
 		console.log( 'authentication.login : credentials correct' );
-		var token = user.generateJwt( user ); // credentials correct --> token generate
+		const token = user.generateJwt(user); // credentials correct --> token generate
 
-		verifyToken( token, function( err, decoded ) {
-			res.status( 200 );
-			res.json( { 'token'   : token,
+		verifyToken( token, function(err, decoded) {
+			res.status(200);
+			res.json({'token'   : token,
 						'decoded' : decoded
-					  });
+					});
 		});
 	});
 };
@@ -45,7 +48,7 @@ module.exports.forgotPassword = function( req, res ) {
 			res.status( 401 ).send( 'forgotPassword error.' );
 			return;
 		}
-	 	if ( !userFound ) {
+		if ( !userFound ) {
 			res.status( 402 ).send( 'User not found.' );
 			return;
 		}
@@ -56,7 +59,7 @@ module.exports.forgotPassword = function( req, res ) {
 			.catch( function( err ) {
 				res.status( 401 ).send( 'forgotPassword error.' );
 			});
- 	});
+	});
 };
 
 // module.exports.register = function( req, res ) {

@@ -3,21 +3,22 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 	var promiseInterval;
 	(function Init() {
 		$scope.genericLogo = constData.getData( 'genericLogo' );
-		$scope.$watch( 'childLoaded', function( newValue, oldValue ) { // wait until child products controller load
+		$scope.$watch('childLoaded', function(newValue, oldValue) { // wait until child products controller load
 			if( newValue ) {
 				getClients();
-				promiseInterval = $interval( function() { // polling
+				promiseInterval = $interval(function() { // polling
 					getClients();
-					$scope.$broadcast( 'refreshProducts', $scope.currentClient._id ); // to products controller
-				}, 300000 ); // 300000 , 555 times
+					$scope.$broadcast('refreshProducts', $scope.currentClient._id); // to products controller
+				}, 300000); // 300000 , 555 times
 			}
 		});
 	})();
 
 	function getClients() {
-		usersService.getUsersBySupplier( false ) // get clients
-			.then( function( data ) {
-					var selectedIndex = 0;
+		usersService.getUsersBySupplier(false) // get clients
+			.then(function(data) {
+				console.log('data',data.data);
+					let selectedIndex = 0;
 					if ( $scope.clients ) {
 						selectedIndex = $scope.clients.indexOf( $scope.currentClient );
 					}
@@ -30,7 +31,8 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 					$scope.currentClient = $scope.clients[ selectedIndex ];
 					// if ( typeof( callback ) === 'function' ) callback();
 			})
-			.catch( function( err ) {
+			.catch(function(err) {
+				console.log('err',err);
 				$scope.codeAlert = '-10'; // reading db Error
 			});
 	}
@@ -67,7 +69,7 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 						admin       : $rootScope.credentials.userLogged.admin,
 						demandState : $scope.currentClient.demandState,
 						demandDate  : $scope.currentClient.demandDate
-					 };
+					};
 		mainService.setUserDemand( data )
 			.then( function( data ) {
 				$scope.codeAlert = '+11'; // demand state updated ok

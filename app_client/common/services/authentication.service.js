@@ -1,12 +1,12 @@
 function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper, $location, $route, sharedData ) {
 
 		function saveToken( token ) {
-			$window.localStorage[ 'mean-token' ] = token;
+			$window.localStorage['mean-token'] = token;
 		}
 
 		function getUserLogged() {
-			var token = getToken();
-			return jwtHelper.decodeToken( token )._doc;
+			const token = getToken();
+			return jwtHelper.decodeToken(token);
 		}
 
 		function isLoggedIn() {
@@ -21,31 +21,31 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 		}
 
 		function getToken() {
-			return $window.localStorage[ 'mean-token' ];
+			return $window.localStorage['mean-token'];
 		}
 
-		function login( loginData ) {
-			setLoginData( loginData );
-			return $http.post( '/login', loginData )
-				.then( function( data ) { // login Ok
-					saveToken( data.data.token );
-					$location.path( 'main' );
+		function login(loginData) {
+			setLoginData(loginData);
+			return $http.post('/login', loginData)
+				.then(function(data) { // login Ok
+					saveToken(data.data.token);
+					$location.path('main');
 				});
 				function setLoginData( loginData ) {
-					if ( loginData.rememberMe ) {
-						$window.localStorage.setItem( 'login-data', JSON.stringify( loginData ));
+					if (loginData.rememberMe) {
+						$window.localStorage.setItem('login-data', JSON.stringify(loginData));
 					} else {
-						$window.localStorage.removeItem( 'login-data' );
+						$window.localStorage.removeItem('login-data');
 					}
 				}
 		}
 
 		function getLoginData() {
-			return JSON.parse( $window.localStorage.getItem( 'login-data' ) );
+			return JSON.parse($window.localStorage.getItem('login-data'));
 		}
 
 		function home() {
-			$location.path( 'main' );
+			$location.path('main');
 			// $route.reload();
 		}
 
@@ -57,12 +57,12 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			socket.disconnectMe();
 			$rootScope.credentials = null;
 			sharedData.removeAll();
-			$window.localStorage.removeItem( 'mean-token' );
-			$location.path( '/' );
+			$window.localStorage.removeItem('mean-token');
+			$location.path('/');
 		}
 
-		function forgotPassword( email ) {
-			return $http.get( '/login/forgot/' + email );
+		function forgotPassword(email) {
+			return $http.get('/login/forgot/' + email);
 		}
 
 		return {

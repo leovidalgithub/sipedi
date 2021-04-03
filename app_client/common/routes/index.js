@@ -1,4 +1,4 @@
-function config ( $routeProvider, $locationProvider ) {
+function config ($routeProvider, $locationProvider) {
 	$routeProvider
 		.when( '/', {
 			templateUrl  : 'views/login/login.view.html',
@@ -14,10 +14,10 @@ function config ( $routeProvider, $locationProvider ) {
 			templateUrl : 'views/main/main.view.html',
 			controller  : 'mainCtrl',
 			resolve: {
-			            setCredentials: function( credentialsService ){
-			                return credentialsService.setCredentials();
-			        }
-			    }
+						setCredentials: function(credentialsService) {
+							return credentialsService.setCredentials();
+					}
+				}
 		})
 		.when( '/products', {
 			templateUrl : 'views/products/productsAdmin.view.html',

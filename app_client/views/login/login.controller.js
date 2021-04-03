@@ -1,4 +1,4 @@
-function loginCtrlFn( authenticationService, $rootScope ) {
+function loginCtrlFn(authenticationService, $rootScope) {
 	$rootScope.credentials = null;
 	vm = this;
 	vm.loginData = {};
