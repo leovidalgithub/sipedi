@@ -39,10 +39,10 @@ function config ($routeProvider, $locationProvider) {
 			templateUrl : 'views/reports/reports.view.html',
 			controller  : 'reportsCtrl'
 		})
-		.otherwise( { redirectTo: '/' } );
+		.otherwise({ redirectTo: '/' });
 
 		$locationProvider.html5Mode(true);
 }
 
-config.$inject = [ '$routeProvider', '$locationProvider' ];
+config.$inject = ['$routeProvider', '$locationProvider'];
 module.exports = config;

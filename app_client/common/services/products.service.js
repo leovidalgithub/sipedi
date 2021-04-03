@@ -28,7 +28,7 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 		};
 
 		setProducts = function( products ) {
-			console.log('setProducts');
+			// console.log('setProducts');
 			products = products.filter( function( product ) { // to send just products modified, added or deleted
 				return ( product.action !== '' );
 			});

@@ -1,14 +1,15 @@
 <div ng-controller="productsCtrl" ng-cloak>
 
-<!--PRODUCTS TABS-->
+	<!--PRODUCTS TABS-->
 	<div class="tabsdemoDynamicTabs">
 		<md-content class="md-padding">
-			<md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+			<md-tabs md-dynamic-height md-border-bottom md-selected="0">
 				<md-tab ng-repeat="cate in categories | orderBy : cate" label="{{ cate }}">
 					<div ng-click="productClicked($event, produ)"
-					ng-repeat="( key, produ ) in products | filter : cate | orderBy : 'produ.product' track by produ._id"
-					ng-class="{'outOfStock':!produ.stock, 'productOrdered':produ.productOrdered}"
-					class="product">
+						ng-repeat="(key, produ) in products | filter : cate | orderBy : 'produ.product' track by produ._id"
+						ng-class="{'outOfStock':!produ.stock, 'productOrdered':produ.productOrdered}"
+						class="product"
+					>
 						<div ng-bind="produ.product"></div>
 						<button type="button" class="btn btn-info btn-md quantity" ng-click="quantityClicked($event, produ)">
 							{{ produ.quantity }}

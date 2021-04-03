@@ -29,7 +29,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			return $http.post('/login', loginData)
 				.then(function(data) { // login Ok
 					saveToken(data.data.token);
-					$location.path('main');
+					$location.path('/main');
 				});
 				function setLoginData( loginData ) {
 					if (loginData.rememberMe) {
@@ -45,7 +45,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 		}
 
 		function home() {
-			$location.path('main');
+			$location.path('/main');
 			// $route.reload();
 		}
 
@@ -58,7 +58,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			$rootScope.credentials = null;
 			sharedData.removeAll();
 			$window.localStorage.removeItem('mean-token');
-			$location.path('/');
+			$location.path('/login');
 		}
 
 		function forgotPassword(email) {

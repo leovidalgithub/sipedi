@@ -82,22 +82,30 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ngMaterial',
 },{"./common/config":2,"./common/directives/alertMessage/alertMsg.directive":3,"./common/directives/dgvProducts/dgvProducts.directive":4,"./common/directives/navbar/navbar.controller":5,"./common/directives/navbar/navbar.directive":6,"./common/directives/sidemenu/sidemenu.controller":7,"./common/directives/sidemenu/sidemenu.directive":8,"./common/factories/constData.factory":9,"./common/factories/shareData.factory":10,"./common/factories/socket.factory":11,"./common/routes":12,"./common/services/authentication.service":13,"./common/services/credentials.service":14,"./common/services/main.service":15,"./common/services/password.service":16,"./common/services/products.service":17,"./common/services/reports.service":18,"./common/services/users.service":19,"./views/assign/assign.controller":20,"./views/login/forgot.controller":21,"./views/login/login.controller":22,"./views/main/main.controller":23,"./views/main/products.controller":24,"./views/password/password.controller":25,"./views/products/modifyProducts.controller":26,"./views/products/productsAdmin.controller":27,"./views/reports/reports.controller":28,"./views/users/users.controller":29,"angular":38,"angular-jwt":31,"angular-moment":32,"angular-route":34,"angular-sanitize":36}],2:[function(require,module,exports){
 function run ($location, $root, authenticationService) {
 
-	if ($location.path() !== '/') {
-		if (!authenticationService.isLoggedIn()) { //verifies token
-				$location.path('/');
-		}
+	if (authenticationService.isLoggedIn()) {
+		$location.path('/main');
+	} else {
+		$location.path('/login');
 	}
 
-	$root.$on( '$routeChangeStart', function( e, curr, prev ) {
+	// if ($location.path() !== '/') {
+	// 	if (!authenticationService.isLoggedIn()) { //verifies token
+	// 			$location.path('/login');
+	// 		} else {
+	// 		$location.path('/main');
+	// 	}
+	// }
+
+	$root.$on('$routeChangeStart', function(e, curr, prev) {
 		$root.loadingView = true;
 		// if (curr.$$route && curr.$$route.resolve) {}
 	});
-	$root.$on( '$routeChangeSuccess', function( e, curr, prev ) { // '$routeChangeStart'
+	$root.$on('$routeChangeSuccess', function(e, curr, prev) { // '$routeChangeStart'
 		$root.loadingView = false;
 	});
 }
 
-run.$inject = [ '$location', '$rootScope', 'authenticationService' ];
+run.$inject = ['$location', '$rootScope', 'authenticationService'];
 module.exports = run;
 
 },{}],3:[function(require,module,exports){
@@ -303,42 +311,41 @@ module.exports = function () {
 
 },{}],11:[function(require,module,exports){
 function socketService ( $rootScope, $http ) {
-    return {
-        socketConnet : function() {
-            var id         = $rootScope.credentials.userLogged._id,
-                admin      = $rootScope.credentials.userLogged.admin,
-                supplier   = $rootScope.credentials.userLogged.supplier,
-                clientInfo = {
-                id       : id,
-                admin    : admin,
-                supplier : supplier
-            };
-            var sipediSocket = io.connect( '/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'http://test.sipedi.net', { path:'/sipedi/socket.io', query: clientInfo } );
-            // var sipediSocket = io.connect( '127.0.0.1:8080/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'http://test.sipedi.net:8000/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( '85.214.196.189:80/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'http://85.214.196.189:8080/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'ws://test.sipedi.net/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'ws:/sipedi', { query: clientInfo } );
-            // var sipediSocket = io.connect( 'ws://85.214.196.189:8000/sipedi', { query: clientInfo } );
-            // console.log('socket-17');
+	return {
+		socketConnet : function() {
+			const credentials = $rootScope.credentials.userLogged;
+			const sipediSocket = io.connect('/sipedi', {
+				query: {
+							id       : credentials._id,
+							admin    : credentials.admin,
+							supplier : credentials.supplier
+				}
+			});
+			// var sipediSocket = io.connect( 'http://test.sipedi.net', { path:'/sipedi/socket.io', query: clientInfo } );
+			// var sipediSocket = io.connect( '127.0.0.1:8080/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( 'http://test.sipedi.net:8000/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( '85.214.196.189:80/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( 'http://85.214.196.189:8080/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( 'ws://test.sipedi.net/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( 'ws:/sipedi', { query: clientInfo } );
+			// var sipediSocket = io.connect( 'ws://85.214.196.189:8000/sipedi', { query: clientInfo } );
+			// console.log('socket-17');
 
-            sipediSocket.on( 'socketGetUpdate', function() { // send to controller to update
-                $rootScope.$broadcast( 'socketGetUpdate' );
-            });
-        },
+			sipediSocket.on( 'socketGetUpdate', function() { // send to controller to update
+				$rootScope.$broadcast( 'socketGetUpdate' );
+			});
+		},
 
-        disconnectMe : function() {
-            if ( $rootScope.credentials ) {
-                var _id = $rootScope.credentials.userLogged._id;
-                $http.get( '/socket/disconnet/' + _id );
-            }
-        },
-        listConnected : function() {
-            $http.get( '/socket/list/' );
-        }
-    };
+		disconnectMe : function() {
+			if ( $rootScope.credentials ) {
+				var _id = $rootScope.credentials.userLogged._id;
+				$http.get( '/socket/disconnet/' + _id );
+			}
+		},
+		listConnected : function() {
+			$http.get( '/socket/list/' );
+		}
+	};
 }
 
 socketService.$inject = [ '$rootScope', '$http' ];
@@ -386,12 +393,12 @@ function config ($routeProvider, $locationProvider) {
 			templateUrl : 'views/reports/reports.view.html',
 			controller  : 'reportsCtrl'
 		})
-		.otherwise( { redirectTo: '/' } );
+		.otherwise({ redirectTo: '/' });
 
 		$locationProvider.html5Mode(true);
 }
 
-config.$inject = [ '$routeProvider', '$locationProvider' ];
+config.$inject = ['$routeProvider', '$locationProvider'];
 module.exports = config;
 
 },{}],13:[function(require,module,exports){
@@ -426,7 +433,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			return $http.post('/login', loginData)
 				.then(function(data) { // login Ok
 					saveToken(data.data.token);
-					$location.path('main');
+					$location.path('/main');
 				});
 				function setLoginData( loginData ) {
 					if (loginData.rememberMe) {
@@ -442,7 +449,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 		}
 
 		function home() {
-			$location.path('main');
+			$location.path('/main');
 			// $route.reload();
 		}
 
@@ -455,7 +462,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			$rootScope.credentials = null;
 			sharedData.removeAll();
 			$window.localStorage.removeItem('mean-token');
-			$location.path('/');
+			$location.path('/login');
 		}
 
 		function forgotPassword(email) {
@@ -644,7 +651,7 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 		};
 
 		setProducts = function( products ) {
-			console.log('setProducts');
+			// console.log('setProducts');
 			products = products.filter( function( product ) { // to send just products modified, added or deleted
 				return ( product.action !== '' );
 			});
@@ -1001,7 +1008,6 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 	function getClients() {
 		usersService.getUsersBySupplier(false) // get clients
 			.then(function(data) {
-				console.log('data',data.data);
 					let selectedIndex = 0;
 					if ( $scope.clients ) {
 						selectedIndex = $scope.clients.indexOf( $scope.currentClient );
@@ -1094,13 +1100,13 @@ function productsCtrl( $scope, mainService ) {
 	});
 
 	function fillCategories() {
-        $scope.categories = [];
-        $scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
-        function onlyUnique( value, index, self ) { // extract unique categories
-            return self.indexOf( value ) === index;
-        }
-        $scope.categories = $scope.categories.filter( onlyUnique );
-    }
+		$scope.categories = [];
+		$scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
+		function onlyUnique( value, index, self ) { // extract unique categories
+			return self.indexOf( value ) === index;
+		}
+		$scope.categories = $scope.categories.filter( onlyUnique );
+	}
 
 	$scope.productClicked = function( $event, product ) {
 		product.productOrdered = product.productOrdered ? false : true;

@@ -10,7 +10,7 @@ const apiRouter = require('./app_api/routes/api.router');
 const socketRouter = require('./app_api/routes/socket.router');
 require('./app_api/services/socket.service').initConnect(io);
 
-app.set('port', process.env.PORT || 8080 );
+app.set('port', process.env.PORT || 8080);
 
 app.use(bodyParser.json( { limit: '50mb' }));
 app.use(bodyParser.urlencoded( { limit: '50mb', extended: true }));
@@ -31,14 +31,18 @@ app.use('/login' , loginRouter);
 app.use('/api'   , apiRouter);
 app.use('/socket', socketRouter);
 
+app.all('*', function (req, res) {
+	res.sendFile(path.join( __dirname, 'app_client/index.html')) /* <= Where my ng-view is located */
+})
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 	console.log('****Mongoose SiPEDi connected*****');
 	server.listen( app.get('port'), function() {
 		console.log( 'SiPEDI is now running on port ' + app.get('port'));
 
-		// const usersCollection = db.collection('products');
-		// usersCollection.insertOne(myproduct)
+		// const usersCollection = db.collection('users');
+		// usersCollection.insertOne(myuser)
 		// .then(result => {
 		// 	console.log(result)
 		// })
@@ -48,16 +52,16 @@ db.once('open', function() {
 });
 
 // const myuser = {
-// 	email        : 'pepito@hotmail.com',
+// 	email        : '',
 // 	admin        : false,
 // 	active       : true,
 // 	activeAdmin  : true,
-// 	supplier     : 'no soy supplier',
-// 	name         : 'Bar De Bellota',
-// 	contact      : 'Jose',
-// 	address      : 'Sabadell',
-// 	phone        : '5142503011',
-// 	notes        : 'Algunas notillas',
+// 	supplier     : '10',
+// 	name         : '',
+// 	contact      : '',
+// 	address      : '',
+// 	phone        : '',
+// 	notes        : '',
 // 	logo         : '',
 // 	demandState  : 2,
 // 	demandDate   : Date.now(),

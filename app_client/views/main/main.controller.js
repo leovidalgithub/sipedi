@@ -17,7 +17,6 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 	function getClients() {
 		usersService.getUsersBySupplier(false) // get clients
 			.then(function(data) {
-				console.log('data',data.data);
 					let selectedIndex = 0;
 					if ( $scope.clients ) {
 						selectedIndex = $scope.clients.indexOf( $scope.currentClient );

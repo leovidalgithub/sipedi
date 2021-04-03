@@ -1,0 +1,116 @@
+<div id="reports" ng-cloak>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Informe</h3>
+		</div>
+		<div class="panel-body">
+
+            <div class="row">
+                <div class="footerButtons col-xs-12">
+                    <button ng-click="generateReport()" ng-disabled="taskRunning"
+                            class="btn btn-primary btn-md" title="Generar informe."
+                            id="generateButton" data-loading-text="Generando..." autocomplete="off">
+                            <span class="glyphicon glyphicon-flash"></span> Generar</button>
+
+                    <button ng-click="saveToDisk()" ng-class="{'btn-info':data.clients.length, 'btn-default':!data.clients.length}"
+                            class="btn btn-md" title="Guardar el informe en disco." ng-disabled="(!data.clients.length) || (taskRunning)">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+
+                    <button ng-click="openEmailInput()" ng-class="{'btn-info':data.clients.length, 'btn-default':!data.clients.length}"
+                            class="btn btn-md" title="Enviar por correo." ng-disabled="(!data.clients.length) || (taskRunning)"
+                            id="sendEmailButton" data-loading-text="Enviando..." autocomplete="off">
+                            <span class="glyphicon glyphicon-send"></span> Enviar</button>
+
+                    <button ng-click="printReport()" ng-class="{'btn-info':data.clients.length, 'btn-default':!data.clients.length}"
+                            class="btn btn-md" title="Imprimir informe." ng-disabled="(!data.clients.length) || (taskRunning)">
+                            <span class="glyphicon glyphicon-print"></span> Imprimir</button>
+
+                    <button ng-class="{'btn-danger':data.clients.length, 'btn-default':!data.clients.length}" id="setDemandButton"
+                            class="btn btn-md" title="Marcar todos como 'Pedido Recibido'." ng-disabled="(!data.clients.length) || (taskRunning)"
+							data-toggle="modal" data-target="#setDemandWarning" data-loading-text=" Marcando..." autocomplete="off">
+                            <span class="glyphicon glyphicon-thumbs-up"></span> Marcar todos</button>
+                </div>
+            </div>
+		</div> <!-- @panel body -->
+
+		<div class="modal-footer">
+
+            <!-- ALERT MESSAGES -->
+            <alert-message code="codeAlert"></alert-message>
+
+			<!-- SEND PDF EMAIL -->
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-8">
+					<div class="collapse emailReportSend">
+						<div style="text-align: center; font-size: 17px;" class="alert alert-info alert-dismissible" role="alert">
+							<button type="button" class="close" ng-click="closeEmailInput()"><span aria-hidden="true">&times;</span></button>
+
+							<!-- SEND EMAIL INPUT -->
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<form novalidate name="emailForm" id="emailForm">
+										<div class="form-group" ng-class="{'has-error':!emailForm.email.$pristine && emailForm.email.$invalid}">
+											<label for="email">Correo electrónico</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="glyphicon glyphicon-envelope"></i>
+												</div>
+												<input ng-model="emailToSend" id="email" class="form-control input-md"
+													name="email" type="email" maxlength="30" placeholder="Introduzca un correo"
+													maxlength="50" required autofocus
+													ng-keyup="$event.keyCode == 13 && !emailForm.email.$invalid && sendMail()" />
+													<span ng-if="!emailForm.email.$pristine && emailForm.email.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<button ng-class="{'btn-primary':!emailForm.email.$invalid,'btn-default':emailForm.email.$invalid}"
+									ng-disabled="(emailForm.email.$invalid)"
+									ng-click="sendMail()" type="button" class="btn btn-sm">
+									<span class="glyphicon glyphicon-send"></span> Enviar
+							</button>
+							<button  type="button" class="btn btn-default btn-sm" ng-click="closeEmailInput()">
+									<span class="glyphicon glyphicon-log-out"></span> Salir
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+            <div id="reportBody" class="well text-left">
+				<ng-bind-html ng-bind-html="reportText"></ng-bind-html>
+			</div>
+			<div id="editor"></div>
+		</div> <!-- @footer -->
+
+	</div> <!-- @panel primary -->
+
+	<!-- SET DEMAND TO 2 MODAL WARNING -->
+	<div class="modal fade" id="setDemandWarning" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="dialogo modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">ATENCIÓN</h3>
+				</div>
+				<div class="modal-body">
+					<p>Se cambiará el estado a 'Pedido Recibido' a los siguientes clientes:</p>
+					<ul>
+						<li ng-repeat="(key, client) in data.clients">{{client.name}}</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button ng-click="setDemandTo2()" data-dismiss="modal" type="button" class="btn btn-primary btn-sm">
+						<span class="glyphicon glyphicon-ok"></span> Aceptar
+					</button>
+					<button  type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+						<span class="glyphicon glyphicon-log-out"></span> Cancelar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

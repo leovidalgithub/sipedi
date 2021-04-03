@@ -15,13 +15,13 @@ function productsCtrl( $scope, mainService ) {
 	});
 
 	function fillCategories() {
-        $scope.categories = [];
-        $scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
-        function onlyUnique( value, index, self ) { // extract unique categories
-            return self.indexOf( value ) === index;
-        }
-        $scope.categories = $scope.categories.filter( onlyUnique );
-    }
+		$scope.categories = [];
+		$scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
+		function onlyUnique( value, index, self ) { // extract unique categories
+			return self.indexOf( value ) === index;
+		}
+		$scope.categories = $scope.categories.filter( onlyUnique );
+	}
 
 	$scope.productClicked = function( $event, product ) {
 		product.productOrdered = product.productOrdered ? false : true;
