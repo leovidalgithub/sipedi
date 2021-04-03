@@ -5,11 +5,11 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>SiPEDi &copy</title>
 
-	<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" href="img/favicon/favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="img/favicon/favicon-16x16.png" sizes="16x16">
-	<link rel="manifest" href="img/favicon/manifest.json">
-	<link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="apple-touch-icon" sizes="120x120" href="./img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="./img/favicon/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="./img/favicon/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="./img/favicon/manifest.json">
+	<link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="theme-color" content="#ffffff">
 
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
@@ -17,8 +17,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
 
 	<!-- Angular Material style sheet -->
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link rel="stylesheet" href="./css/styles.css">
 	<base href="/">
 </head>
 <body ng-cloak>
@@ -30,35 +30,34 @@
 	</main>
 
 	<div id="loadingAni" class="loadingModal" ng-show="loadingView">
-        <ul id="loading">
+		<ul id="loading">
 			<li class="bar" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]"></li>
-        </ul>
-    </div>
+		</ul>
+	</div>
 
-	<script src="lib/jquery/jquery-2.2.4.js"></script>
-	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="bundle.js"></script>
-	<script src="js/main.js"></script>
+	<script src="./lib/jquery/jquery-2.2.4.js"></script>
+	<script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="./bundle.js"></script>
+	<script src="./js/main.js"></script>
 
 	<!-- Angular Material Library -->
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 	<script src="./socket.io/socket.io.js"></script>
 
 	<!-- jsPDF -->
-	<script src="lib/jspdf.debug.js"></script> <!-- https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js -->
+	<script src="./lib/jspdf.debug.js"></script> <!-- https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js -->
 
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-79494707-2', 'auto');
-	  ga('send', 'pageview');
+		ga('create', 'UA-79494707-2', 'auto');
+		ga('send', 'pageview');
 	</script>
-
 </body>
 </html>
