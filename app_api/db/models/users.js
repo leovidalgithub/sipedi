@@ -58,7 +58,7 @@ userSchema.methods.generateJwt = function(user) {
 	const userWithOutLogoString = JSON.parse(JSON.stringify(user));
 	userWithOutLogoString.logo = '';
 
-	return jwt.sign(JSON.stringify(userWithOutLogoString), config.pass.secret, { // create a token
+	return jwt.sign(JSON.stringify(userWithOutLogoString), config.secretWord, { // create a token
 		// expiresIn: 9600 // 3600 expires in 1 hour
 	});
 };

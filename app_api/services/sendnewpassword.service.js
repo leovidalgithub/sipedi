@@ -1,55 +1,43 @@
-var nodemailer = require( 'nodemailer' ),
-	config     = require( '../config/config' ),
-	User       = require( '../db/models/users' );
+const nodemailer = require('nodemailer');
+const User = require('../db/models/users');
+const config = require('../config/config');
 
-if ( process.env.NODE_ENV === 'production' ) {
-	emailPass =  process.env.EMAIL_PASS;
-} else {
-	emailPass = config.pass.email;
-}
+module.exports.sendMail = function(user, newPass) {
+	const transporter = nodemailer.createTransport(config.smtp);
 
-module.exports.sendMail = function( user, newPass ) {
-	var smtpConfig = {
-			host: 'smtp.gmail.com',
-			port: 465,
-			secure: true, // use SSL
-			auth: {
-			user: 'sipediapp@gmail.com',
-			pass: emailPass
-			},
-			tls: {
-				rejectUnauthorized: false // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-		}
-	};
-	var transporter = nodemailer.createTransport( smtpConfig );
-
-	function setMailOptions( supplierName ) {
-			var mailOptions = {
-					from : '"SiPEDi 👥" <info@sipedi.net>',
-					// sender : 'info@sipedi.net',
-					to : user.email,
-					// cc :
-					bcc : 'webmaster@sipedi.net',
-					subject : 'SiPEDi acceso ✔',
-					html : '<h3> ' + supplierName.name + '</h3><hr><h4><a href="http://sipedi.net">SiPEDi Web App</a><br><br>login : ' +
-					 user.email + '<br><br>pass : ' + newPass + '</h4><hr><a href="mailto:info@sipedi.net?Subject=ID=' + user._id + '" target="_top">Enviar correo</a>',
-				};
+	function setMailOptions(supplierName) {
+			const mailOptions = {
+					from: `SiPEDi 🙋🏾‍♂️ ${config.sipediEmail}`,
+					sender: `${config.sipediEmail}`,
+					to: user.email,
+					// cc:
+					bcc: `${config.sipediEmail}`,
+					subject: 'SiPEDi - información de acceso (ℹ)',
+					html: `
+							<h2>Sistema de Pedido a Empresas de Distribución</h2><hr>
+							<h3>${supplierName.name}</h3>
+							<h3><a href="${config.sipediURL}">Ir a SiPEDi</a></h3>
+							<h3>usuario: ${user.email}</h3>
+							<h3>contraseña: ${newPass}</h3>
+							<p>--- Recuerde que puede cambiar su contraseña desde el menú de opciones ---</p><hr>
+							<h3><a href="mailto:${config.sipediEmail}?Subject=userId=${user._id}>Comunicarse con SiPEDI</a></h3>`
+				}
 			return mailOptions;
 	}
 
-	function sendMailFn( mailOptions ) {
-		return new Promise( function ( resolve, reject ) {
-			transporter.sendMail( mailOptions, function( err, info ) {
-				if( err ) {
-					reject( err );
+	function sendMailFn(mailOptions) {
+		return new Promise(function (resolve, reject) {
+			transporter.sendMail(mailOptions, function(err, info) {
+				if(err) {
+					reject(err);
 				} else {
-					resolve( info );
+					resolve(info);
 				}
-			});
-		});
+			})
+		})
 	}
 
-	return User.getSupplierName( user )
-		.then( setMailOptions )
-		.then( sendMailFn );
-};
+	return User.getSupplierName(user)
+		.then(setMailOptions)
+		.then(sendMailFn);
+}

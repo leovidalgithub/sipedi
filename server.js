@@ -37,7 +37,7 @@ db.once('open', function() {
 });
 
 
-// for add users and products
+// adding users and products
 
 // const usersCollection = db.collection('users');
 // usersCollection.insertOne(myuser)

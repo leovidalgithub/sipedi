@@ -1,30 +1,27 @@
+const NODE_ENV = process.env.NODE_ENV || 'dev';
+const EMAILPASS_ENV = process.env.EMAILPASS_ENV;
+const SECRETWORD_ENV = process.env.SECRETWORD_ENV;
+const DATABASEPASSWORD_ENV = process.env.DATABASEPASSWORD_ENV;
+
 module.exports = {
-	pass : {
-		'secret'   : 'ilovescotchyscotch',
-		'database' : 'mongodb+srv://sipedi_user:b8mjs7F8jpuymL5j@sipedi.dpvlm.mongodb.net/sipedi?retryWrites=true&w=majority'
+	secretWord: SECRETWORD_ENV,
+
+	sipediURL: 'https://sipedi.leovidal.es/',
+
+	sipediEmail: 'info@sipedi.leovidal.es',
+
+	databaseURI: `mongodb+srv://sipedi_user:${DATABASEPASSWORD_ENV}@sipedi.dpvlm.mongodb.net/sipedi?retryWrites=true&w=majority`,
+
+	smtp: {
+		host: 'smtp.leovidal.es',
+		port: 465,
+		secure: true, // use SSL
+		auth: {
+			user: 'cv@leovidal.es',
+			pass: EMAILPASS_ENV
+		},
+		tls: {
+			rejectUnauthorized: false // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+		}
 	}
-
-	// smtpConfig : {
-	// 	host: 'smtp.sipedi.net',
-	// 	port: 465,
-	// 	secure: true, // use SSL
-	// 	auth: {
-	// 		user: 'webmaster@sipedi.net',
-	// 		pass: emailPass
-	// 	},
-	// 	tls: {
-	// 		rejectUnauthorized: false // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-	// 	}
-	// };
-};
-
-// ftp config --> user: sipediapp / pass: pqQ7z6_5
-// 'database': 'mongodb://<DBUSER>:<PASSWORD>@ds013486.mlab.com:13486/sipedi
-//heroku config:set MONGO_URI=mongodb://<DBUSER>:<PASSWORD>@ds013486.mlab.com:13486/sipedi
-//heroku config:set NODE_ENV=production
-// heroku config:set EMAIL_PASS=Kcvq3VvrkaN9fW3DJ6
-
-
-// strato mongodb users passwords :
-// myUserAdmin = pTkCFaMPV58N6oYy+9xGASsw9NnPGrDFrFqwriAtX0y+h7gW29dB99Zq+ZathERk
-// sipedi = SN+ZSe3DJSYVFK66i/38JSPU3gmtn9LEdnBzRBSRTP58xC1MqE1Gg52o4YZvpHIa
+}
