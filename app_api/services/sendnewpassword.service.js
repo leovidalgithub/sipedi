@@ -20,7 +20,7 @@ module.exports.sendMail = function(user, newPass) {
 							<h3>usuario: ${user.email}</h3>
 							<h3>contraseña: ${newPass}</h3>
 							<p>--- Recuerde que puede cambiar su contraseña desde el menú de opciones ---</p><hr>
-							<h3><a href="mailto:${config.sipediEmail}?Subject=userId=${user._id}>Comunicarse con SiPEDI</a></h3>`
+							<h3><a href="mailto:${config.sipediEmail}?Subject=userId=${user._id}">Comunicarse con SiPEDI</a></h3>`
 				}
 			return mailOptions;
 	}
