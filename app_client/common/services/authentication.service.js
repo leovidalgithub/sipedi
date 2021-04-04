@@ -40,9 +40,6 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 					saveUserLoggedLogo(data.data.logo);
 					$location.path('/main');
 				})
-				.catch(function(err) {
-					console.log('login error', err);
-				})
 				function setLoginData( loginData ) {
 					if (loginData.rememberMe) {
 						$window.localStorage.setItem('login-data', JSON.stringify(loginData));

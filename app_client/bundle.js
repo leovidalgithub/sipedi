@@ -436,9 +436,6 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 					saveUserLoggedLogo(data.data.logo);
 					$location.path('/main');
 				})
-				.catch(function(err) {
-					console.log('login error', err);
-				})
 				function setLoginData( loginData ) {
 					if (loginData.rememberMe) {
 						$window.localStorage.setItem('login-data', JSON.stringify(loginData));
@@ -506,7 +503,7 @@ function credentialsServiceFn ($q, usersService, $rootScope, authenticationServi
 						deferred.resolve( '' );
 					})
 					.catch( function( err ) {
-						deferred.resolve( '' ); // if error, let continue anyway
+						deferred.resolve( '' ); // if error, let's it continues anyway
 					})
 					.finally( socket.socketConnet() );
 			return deferred.promise;
@@ -611,7 +608,7 @@ function passwordServiceFn ( $q, $http, authenticationService, $rootScope ) {
 				defered.resolve( data );
             })
 			.catch( function ( err ) {
-                console.log('service ' + err.status);
+                console.log('setNewPassword error ' + err.status);
 				if ( err.status == 403 ) authenticationService.logout();
 				defered.reject( err );
 			});
@@ -976,25 +973,17 @@ function loginCtrlFn(authenticationService, $rootScope) {
 		}
 	})();
 
-	vm.loginButton = function() { // ---------------- login
-		authenticationService.login( vm.loginData )
-			.catch( function( err ) { // login failed
+	vm.loginButton = function() { // login button
+		authenticationService.login(vm.loginData)
+			.catch(function(err) { // login failed
 				authenticationService.logout();
 				vm.codeAlert = '-70'; // password or email wrong
 			});
-	};
-
+	}
 }
 
 loginCtrlFn.$inject = [ 'authenticationService', '$rootScope' ];
 module.exports = loginCtrlFn;
-
-
-// $scope.openCategoriesAdmin = function () {
-// 	$( '#login #stage1' ).collapse( 'show' );
-// };
-// $scope.closeCategoriesAdmin = function () { $( '#login #stage1' ).collapse( 'hide' ); };
-
 },{}],23:[function(require,module,exports){
 function mainController ( $location, $scope, $rootScope, mainService, usersService, $interval, sharedData, constData ) {
 

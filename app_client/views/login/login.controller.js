@@ -11,21 +11,14 @@ function loginCtrlFn(authenticationService, $rootScope) {
 		}
 	})();
 
-	vm.loginButton = function() { // ---------------- login
-		authenticationService.login( vm.loginData )
-			.catch( function( err ) { // login failed
+	vm.loginButton = function() { // login button
+		authenticationService.login(vm.loginData)
+			.catch(function(err) { // login failed
 				authenticationService.logout();
 				vm.codeAlert = '-70'; // password or email wrong
 			});
-	};
-
+	}
 }
 
 loginCtrlFn.$inject = [ 'authenticationService', '$rootScope' ];
 module.exports = loginCtrlFn;
-
-
-// $scope.openCategoriesAdmin = function () {
-// 	$( '#login #stage1' ).collapse( 'show' );
-// };
-// $scope.closeCategoriesAdmin = function () { $( '#login #stage1' ).collapse( 'hide' ); };
