@@ -8,7 +8,8 @@ var angular               = require( 'angular' ),
 
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
-	// categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
+	// usersFilter           = require( './common/filters/users.filter' ),
+	// categoryFilter     = require( './common/filters/uniqueCategory.filter' )
 
 // FACTORIES
 	shareDataFtry         = require( './common/factories/shareData.factory' ),
@@ -46,7 +47,7 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ngMaterial',
 	.factory   ( 'sharedData'    , shareDataFtry )
 	.factory   ( 'constData'     , constDataFtry )
 	.factory   ( 'socket'        , socketFtry )
-	// .filter    ( 'uniqueCategory', categoryFilter ) // my filter NOT IN USE
+	// .filter    ( 'usersFilter', usersFilter )
 // LOGIN
 	.controller( 'loginCtrl'            , loginCtrl )
 	.controller( 'forgotCtrl'           , forgotCtrl )
@@ -79,7 +80,7 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ngMaterial',
 	.directive ( 'alertMessage', alertMsgDirective );
 	require    ( './common/directives/dgvProducts/dgvProducts.directive' );
 
-},{"./common/config":2,"./common/directives/alertMessage/alertMsg.directive":3,"./common/directives/dgvProducts/dgvProducts.directive":4,"./common/directives/navbar/navbar.controller":5,"./common/directives/navbar/navbar.directive":6,"./common/directives/sidemenu/sidemenu.controller":7,"./common/directives/sidemenu/sidemenu.directive":8,"./common/factories/constData.factory":9,"./common/factories/shareData.factory":10,"./common/factories/socket.factory":11,"./common/routes":12,"./common/services/authentication.service":13,"./common/services/credentials.service":14,"./common/services/main.service":15,"./common/services/password.service":16,"./common/services/products.service":17,"./common/services/reports.service":18,"./common/services/users.service":19,"./views/assign/assign.controller":20,"./views/login/forgot.controller":21,"./views/login/login.controller":22,"./views/main/main.controller":23,"./views/main/products.controller":24,"./views/password/password.controller":25,"./views/products/modifyProducts.controller":26,"./views/products/productsAdmin.controller":27,"./views/reports/reports.controller":28,"./views/users/users.controller":29,"angular":38,"angular-jwt":31,"angular-moment":32,"angular-route":34,"angular-sanitize":36}],2:[function(require,module,exports){
+},{"./common/config":2,"./common/directives/alertMessage/alertMsg.directive":3,"./common/directives/dgvProducts/dgvProducts.directive":4,"./common/directives/navbar/navbar.controller":5,"./common/directives/navbar/navbar.directive":6,"./common/directives/sidemenu/sidemenu.controller":7,"./common/directives/sidemenu/sidemenu.directive":8,"./common/factories/constData.factory":9,"./common/factories/shareData.factory":10,"./common/factories/socket.factory":11,"./common/routes":13,"./common/services/authentication.service":14,"./common/services/credentials.service":15,"./common/services/main.service":16,"./common/services/password.service":17,"./common/services/products.service":18,"./common/services/reports.service":19,"./common/services/users.service":20,"./views/assign/assign.controller":21,"./views/login/forgot.controller":22,"./views/login/login.controller":23,"./views/main/main.controller":24,"./views/main/products.controller":25,"./views/password/password.controller":26,"./views/products/modifyProducts.controller":27,"./views/products/productsAdmin.controller":28,"./views/reports/reports.controller":29,"./views/users/users.controller":30,"angular":39,"angular-jwt":32,"angular-moment":33,"angular-route":35,"angular-sanitize":37}],2:[function(require,module,exports){
 function run ($location, $root, authenticationService) {
 
 	if (authenticationService.isLoggedIn()) {
@@ -344,6 +345,24 @@ socketService.$inject = [ '$rootScope', '$http' ];
 module.exports = socketService;
 
 },{}],12:[function(require,module,exports){
+const usersFilter = function(v1, v2) {
+	// If we don't get strings, just compare by index
+	if (v1.type !== 'string' || v2.type !== 'string') {
+		return (v1.index < v2.index) ? -1 : 1;
+	}
+
+	// put _new_client to the bottom
+	const firstCharacter = v1.value.slice(0, 1);
+	if (firstCharacter === '_') {
+		return 1
+	}
+
+	// Compare strings alphabetically
+	return v1.value.localeCompare(v2.value);
+}
+
+module.exports = usersFilter;
+},{}],13:[function(require,module,exports){
 function config ($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
@@ -393,7 +412,7 @@ function config ($routeProvider, $locationProvider) {
 config.$inject = ['$routeProvider', '$locationProvider'];
 module.exports = config;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper, $location, $route, sharedData ) {
 
 		function saveToken( token ) {
@@ -487,7 +506,7 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 authenticationServiceFn.$inject = [ '$http', 'socket', '$window', '$rootScope', 'jwtHelper', '$location', '$route', 'sharedData' ];
 module.exports = authenticationServiceFn;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 function credentialsServiceFn ($q, usersService, $rootScope, authenticationService, socket) {
 	return {
 		setCredentials : function() {
@@ -515,7 +534,7 @@ function credentialsServiceFn ($q, usersService, $rootScope, authenticationServi
 credentialsServiceFn.$inject = [ '$q', 'usersService', '$rootScope', 'authenticationService', 'socket' ];
 module.exports = credentialsServiceFn;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 
 		getProductsByClientID = function( clientID ) {
@@ -590,7 +609,7 @@ function mainServiceFn ( $http, $q, authenticationService, $rootScope ) {
 mainServiceFn.$inject = [ '$http', '$q', 'authenticationService', '$rootScope' ];
 module.exports = mainServiceFn;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 function passwordServiceFn ( $q, $http, authenticationService, $rootScope ) {
 
 		setNewPassword = function( passwordData ) {
@@ -623,7 +642,7 @@ function passwordServiceFn ( $q, $http, authenticationService, $rootScope ) {
 passwordServiceFn.$inject = [ '$q', '$http', 'authenticationService', '$rootScope' ];
 module.exports = passwordServiceFn;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 
 		getAllProductsBySupplier = function() {
@@ -687,7 +706,7 @@ function productsServiceFn ( $q, $http, authenticationService, $rootScope ) {
 productsServiceFn.$inject = [ '$q', '$http', 'authenticationService', '$rootScope' ];
 module.exports = productsServiceFn;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 function reportsdServiceFn ( $q, $http, authenticationService, $rootScope ) {
 
 		sendPDF = function( pdf, reportName, email ) {
@@ -739,7 +758,7 @@ function reportsdServiceFn ( $q, $http, authenticationService, $rootScope ) {
 reportsdServiceFn.$inject = [ '$q', '$http', 'authenticationService', '$rootScope' ];
 module.exports = reportsdServiceFn;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 function usersServiceFn ($http, $q, authenticationService, $rootScope) {
 
 		getUsersBySupplier = function(justSupplier) { // get just supplier or clients
@@ -786,126 +805,129 @@ function usersServiceFn ($http, $q, authenticationService, $rootScope) {
 usersServiceFn.$inject = ['$http', '$q', 'authenticationService', '$rootScope'];
 module.exports = usersServiceFn;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
+const usersFilter = require ('../../common/filters/users.filter');
 function assignCtrlFn( $scope, sharedData, constData, productsService, $window ) {
-    (function Init() {
-        $scope.genericLogo = constData.getData( 'genericLogo' );
-        getUsers();
-        setVerticalMode();
-        if ( sharedData.getData( 'assignProductos' ) ) {
-            $scope.products = sharedData.getData( 'assignProductos' );
-            fillCategories();
-            $scope.modified = true;
-        } else {
-            getAllProducts();
-        }
-    })();
 
-    function getUsers() {
-        if ( angular.isDefined( $scope.clients ) ) $scope.currentClientIndex = $scope.clients.indexOf( $scope.currentClient );
-        $scope.clients = angular.copy( sharedData.getData( 'clientsMaster' ) );
-        $scope.currentClient = $scope.clients[ $scope.currentClientIndex ] || $scope.clients[ 0 ];
-    }
+	(function Init() {
+		$scope.usersFilter = usersFilter;
+		$scope.genericLogo = constData.getData( 'genericLogo' );
+		getUsers();
+		setVerticalMode();
+		if ( sharedData.getData( 'assignProductos' ) ) {
+			$scope.products = sharedData.getData( 'assignProductos' );
+			fillCategories();
+			$scope.modified = true;
+		} else {
+			getAllProducts();
+		}
+	})();
 
-    function getAllProducts() {
-        productsService.getAllProductsBySupplier()
-                .then( function( data ) {
-                    $scope.products = data.data;
-                    fillCategories();
-                })
-                .catch( function ( err ) {
-                })
-                .finally( function() {
-                    $scope.modified = false;
-                });
-    }
+	function getUsers() {
+		if ( angular.isDefined( $scope.clients ) ) $scope.currentClientIndex = $scope.clients.indexOf( $scope.currentClient );
+		$scope.clients = angular.copy( sharedData.getData( 'clientsMaster' ) );
+		$scope.currentClient = $scope.clients[ $scope.currentClientIndex ] || $scope.clients[ 0 ];
+	}
 
-    function fillCategories() {
-        $scope.categories = [];
-        $scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
-        function onlyUnique( value, index, self ) { // extract unique categories
-            return self.indexOf( value ) === index;
-        }
-        $scope.categories = $scope.categories.filter( onlyUnique );
-        if ( $scope.categories.indexOf( $scope.selectedCategory ) === -1 ) { // $scope.selectedCategory = $scope.selectedCategory || $scope.categories[0];
-            $scope.selectedCategory = $scope.categories[0];
-        } else {
-            $scope.selectedCategory = $scope.selectedCategory;
-        }
-    }
+	function getAllProducts() {
+		productsService.getAllProductsBySupplier()
+				.then( function( data ) {
+					$scope.products = data.data;
+					fillCategories();
+				})
+				.catch( function ( err ) {
+				})
+				.finally( function() {
+					$scope.modified = false;
+				});
+	}
 
-    $scope.assign = function( productsSelected, supplierToClient ) {
-        angular.forEach( productsSelected, function( productSelected ) {
-            $scope.modified = true;
-            var productIndex = $scope.products.map( function( product ) { return product._id; }).indexOf( productSelected._id );
-            $scope.products[productIndex].action = 'added_modified';
-            if ( supplierToClient ) {
-                var client = {
-                        _id            : $scope.currentClient._id,
-                        productOrdered : false,
-                        quantity       : 0
-                };
-                $scope.products[productIndex].clients.push( client );
-            } else {
-                var clientIndex = $scope.products[productIndex].clients.map( function( client ) { return client._id; }).indexOf( $scope.currentClient._id );
-                $scope.products[productIndex].clients.splice( clientIndex, 1 );
-            }
-        });
-    };
+	function fillCategories() {
+		$scope.categories = [];
+		$scope.products.forEach( function( product ) { $scope.categories.push( product.category ); });
+		function onlyUnique( value, index, self ) { // extract unique categories
+			return self.indexOf( value ) === index;
+		}
+		$scope.categories = $scope.categories.filter( onlyUnique );
+		if ( $scope.categories.indexOf( $scope.selectedCategory ) === -1 ) { // $scope.selectedCategory = $scope.selectedCategory || $scope.categories[0];
+			$scope.selectedCategory = $scope.categories[0];
+		} else {
+			$scope.selectedCategory = $scope.selectedCategory;
+		}
+	}
 
-    // FILTER
-    $scope.userFilter = function( supplier ) {
-        return function( product ) {
-            var itemBack = product.clients.some( function( el ) {
-                return el._id === $scope.currentClient._id;
-            });
-            return ( supplier ? !itemBack : itemBack );
-        };
-    };
+	$scope.assign = function( productsSelected, supplierToClient ) {
+		angular.forEach( productsSelected, function( productSelected ) {
+			$scope.modified = true;
+			var productIndex = $scope.products.map( function( product ) { return product._id; }).indexOf( productSelected._id );
+			$scope.products[productIndex].action = 'added_modified';
+			if ( supplierToClient ) {
+				var client = {
+						_id            : $scope.currentClient._id,
+						productOrdered : false,
+						quantity       : 0
+				};
+				$scope.products[productIndex].clients.push( client );
+			} else {
+				var clientIndex = $scope.products[productIndex].clients.map( function( client ) { return client._id; }).indexOf( $scope.currentClient._id );
+				$scope.products[productIndex].clients.splice( clientIndex, 1 );
+			}
+		});
+	};
 
-    $scope.saveChanges = function() {
-        $scope.saveButtonText = ' Guardando...';
+	// FILTER
+	$scope.userFilter = function( supplier ) {
+		return function( product ) {
+			var itemBack = product.clients.some( function( el ) {
+				return el._id === $scope.currentClient._id;
+			});
+			return ( supplier ? !itemBack : itemBack );
+		};
+	};
+
+	$scope.saveChanges = function() {
+		$scope.saveButtonText = ' Guardando...';
 		productsService.setProducts( $scope.products )
 			.then( function( data ) {
 					$scope.codeAlert = '+40'; // assign products updated ok
-                    $scope.products = productsService.resetProductStatus( $scope.products ); // reset .action & .selected to null
-                    $scope.modified = false;
+					$scope.products = productsService.resetProductStatus( $scope.products ); // reset .action & .selected to null
+					$scope.modified = false;
 			})
 			.catch( function ( err ) {
 				$scope.codeAlert = '-40'; // assign products updated error
 			})
 			.finally( function() {
-                $scope.saveButtonText = ' Guardar';
+				$scope.saveButtonText = ' Guardar';
 			});
 	};
 
-    $scope.undoChanges = function() {
-        getAllProducts();
-    };
+	$scope.undoChanges = function() {
+		getAllProducts();
+	};
 
-    $scope.$on( '$destroy', function() {
+	$scope.$on( '$destroy', function() {
 		if ( $scope.modified ) { // pending changes
 			sharedData.setData( 'assignProductos', $scope.products );
 		} else { // no pending changes
 			sharedData.removeData( 'assignProductos' );
 		}
-        angular.element( $window ).off( 'resize' ); // unbind verticalMode event
+		angular.element( $window ).off( 'resize' ); // unbind verticalMode event
 	});
 
-    angular.element( $window ).bind( 'resize', function() { // verticalMode event
-        setVerticalMode();
-        $scope.$digest();
-    });
+	angular.element( $window ).bind( 'resize', function() { // verticalMode event
+		setVerticalMode();
+		$scope.$digest();
+	});
 
-    function setVerticalMode() {
-        $scope.verticalMode = ( $window.innerWidth >= 768 ) ? false : true;
-    }
+	function setVerticalMode() {
+		$scope.verticalMode = ( $window.innerWidth >= 768 ) ? false : true;
+	}
 
 }
 assignCtrlFn.$inject = [ '$scope', 'sharedData', 'constData', 'productsService', '$window' ];
 module.exports = assignCtrlFn;
 
-},{}],21:[function(require,module,exports){
+},{"../../common/filters/users.filter":12}],22:[function(require,module,exports){
 function forgotCtrlFn( $scope, authenticationService, $timeout ) {
 
 		$scope.sendEmail = function() {
@@ -959,7 +981,7 @@ function forgotCtrlFn( $scope, authenticationService, $timeout ) {
 forgotCtrlFn.$inject = [ '$scope', 'authenticationService', '$timeout' ];
 module.exports = forgotCtrlFn;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 function loginCtrlFn(authenticationService, $rootScope) {
 	$rootScope.credentials = null;
 	vm = this;
@@ -984,11 +1006,13 @@ function loginCtrlFn(authenticationService, $rootScope) {
 
 loginCtrlFn.$inject = [ 'authenticationService', '$rootScope' ];
 module.exports = loginCtrlFn;
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
+const usersFilter = require ('../../common/filters/users.filter');
 function mainController ( $location, $scope, $rootScope, mainService, usersService, $interval, sharedData, constData ) {
 
 	var promiseInterval;
 	(function Init() {
+		$scope.usersFilter = usersFilter;
 		$scope.genericLogo = constData.getData( 'genericLogo' );
 		$scope.$watch('childLoaded', function(newValue, oldValue) { // wait until child products controller load
 			if( newValue ) {
@@ -1078,7 +1102,7 @@ function mainController ( $location, $scope, $rootScope, mainService, usersServi
 mainController.$inject = [ '$location', '$scope', '$rootScope', 'mainService', 'usersService', '$interval', 'sharedData', 'constData' ];
 module.exports = mainController;
 
-},{}],24:[function(require,module,exports){
+},{"../../common/filters/users.filter":12}],25:[function(require,module,exports){
 function productsCtrl( $scope, mainService ) {
 
 	$scope.product = {};
@@ -1137,7 +1161,7 @@ function productsCtrl( $scope, mainService ) {
 productsCtrl.$inject = [ '$scope', 'mainService' ];
 module.exports = productsCtrl;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 function passwordCtrl( $scope, $timeout, passwordService ) {
 
      function Init() {
@@ -1190,7 +1214,7 @@ function passwordCtrl( $scope, $timeout, passwordService ) {
 passwordCtrl.$inject = [ '$scope', '$timeout', 'passwordService' ];
 module.exports = passwordCtrl;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 function modifyProductsCtrl( $scope, $rootScope ) {
 
 	$scope.mode = '';
@@ -1256,7 +1280,7 @@ function modifyProductsCtrl( $scope, $rootScope ) {
 modifyProductsCtrl.$inject = [ '$scope', '$rootScope' ];
 module.exports = modifyProductsCtrl;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 function productsAdminCtrl( $scope, productsService, sharedData ) {
 
 	(function Init() {
@@ -1446,7 +1470,7 @@ module.exports = productsAdminCtrl;
 	// 		});
 	// }, true);
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersService, reportsdService, $window ) {
 
     (function generateReport() {
@@ -1637,10 +1661,12 @@ function reportsCtrlFn( $scope, $rootScope, productsService, moment, usersServic
 reportsCtrlFn.$inject = [ '$scope', '$rootScope', 'productsService', 'moment', 'usersService', 'reportsdService', '$window' ];
 module.exports = reportsCtrlFn;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
+const usersFilter = require ('../../common/filters/users.filter');
 function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $rootScope ) {
 
 	(function Init() {
+		$scope.usersFilter = usersFilter;
 		$scope.genericLogo = constData.getData( 'genericLogo' );
 		if ( sharedData.getData( 'clientsTemp' ) ) {
 			var usersState       = sharedData.getData( 'clientsTemp' );
@@ -1741,7 +1767,7 @@ function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $root
 usersCtrl.$inject = [ '$scope', 'usersService', '$timeout', 'sharedData', 'constData', '$rootScope' ];
 module.exports = usersCtrl;
 
-},{}],30:[function(require,module,exports){
+},{"../../common/filters/users.filter":12}],31:[function(require,module,exports){
 (function() {
 
 
@@ -2096,12 +2122,12 @@ angular.module('angular-jwt.options', [])
   });
 
 }());
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 require('./dist/angular-jwt.js');
 module.exports = 'angular-jwt';
 
 
-},{"./dist/angular-jwt.js":30}],32:[function(require,module,exports){
+},{"./dist/angular-jwt.js":31}],33:[function(require,module,exports){
 (function (global){(function (){
 /* angular-moment.js / v1.0.0-beta.6 / (c) 2013, 2014, 2015, 2016 Uri Shaked / MIT Licence */
 
@@ -2840,7 +2866,7 @@ module.exports = 'angular-jwt';
 })();
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"angular":38,"moment":39}],33:[function(require,module,exports){
+},{"angular":39,"moment":40}],34:[function(require,module,exports){
 /**
  * @license AngularJS v1.8.2
  * (c) 2010-2020 Google LLC. http://angularjs.org
@@ -4108,11 +4134,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":33}],35:[function(require,module,exports){
+},{"./angular-route":34}],36:[function(require,module,exports){
 /**
  * @license AngularJS v1.8.2
  * (c) 2010-2020 Google LLC. http://angularjs.org
@@ -5005,11 +5031,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 require('./angular-sanitize');
 module.exports = 'ngSanitize';
 
-},{"./angular-sanitize":35}],37:[function(require,module,exports){
+},{"./angular-sanitize":36}],38:[function(require,module,exports){
 /**
  * @license AngularJS v1.8.2
  * (c) 2010-2020 Google LLC. http://angularjs.org
@@ -41610,11 +41636,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend(window.angular.element('<style>').text('@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}'));
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":37}],39:[function(require,module,exports){
+},{"./angular":38}],40:[function(require,module,exports){
 //! moment.js
 //! version : 2.29.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors

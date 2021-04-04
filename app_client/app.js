@@ -7,7 +7,8 @@ var angular               = require( 'angular' ),
 
 	initialConfig         = require( './common/config' ),
 	configRoutes          = require( './common/routes' ),
-	// categoryFilter        = require( './common/filters/uniqueCategory.filter' ), // my filter
+	// usersFilter           = require( './common/filters/users.filter' ),
+	// categoryFilter     = require( './common/filters/uniqueCategory.filter' )
 
 // FACTORIES
 	shareDataFtry         = require( './common/factories/shareData.factory' ),
@@ -45,7 +46,7 @@ angular.module( 'sipediApp', [ ngRoute, angularJwt, angularMoment, 'ngMaterial',
 	.factory   ( 'sharedData'    , shareDataFtry )
 	.factory   ( 'constData'     , constDataFtry )
 	.factory   ( 'socket'        , socketFtry )
-	// .filter    ( 'uniqueCategory', categoryFilter ) // my filter NOT IN USE
+	// .filter    ( 'usersFilter', usersFilter )
 // LOGIN
 	.controller( 'loginCtrl'            , loginCtrl )
 	.controller( 'forgotCtrl'           , forgotCtrl )

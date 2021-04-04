@@ -15,8 +15,8 @@
 							<select class="form-control input-lg" id="selectClients" ng-model="currentClient"
 							ng-disabled="!userForm.$pristine || logoAdminOpened"
 							title="{{!userForm.$pristine || logoAdminOpened ? 'Primero debe guardar o deshacer los cambios realizados.' : 'Seleccionar otro cliente.'}}"
-							ng-options="user as user.name for user in clients | orderBy : 'name'"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
-							</select>
+							ng-options="user as user.name for user in clients | orderBy : 'name':false:usersFilter"> <!-- track by user._id NOT ALLOW WORKING WITH INPUTS -->
+						</select>
 						</form>
 					</div>
 				</div>

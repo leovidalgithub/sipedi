@@ -1,7 +1,9 @@
+const usersFilter = require ('../../common/filters/users.filter');
 function mainController ( $location, $scope, $rootScope, mainService, usersService, $interval, sharedData, constData ) {
 
 	var promiseInterval;
 	(function Init() {
+		$scope.usersFilter = usersFilter;
 		$scope.genericLogo = constData.getData( 'genericLogo' );
 		$scope.$watch('childLoaded', function(newValue, oldValue) { // wait until child products controller load
 			if( newValue ) {

@@ -33,7 +33,7 @@
 					<label for="selectClients">Mis clientes</label>
 					<select class="form-control input-lg" id="selectClients"
 							ng-model="currentClient"
-							ng-options="client.name for client in clients | orderBy : 'name'"> <!-- track by client._id filter: {'admin':false} -->
+							ng-options="client.name for client in clients | orderBy : 'name':false:usersFilter"> <!-- track by client._id filter: {'admin':false} -->
 					</select>
 				</form>
 			</div>

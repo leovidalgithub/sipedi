@@ -1,6 +1,8 @@
+const usersFilter = require ('../../common/filters/users.filter');
 function usersCtrl( $scope, usersService, $timeout, sharedData, constData, $rootScope ) {
 
 	(function Init() {
+		$scope.usersFilter = usersFilter;
 		$scope.genericLogo = constData.getData( 'genericLogo' );
 		if ( sharedData.getData( 'clientsTemp' ) ) {
 			var usersState       = sharedData.getData( 'clientsTemp' );
