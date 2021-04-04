@@ -6,11 +6,11 @@
 		}
 		.userInfo .logo {
 			height: $logoHeight;
-		 	text-align: center;
-		 	img {
-			 	max-width: 100%;
-			 	max-height: 100%;
-		 	}
+			text-align: center;
+			img {
+				max-width: 100%;
+				max-height: 100%;
+			}
 		}
 		.clientsSelect {
 			height: $controlsHeight;
@@ -37,7 +37,7 @@
 				font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
 				font-size: $fontSizeDemandButton;
 			&:hover {
-		 			opacity: .9;
+					opacity: .9;
 					font-size: $fontSizeDemandButton + .2;
 					// color: saturate( #FE9E7D, 30% );
 					color: #DDD8EC;
@@ -50,29 +50,34 @@
 	}
 
 // DEMAND BUTTON
-@media screen and (max-width: 480px) {
-	#main .controls .demandButton button {
+#main .controls .demandButton button {
+	outline: none;
+	@media screen and (max-width: 480px) {
 		font-size: 14px;
 		height: 100px;
 		width: 100%;
+		outline: none;
 		&:hover {
 			font-size: 14px;
 		}
 	}
-}
-@media screen and (max-width: 420px) {
-	#main .controls .demandButton button {
+	@media screen and (max-width: 420px) {
 		font-size: 12px;
 		height: 80px;
-	 }
-}
-@media screen and (max-width: 385px) {
-	#main .controls .demandButton button {
+	}
+	@media screen and (max-width: 385px) {
 		font-size: 11px;
 		&:hover {
 			font-size: 12px;
 		}
-	 }
+	}
+	@media screen and (max-width: 340px) {
+		font-size: 10px;
+	}
 }
-@media screen and (max-width: 340px) { #main .controls .demandButton button { font-size: 10px; } }
-@media screen and (max-width: 500px) { #main .categories { font-size: 15px; } }
+
+@media screen and (max-width: 500px) {
+	#main .categories {
+		font-size: 15px;
+	}
+}

@@ -1,13 +1,12 @@
-var	verifyToken  = require( '../../services/verifyToken.js' ),
-	Product      = require( '../../db/models/products' ),
-	sipediSocket = require( '../../services/socket.service' );
+const Product      = require( '../../db/models/products' );
+const sipediSocket = require( '../../services/socket.service' );
 
 // GET /api/products/:clientID --> returns all-client-products or all-supplier-products
 module.exports.getProducts = function( req, res ) {
 	var clientID    = req.params.clientID,
 		supplier    = req.query.supplier,
 		allProducts = req.query.allProducts;
-	allProducts     = allProducts === 'true' ? true : false; // it comes as string and boolean is needed
+		allProducts = allProducts === 'true' ? true : false; // it comes as string but we need boolean
 
 	var query = allProducts ? { 'supplier' : supplier } : { 'clients._id' : clientID, 'supplier' : supplier };
 	Product.find( query ).sort({ product : 1 })

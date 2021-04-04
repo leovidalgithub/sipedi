@@ -20,13 +20,6 @@ app.use(express.static( path.join( __dirname, 'app_client')));
 
 app.use(require('./app_api/config/setHeader'));
 
-app.use('/main'    , function(req, res) {res.redirect('/#/main')});
-app.use('/products', function(req, res) {res.redirect('/#/main')});
-app.use('/users'   , function(req, res) {res.redirect('/#/main')});
-app.use('/password', function(req, res) {res.redirect('/#/main')});
-app.use('/assign'  , function(req, res) {res.redirect('/#/main')});
-app.use('/reports' , function(req, res) {res.redirect('/#/main')});
-
 app.use('/login' , loginRouter);
 app.use('/api'   , apiRouter);
 app.use('/socket', socketRouter);
@@ -39,17 +32,19 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 	console.log('****Mongoose SiPEDi connected*****');
 	server.listen( app.get('port'), function() {
-		console.log( 'SiPEDI is now running on port ' + app.get('port'));
-
-		// const usersCollection = db.collection('users');
-		// usersCollection.insertOne(myuser)
-		// .then(result => {
-		// 	console.log(result)
-		// })
-		// .catch(error => console.error(error))
-
+		console.log( 'SiPEDI is now running on port ' + app.get('port'))
 	})
 });
+
+
+// for add users and products
+
+// const usersCollection = db.collection('users');
+// usersCollection.insertOne(myuser)
+// .then(result => {
+// 	console.log(result)
+// })
+// .catch(error => console.error(error))
 
 // const myuser = {
 // 	email        : '',

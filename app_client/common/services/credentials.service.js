@@ -5,14 +5,15 @@ function credentialsServiceFn ($q, usersService, $rootScope, authenticationServi
 				var deferred = $q.defer();
 				$rootScope.credentials = {};
 				$rootScope.credentials.userLogged = authenticationService.getUserLogged();
-				// console.log('$rootScope.credentials',$rootScope.credentials);
+				$rootScope.credentials.userLogged.logo = authenticationService.getUserLoggedLogo();
+
 				usersService.getUsersBySupplier(true) // just get supplier data
 					.then( function ( data ) {
 						$rootScope.credentials.supplier = data.data[0];
 						deferred.resolve( '' );
 					})
 					.catch( function( err ) {
-						deferred.resolve( '' ); // if error, let continue anyway
+						deferred.resolve( '' ); // if error, let's it continues anyway
 					})
 					.finally( socket.socketConnet() );
 			return deferred.promise;

@@ -1,16 +1,16 @@
 function config ($routeProvider, $locationProvider) {
 	$routeProvider
-		.when( '/', {
+		.when('/', {
 			templateUrl  : 'views/login/login.view.html',
 			controller   : 'loginCtrl',
 			controllerAs : 'ctrl'
 		})
-		.when( '/login', {
+		.when('/login', {
 			templateUrl  : 'views/login/login.view.html',
 			controller   : 'loginCtrl',
 			controllerAs : 'ctrl'
 		})
-		.when( '/main', {
+		.when('/main', {
 			templateUrl : 'views/main/main.view.html',
 			controller  : 'mainCtrl',
 			resolve: {
@@ -19,23 +19,23 @@ function config ($routeProvider, $locationProvider) {
 					}
 				}
 		})
-		.when( '/products', {
+		.when('/products', {
 			templateUrl : 'views/products/productsAdmin.view.html',
 			controller  : 'productsAdminCtrl'
 		})
-		.when( '/users', {
+		.when('/users', {
 			templateUrl : 'views/users/users.view.html',
 			controller  : 'usersCtrl'
 		})
-		.when( '/password', {
+		.when('/password', {
 			templateUrl : 'views/password/password.view.html',
 			controller  : 'passwordCtrl'
 		})
-		.when( '/assign', {
+		.when('/assign', {
 			templateUrl : 'views/assign/assign.view.html',
 			controller  : 'assignCtrl'
 		})
-		.when( '/reports', {
+		.when('/reports', {
 			templateUrl : 'views/reports/reports.view.html',
 			controller  : 'reportsCtrl'
 		})

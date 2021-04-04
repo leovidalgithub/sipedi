@@ -50,12 +50,15 @@ userSchema.methods.setPassword = function(password){
 };
 
 userSchema.methods.validPassword = function(password) {
-	const hash = crypto.pbkdf2Sync( password, this.salt, 1000, 64, 'sha512' ).toString( 'hex' );
+	const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512' ).toString( 'hex' );
 	return this.hash === hash;
 };
 
 userSchema.methods.generateJwt = function(user) {
-	return jwt.sign(JSON.stringify(user), config.pass.secret, { // create a token
+	const userWithOutLogoString = JSON.parse(JSON.stringify(user));
+	userWithOutLogoString.logo = '';
+
+	return jwt.sign(JSON.stringify(userWithOutLogoString), config.pass.secret, { // create a token
 		// expiresIn: 9600 // 3600 expires in 1 hour
 	});
 };

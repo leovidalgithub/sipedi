@@ -1,5 +1,5 @@
 const db = require( '../../db/db' );
-const User         = require( '../../db/models/users' );
+const User = require( '../../db/models/users' );
 const generatePass = require( '../../services/generatepassword.service' );
 const sipediSocket = require( '../../services/socket.service' );
 
@@ -13,7 +13,6 @@ module.exports.getUsersBySupplier = function(req, res) {
 		if (err) {
 			res.status(503).send( 'Error getting users by supplier' );
 		} else {
-			console.log('users',users);
 			res.json(users);
 		}
 	});
@@ -85,7 +84,4 @@ module.exports.setNewPassword = function( req, res ) {
 				userFound.setPassword( passwordData.new );
 				return Promise.resolve( userFound );
 			}
-};
-
-// var mongoose = require( 'mongoose' );
-// console.log( mongoose.Types.ObjectId() );
+}

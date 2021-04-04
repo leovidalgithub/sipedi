@@ -32,14 +32,19 @@ module.exports.login = function(req, res) {
 		console.log( 'authentication.login : credentials correct' );
 		const token = user.generateJwt(user); // credentials correct --> token generate
 
-		verifyToken( token, function(err, decoded) {
-			res.status(200);
-			res.json({'token'   : token,
-						'decoded' : decoded
-					});
-		});
-	});
-};
+		verifyToken(token, function(err, decoded) {
+			if (err) {
+				res.status(403).send({success: false, message: 'Invalid token.'});
+			} else { // if everything is good
+				res.status(200);
+				res.json({'token': token,
+							'decoded': decoded,
+							'logo': user.logo
+						})
+			}
+		})
+	})
+}
 
 module.exports.forgotPassword = function( req, res ) {
 	var email = req.params.email;

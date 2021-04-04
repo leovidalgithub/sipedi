@@ -12,7 +12,7 @@ function navbarCtrl( $scope, constData, authenticationService ) {
 		authenticationService.logout();
 	};
 
-	$scope.$on( 'demandQuantities', function( event, clients ) { // from main or reports
+	$scope.$on('demandQuantities', function(event, clients) { // from main or reports
 		$scope.demandAsk      = 0;
 		$scope.demandReceived = 0;
 		angular.forEach( clients, function( client ) {

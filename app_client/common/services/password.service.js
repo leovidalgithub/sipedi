@@ -15,7 +15,7 @@ function passwordServiceFn ( $q, $http, authenticationService, $rootScope ) {
 				defered.resolve( data );
             })
 			.catch( function ( err ) {
-                console.log('service ' + err.status);
+                console.log('setNewPassword error ' + err.status);
 				if ( err.status == 403 ) authenticationService.logout();
 				defered.reject( err );
 			});

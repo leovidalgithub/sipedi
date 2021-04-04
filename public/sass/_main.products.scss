@@ -1,80 +1,83 @@
 /********************** PRODUCTS */
-	#main button.quantity {
-		font-size: 18px;
-		width: 60px;
-		text-align: center;
-	}
-	#main .product {
-		background-color: #CCC;
-		color: $normalFontColor;
-		font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-		font-size: 18px;
-		margin-bottom: 10px;
-		padding-left: 40px;
-		padding-right: 40px;
-		border-radius: 4px;
-		height: 65px;
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: space-between;
-		align-items:center;
-		cursor: pointer;
-		&:hover {
-			border: solid 1px #FE8D07;
-			margin-left: 2px;
-			margin-right: 2px;
+#products-view {
+		button.quantity {
+			font-size: 18px;
+			width: 60px;
+			text-align: center;
 		}
-		&.productOrdered {
-			// background-color: #6C0; /* 6F0 3F0 */
-			background-color: #3CCC3C;
+		.product {
+			background-color: #CCC;
+			color: $normalFontColor;
+			font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+			font-size: 18px;
+			margin-bottom: 10px;
+			padding: 0 40px;
+			border-radius: 5px;
+			height: 65px;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items:center;
+			cursor: pointer;
+			outline: none;
+			transition: transform .2s ease-in-out, background-color .5s ease-in-out;
+			&:hover {
+				border: solid 1px #666;
+				transform: scale(0.99);
+			}
+			&.productOrdered {
+				// background-color: #6C0; /* 6F0 3F0 */
+				background-color: #129a12;
+				color: white;
+			}
+			&.outOfStock {
+				background-color: #666;
+				text-decoration: line-through;
+				pointer-events: none;
+			}
 		}
-		&.outOfStock {
-			background-color: #666;
-			text-decoration: line-through;
-			pointer-events: none;
+
+	/********************** CHANGE QUANTITY MODAL */
+		#quantityModal .modal-header,
+		#quantityModal .modal-footer {
+			text-align: center;
+			color: #333;
 		}
-	}
 
-/********************** CHANGE QUANTITY MODAL */
-	#main #quantityModal .modal-header, 
-	#main #quantityModal .modal-footer {
-		text-align: center;
-		color: #333;
-	}
+		#quantityModal .modal-body {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-around;
+			align-items: center;
+			text-align: center;
+		}
 
-	#main #quantityModal .modal-body {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: space-around;
-		align-items: center;
-		text-align: center;
-	}
-
-	#main #quantityModal /* buttons and span quantity */
-	.modal-body .changeQantity {
-		width: 65px;
-		height: 60px;
-		font-size: 30px;
-		border-radius: 10px;
-		border-style: none;
-	}
-	#main #quantityModal /* buttons */
-	.modal-body button.changeQantity {
-		color: white;
-	}
-	#main #quantityModal /* buttons */
-	.modal-body span.changeQantity {
-		color: #333;
-	}
-	#main #quantityModal /* buttons */
-	.modal-body span.changeQantity {
-		line-height: 60px;
-	}
-/*******************************************************/
-@media screen and (max-width: 450px) {
-	#main .product { 
-		font-size     : 16px;
-		padding-left  : 10px;
-		padding-right : 10px;
+		#quantityModal /* buttons and span quantity */
+		.modal-body .changeQantity {
+			width: 65px;
+			height: 60px;
+			font-size: 30px;
+			border-radius: 10px;
+			border-style: none;
+		}
+		#quantityModal /* buttons */
+		.modal-body button.changeQantity {
+			color: white;
+		}
+		#quantityModal /* buttons */
+		.modal-body span.changeQantity {
+			color: #333;
+		}
+		#quantityModal /* buttons */
+		.modal-body span.changeQantity {
+			line-height: 60px;
+		}
+	/*******************************************************/
+	@media screen and (max-width: 450px) {
+		.product {
+			font-size: 16px;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
 	}
 }

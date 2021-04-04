@@ -5,6 +5,7 @@ function usersServiceFn ($http, $q, authenticationService, $rootScope) {
 			const supplier = $rootScope.credentials.userLogged.supplier;
 			const defered = $q.defer();
 			const promise = defered.promise;
+
 			$http.defaults.headers.common['x-auth-token'] = token;
 
 			$http.get('/api/users/' + supplier + '?justSupplier=' + justSupplier)

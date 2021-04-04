@@ -88,14 +88,6 @@ function run ($location, $root, authenticationService) {
 		$location.path('/login');
 	}
 
-	// if ($location.path() !== '/') {
-	// 	if (!authenticationService.isLoggedIn()) { //verifies token
-	// 			$location.path('/login');
-	// 		} else {
-	// 		$location.path('/main');
-	// 	}
-	// }
-
 	$root.$on('$routeChangeStart', function(e, curr, prev) {
 		$root.loadingView = true;
 		// if (curr.$$route && curr.$$route.resolve) {}
@@ -184,7 +176,7 @@ function navbarCtrl( $scope, constData, authenticationService ) {
 		authenticationService.logout();
 	};
 
-	$scope.$on( 'demandQuantities', function( event, clients ) { // from main or reports
+	$scope.$on('demandQuantities', function(event, clients) { // from main or reports
 		$scope.demandAsk      = 0;
 		$scope.demandReceived = 0;
 		angular.forEach( clients, function( client ) {
@@ -354,17 +346,17 @@ module.exports = socketService;
 },{}],12:[function(require,module,exports){
 function config ($routeProvider, $locationProvider) {
 	$routeProvider
-		.when( '/', {
+		.when('/', {
 			templateUrl  : 'views/login/login.view.html',
 			controller   : 'loginCtrl',
 			controllerAs : 'ctrl'
 		})
-		.when( '/login', {
+		.when('/login', {
 			templateUrl  : 'views/login/login.view.html',
 			controller   : 'loginCtrl',
 			controllerAs : 'ctrl'
 		})
-		.when( '/main', {
+		.when('/main', {
 			templateUrl : 'views/main/main.view.html',
 			controller  : 'mainCtrl',
 			resolve: {
@@ -373,23 +365,23 @@ function config ($routeProvider, $locationProvider) {
 					}
 				}
 		})
-		.when( '/products', {
+		.when('/products', {
 			templateUrl : 'views/products/productsAdmin.view.html',
 			controller  : 'productsAdminCtrl'
 		})
-		.when( '/users', {
+		.when('/users', {
 			templateUrl : 'views/users/users.view.html',
 			controller  : 'usersCtrl'
 		})
-		.when( '/password', {
+		.when('/password', {
 			templateUrl : 'views/password/password.view.html',
 			controller  : 'passwordCtrl'
 		})
-		.when( '/assign', {
+		.when('/assign', {
 			templateUrl : 'views/assign/assign.view.html',
 			controller  : 'assignCtrl'
 		})
-		.when( '/reports', {
+		.when('/reports', {
 			templateUrl : 'views/reports/reports.view.html',
 			controller  : 'reportsCtrl'
 		})
@@ -408,9 +400,17 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			$window.localStorage['mean-token'] = token;
 		}
 
+		function saveUserLoggedLogo(logo) {
+			$window.localStorage['logo'] = logo;
+		}
+
 		function getUserLogged() {
 			const token = getToken();
 			return jwtHelper.decodeToken(token);
+		}
+
+		function getUserLoggedLogo() {
+			return $window.localStorage['logo'];
 		}
 
 		function isLoggedIn() {
@@ -433,8 +433,12 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 			return $http.post('/login', loginData)
 				.then(function(data) { // login Ok
 					saveToken(data.data.token);
+					saveUserLoggedLogo(data.data.logo);
 					$location.path('/main');
-				});
+				})
+				.catch(function(err) {
+					console.log('login error', err);
+				})
 				function setLoginData( loginData ) {
 					if (loginData.rememberMe) {
 						$window.localStorage.setItem('login-data', JSON.stringify(loginData));
@@ -470,15 +474,16 @@ function authenticationServiceFn ( $http, socket, $window, $rootScope, jwtHelper
 		}
 
 		return {
-			getToken       : getToken,
-			getUserLogged  : getUserLogged,
-			isLoggedIn     : isLoggedIn,
-			login          : login,
-			getLoginData   : getLoginData,
-			home           : home,
-			refresh        : refresh,
-			logout         : logout,
-			forgotPassword : forgotPassword
+			getToken          : getToken,
+			getUserLogged     : getUserLogged,
+			getUserLoggedLogo : getUserLoggedLogo,
+			isLoggedIn        : isLoggedIn,
+			login             : login,
+			getLoginData      : getLoginData,
+			home              : home,
+			refresh           : refresh,
+			logout            : logout,
+			forgotPassword    : forgotPassword
 		};
 }
 
@@ -493,7 +498,8 @@ function credentialsServiceFn ($q, usersService, $rootScope, authenticationServi
 				var deferred = $q.defer();
 				$rootScope.credentials = {};
 				$rootScope.credentials.userLogged = authenticationService.getUserLogged();
-				// console.log('$rootScope.credentials',$rootScope.credentials);
+				$rootScope.credentials.userLogged.logo = authenticationService.getUserLoggedLogo();
+
 				usersService.getUsersBySupplier(true) // just get supplier data
 					.then( function ( data ) {
 						$rootScope.credentials.supplier = data.data[0];
@@ -744,6 +750,7 @@ function usersServiceFn ($http, $q, authenticationService, $rootScope) {
 			const supplier = $rootScope.credentials.userLogged.supplier;
 			const defered = $q.defer();
 			const promise = defered.promise;
+
 			$http.defaults.headers.common['x-auth-token'] = token;
 
 			$http.get('/api/users/' + supplier + '?justSupplier=' + justSupplier)
